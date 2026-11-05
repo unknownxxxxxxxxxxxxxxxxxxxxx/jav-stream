@@ -139,24 +139,43 @@
             display: block;
         }
 
-        .dropdown-item {
+        /* Tombol Actress yang sangat menonjol */
+        .dropdown-item-primary {
             display: block;
             padding: 12px 16px;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            transition: background 0.2s, color 0.2s;
-            border-bottom: 1px solid rgba(34, 37, 42, 0.5);
+            font-size: 14px;
+            font-weight: 700;
+            background: rgba(229, 9, 20, 0.15);
+            border-left: 3px solid var(--accent-color);
+            transition: background 0.2s;
         }
 
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-item:hover {
-            background: rgba(229, 9, 20, 0.1);
+        .dropdown-item-primary:hover {
+            background: rgba(229, 9, 20, 0.25);
             color: var(--accent-color);
+        }
+
+        /* Tautan formalitas untuk Disclaimer & Privacy yang tidak mencolok */
+        .dropdown-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 4px 0;
+        }
+
+        .dropdown-item-secondary {
+            display: block;
+            padding: 8px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 11px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .dropdown-item-secondary:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .container {
@@ -298,9 +317,14 @@
             <div class="menu-container">
                 <button class="icon-btn" onclick="toggleMenu()" aria-label="Navigation Menu">Menu</button>
                 <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="actress/" class="dropdown-item">Actress Directory</a>
-                    <a href="disclaimer.html" class="dropdown-item">Disclaimer & DMCA</a>
-                    <a href="privacy.html" class="dropdown-item">Privacy Policy</a>
+                    <!-- Tombol Actress yang Paling Menonjol -->
+                    <a href="actress/" class="dropdown-item-primary">Actress</a>
+                    
+                    <div class="dropdown-divider"></div>
+                    
+                    <!-- Formalitas (Tidak Menonjol) -->
+                    <a href="disclaimer.html" class="dropdown-item-secondary">Disclaimer & DMCA</a>
+                    <a href="privacy.html" class="dropdown-item-secondary">Privacy Policy</a>
                 </div>
             </div>
         </div>
@@ -321,7 +345,8 @@
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
-                        <a href="mailto:unknownxxxxxxxxxxxxxxxxxxxxx@gmail.com?subject=Report%20Broken%20Link:%20JUR-655" class="report-btn">Report Broken</a>
+                        <!-- Ubah link di bawah dengan link Google Form Anda agar aman dari spam email -->
+                        <a href="https://forms.gle/gantisi-link-google-form-anda" target="_blank" class="report-btn">Report Broken</a>
                     </div>
                 </div>
             </div>
