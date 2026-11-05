@@ -106,9 +106,20 @@
         }
 
         .profile-header {
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .profile-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
         }
 
         .profile-name {
@@ -250,6 +261,9 @@
     <main class="container">
         <div class="profile-header">
             <h1 class="profile-name" id="pageTitle">Actress Directory</h1>
+            <div class="search-box" id="videoSearchBoxContainer" style="display: none; width: 100%; max-width: 260px;">
+                <input type="text" class="search-input" placeholder="Search releases..." id="videoSearchInput" oninput="filterActressVideos()">
+            </div>
         </div>
 
         <div id="contentSection">
@@ -275,6 +289,7 @@
         let pageTitle = document.getElementById('pageTitle');
         let contentSection = document.getElementById('contentSection');
         let searchBoxContainer = document.getElementById('searchBoxContainer');
+        let videoSearchBoxContainer = document.getElementById('videoSearchBoxContainer');
 
         if (querySlug) {
             let matchedVideos = database.filter(item => item.actressSlug === querySlug);
@@ -282,26 +297,12 @@
             if (matchedVideos.length > 0) {
                 pageTitle.innerText = matchedVideos[0].actress;
                 document.title = matchedVideos[0].actress + " - Actress Directory - JavStream";
+                
+                // Tampilkan kotak pencarian video khusus aktris ini
+                videoSearchBoxContainer.style.display = "flex";
+                window.currentActressVideos = matchedVideos;
 
-                let gridHTML = '<h2 class="section-title">Associated Releases</h2><div class="video-grid">';
-                matchedVideos.forEach(video => {
-                    gridHTML += `
-                        <div class="video-card">
-                            <div class="video-container">
-                                <iframe src="${video.embedUrl}" allowfullscreen></iframe>
-                            </div>
-                            <div class="video-info">
-                                <div class="video-meta">
-                                    <div class="video-title">${video.code}</div>
-                                    <div class="video-actress">${video.actress}</div>
-                                </div>
-                                <span class="video-badge">${video.badge}</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                gridHTML += '</div>';
-                contentSection.innerHTML = gridHTML;
+                renderVideoGrid(matchedVideos);
             } else {
                 pageTitle.innerText = "Actress Not Found";
                 contentSection.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No archive records found for this profile.</div>';
@@ -345,10 +346,66 @@
             contentSection.innerHTML = html;
         }
 
+        function renderVideoGrid(videos) {
+            let html = '<h2 class="section-title">Associated Releases</h2><div class="video-grid" id="videoGridContainer">';
+            videos.forEach(video => {
+                html += `
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe src="${video.embedUrl}" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <div class="video-title">${video.code}</div>
+                                <div class="video-actress">${video.actress}</div>
+                            </div>
+                            <span class="video-badge">${video.badge}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            contentSection.innerHTML = html;
+        }
+
         function filterActresses() {
             let query = document.getElementById('actressSearchInput').value.toLowerCase().trim();
             let filtered = window.actressList.filter(a => a.name.toLowerCase().includes(query));
             renderActressGrid(filtered);
+        }
+
+        function filterActressVideos() {
+            let query = document.getElementById('videoSearchInput').value.toLowerCase().trim();
+            let container = document.getElementById('videoGridContainer');
+            if (!container) return;
+
+            let filtered = window.currentActressVideos.filter(video => 
+                video.code.toLowerCase().includes(query)
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No releases found matching your search.</div>';
+                return;
+            }
+
+            let html = '';
+            filtered.forEach(video => {
+                html += `
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe src="${video.embedUrl}" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <div class="video-title">${video.code}</div>
+                                <div class="video-actress">${video.actress}</div>
+                            </div>
+                            <span class="video-badge">${video.badge}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
         }
     </script>
 
