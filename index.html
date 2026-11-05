@@ -277,7 +277,7 @@
                 <div class="video-info">
                     <div class="video-meta">
                         <div class="video-title">JUR-655</div>
-                        <a href="actress/" class="video-actress">Minamisawa Umika</a>
+                        <a href="actress/?name=minamisawa-umika" class="video-actress">Minamisawa Umika</a>
                     </div>
                     <span class="video-badge">HD</span>
                 </div>
@@ -328,7 +328,6 @@
                 let title = cards[i].getElementsByClassName('video-title')[0].innerText.toLowerCase();
                 let actress = cards[i].getElementsByClassName('video-actress')[0].innerText.toLowerCase();
                 
-                // Pencarian sekarang juga mendeteksi nama aktris selain kode video!
                 if (title.includes(query) || actress.includes(query)) {
                     cards[i].style.display = "";
                     foundCount++;
