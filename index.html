@@ -234,6 +234,13 @@
             color: var(--accent-color);
         }
 
+        .video-right-side {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
         .video-badge {
             font-size: 10px;
             text-transform: uppercase;
@@ -243,7 +250,18 @@
             border-radius: 3px;
             font-weight: 700;
             letter-spacing: 0.5px;
-            height: fit-content;
+        }
+
+        .report-btn {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .report-btn:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -279,15 +297,18 @@
                         <div class="video-title">JUR-655</div>
                         <a href="actress/?name=minamisawa-umika" class="video-actress">Minamisawa Umika</a>
                     </div>
-                    <span class="video-badge">HD</span>
+                    <div class="video-right-side">
+                        <span class="video-badge">HD</span>
+                        <a href="mailto:support@javstreamhd.com?subject=Report%20Broken%20Link:%20JUR-655" class="report-btn">Report Broken</a>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer Disclaimer Link -->
+    <!-- Footer Legal Links -->
     <footer style="text-align: center; padding: 40px 24px; border-top: 1px solid var(--border-color); margin-top: 60px; color: var(--text-muted); font-size: 13px;">
-        <p>&copy; 2026 JavStream HD. All rights reserved. &bull; <a href="disclaimer.html" style="color: var(--text-muted); text-decoration: none;">Disclaimer / DMCA</a></p>
+        <p>&copy; 2026 JavStream HD. All rights reserved. &bull; <a href="disclaimer.html" style="color: var(--text-muted); text-decoration: none;">Disclaimer / DMCA</a> &bull; <a href="privacy.html" style="color: var(--text-muted); text-decoration: none;">Privacy Policy</a></p>
     </footer>
 
     <script>
