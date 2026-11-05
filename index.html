@@ -282,6 +282,20 @@
             }
         }
 
+        function stopHiddenVideos() {
+            let cards = document.getElementsByClassName('video-card');
+            for (let i = 0; i < cards.length; i++) {
+                if (cards[i].style.display === "none") {
+                    let iframe = cards[i].querySelector('iframe');
+                    if (iframe) {
+                        let currentSrc = iframe.src;
+                        iframe.src = '';
+                        iframe.src = currentSrc;
+                    }
+                }
+            }
+        }
+
         function triggerSearch() {
             let inputVal = document.getElementById('searchInput').value;
             let query = inputVal.toLowerCase().trim();
@@ -298,6 +312,9 @@
                     cards[i].style.display = "none";
                 }
             }
+
+            // Hentikan pemutaran audio/video pada kartu yang disembunyikan
+            stopHiddenVideos();
 
             let notFoundMsg = document.getElementById('noResultMsg');
             if (foundCount === 0) {
