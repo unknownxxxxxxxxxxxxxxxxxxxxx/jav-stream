@@ -118,7 +118,7 @@
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            width: 200px;
+            width: 160px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
             overflow: hidden;
             z-index: 1001;
@@ -135,12 +135,7 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
-            border-bottom: 1px solid var(--border-color);
             transition: background 0.2s, color 0.2s;
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
         }
 
         .dropdown-item:hover {
@@ -257,10 +252,7 @@
             <div class="menu-container">
                 <button class="icon-btn" onclick="toggleMenu()" aria-label="Navigation Menu">Menu</button>
                 <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="#" class="dropdown-item">Home</a>
                     <a href="actress/" class="dropdown-item">Actress</a>
-                    <a href="#" class="dropdown-item">Categories</a>
-                    <a href="#" class="dropdown-item">System Archive</a>
                 </div>
             </div>
         </div>
