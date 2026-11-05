@@ -204,7 +204,13 @@
             padding: 14px 16px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+        }
+
+        .video-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .video-title {
@@ -212,6 +218,17 @@
             font-weight: 600;
             color: var(--text-main);
             letter-spacing: 0.5px;
+        }
+
+        .video-actress {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .video-actress:hover {
+            color: var(--accent-color);
         }
 
         .video-badge {
@@ -223,6 +240,7 @@
             border-radius: 3px;
             font-weight: 700;
             letter-spacing: 0.5px;
+            height: fit-content;
         }
     </style>
 </head>
@@ -257,7 +275,10 @@
                     <iframe src="https://luluvido.com/e/13jr1kyhz6m7" allowfullscreen></iframe>
                 </div>
                 <div class="video-info">
-                    <div class="video-title">JUR-655</div>
+                    <div class="video-meta">
+                        <div class="video-title">JUR-655</div>
+                        <a href="actress/" class="video-actress">Minamisawa Umika</a>
+                    </div>
                     <span class="video-badge">HD</span>
                 </div>
             </div>
@@ -305,7 +326,10 @@
 
             for (let i = 0; i < cards.length; i++) {
                 let title = cards[i].getElementsByClassName('video-title')[0].innerText.toLowerCase();
-                if (title.includes(query)) {
+                let actress = cards[i].getElementsByClassName('video-actress')[0].innerText.toLowerCase();
+                
+                // Pencarian sekarang juga mendeteksi nama aktris selain kode video!
+                if (title.includes(query) || actress.includes(query)) {
                     cards[i].style.display = "";
                     foundCount++;
                 } else {
@@ -313,7 +337,6 @@
                 }
             }
 
-            // Hentikan pemutaran audio/video pada kartu yang disembunyikan
             stopHiddenVideos();
 
             let notFoundMsg = document.getElementById('noResultMsg');
