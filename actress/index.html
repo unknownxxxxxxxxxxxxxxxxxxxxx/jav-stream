@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actress Archive - JavStream</title>
+    <title>Actress Directory - JavStream</title>
     <style>
         :root {
             --bg-color: #0b0c10;
@@ -51,6 +51,46 @@
             color: var(--accent-color);
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px 12px;
+            width: 180px;
+            transition: width 0.3s ease, border-color 0.2s;
+        }
+
+        @media (min-width: 768px) {
+            .search-box {
+                width: 240px;
+            }
+        }
+
+        .search-box:focus-within {
+            border-color: var(--accent-color);
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
         .back-link {
             color: var(--text-muted);
             text-decoration: none;
@@ -79,13 +119,7 @@
             font-size: 24px;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 8px;
             text-transform: capitalize;
-        }
-
-        .profile-subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
         }
 
         .section-title {
@@ -97,6 +131,40 @@
             color: var(--text-muted);
             border-left: 3px solid var(--accent-color);
             padding-left: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .actress-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .actress-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        .actress-card-name {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .actress-card-count {
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
         .video-grid {
@@ -162,7 +230,7 @@
         .video-badge {
             font-size: 10px;
             text-transform: uppercase;
-            background: rgba(229, 9, 20, 15);
+            background: rgba(229, 9, 20, 0.15);
             color: var(--accent-color);
             padding: 3px 8px;
             border-radius: 3px;
@@ -176,24 +244,25 @@
 
     <header class="navbar">
         <a href="../" class="logo">Jav<span>Stream</span></a>
-        <a href="../" class="back-link">&larr; Return to Home</a>
+        <div class="nav-right">
+            <div class="search-box" id="searchBoxContainer" style="display: none;">
+                <input type="text" class="search-input" placeholder="Search actress..." id="actressSearchInput" oninput="filterActresses()">
+            </div>
+            <a href="../" class="back-link">&larr; Return to Home</a>
+        </div>
     </header>
 
     <main class="container">
         <div class="profile-header">
-            <h1 class="profile-name" id="actressNameDisplay">Actress Archive</h1>
-            <p class="profile-subtitle">Filmography Catalog &bull; Database Index</p>
+            <h1 class="profile-name" id="pageTitle">Actress Directory</h1>
         </div>
 
-        <h2 class="section-title">Associated Releases</h2>
-        
-        <div class="video-grid" id="actressVideoGrid">
-            <!-- Konten akan dimuat secara dinamis oleh JavaScript -->
+        <div id="contentSection">
+            <!-- Konten dinamis -->
         </div>
     </main>
 
     <script>
-        // Simulasi database terpusat untuk katalog video aktris
         const database = [
             {
                 code: "JUR-655",
@@ -202,49 +271,89 @@
                 embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
                 badge: "HD"
             }
-            // Anda bisa menambahkan data video aktris lain di sini di masa mendatang
         ];
 
-        // Membaca parameter nama dari URL (Contoh: ?name=minamisawa-umika)
         const urlParams = new URLSearchParams(window.location.search);
         let querySlug = urlParams.get('name') || '';
         querySlug = querySlug.toLowerCase().trim();
 
-        let grid = document.getElementById('actressVideoGrid');
-        let nameDisplay = document.getElementById('actressNameDisplay');
+        let pageTitle = document.getElementById('pageTitle');
+        let contentSection = document.getElementById('contentSection');
+        let searchBoxContainer = document.getElementById('searchBoxContainer');
 
         if (querySlug) {
-            // Cari data yang cocok dengan slug aktris
             let matchedVideos = database.filter(item => item.actressSlug === querySlug);
             
             if (matchedVideos.length > 0) {
-                nameDisplay.innerText = matchedVideos[0].actress;
+                pageTitle.innerText = matchedVideos[0].actress;
                 document.title = matchedVideos[0].actress + " - Actress Directory - JavStream";
 
+                let gridHTML = '<h2 class="section-title">Associated Releases</h2><div class="video-grid">';
                 matchedVideos.forEach(video => {
-                    let card = document.createElement('div');
-                    card.className = 'video-card';
-                    card.innerHTML = `
-                        <div class="video-container">
-                            <iframe src="${video.embedUrl}" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-meta">
-                                <div class="video-title">${video.code}</div>
-                                <div class="video-actress">${video.actress}</div>
+                    gridHTML += `
+                        <div class="video-card">
+                            <div class="video-container">
+                                <iframe src="${video.embedUrl}" allowfullscreen></iframe>
                             </div>
-                            <span class="video-badge">${video.badge}</span>
+                            <div class="video-info">
+                                <div class="video-meta">
+                                    <div class="video-title">${video.code}</div>
+                                    <div class="video-actress">${video.actress}</div>
+                                </div>
+                                <span class="video-badge">${video.badge}</span>
+                            </div>
                         </div>
                     `;
-                    grid.appendChild(card);
                 });
+                gridHTML += '</div>';
+                contentSection.innerHTML = gridHTML;
             } else {
-                nameDisplay.innerText = "Actress Not Found";
-                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No archive records found for this profile.</div>';
+                pageTitle.innerText = "Actress Not Found";
+                contentSection.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No archive records found for this profile.</div>';
             }
         } else {
-            nameDisplay.innerText = "All Actresses Directory";
-            grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">Please select an actress from the main directory or search index.</div>';
+            pageTitle.innerText = "Actress Directory";
+            searchBoxContainer.style.display = "flex";
+
+            let actressMap = {};
+            database.forEach(item => {
+                if (!actressMap[item.actressSlug]) {
+                    actressMap[item.actressSlug] = {
+                        name: item.actress,
+                        slug: item.actressSlug,
+                        count: 0
+                    };
+                }
+                actressMap[item.actressSlug].count++;
+            });
+
+            window.actressList = Object.values(actressMap);
+            renderActressGrid(window.actressList);
+        }
+
+        function renderActressGrid(actresses) {
+            if (actresses.length === 0) {
+                contentSection.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No results found.</div>';
+                return;
+            }
+
+            let html = '<h2 class="section-title">Available Profiles</h2><div class="grid">';
+            actresses.forEach(actress => {
+                html += `
+                    <a href="?name=${actress.slug}" class="actress-card">
+                        <div class="actress-card-name">${actress.name}</div>
+                        <div class="actress-card-count">${actress.count} Release${actress.count > 1 ? 's' : ''}</div>
+                    </a>
+                `;
+            });
+            html += '</div>';
+            contentSection.innerHTML = html;
+        }
+
+        function filterActresses() {
+            let query = document.getElementById('actressSearchInput').value.toLowerCase().trim();
+            let filtered = window.actressList.filter(a => a.name.toLowerCase().includes(query));
+            renderActressGrid(filtered);
         }
     </script>
 
