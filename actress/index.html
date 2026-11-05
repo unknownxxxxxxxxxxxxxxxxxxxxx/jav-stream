@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minamisawa Umika - Actress Directory - JavStream</title>
+    <title>Actress Archive - JavStream</title>
     <style>
         :root {
             --bg-color: #0b0c10;
@@ -80,6 +80,7 @@
             font-weight: 700;
             color: var(--text-main);
             margin-bottom: 8px;
+            text-transform: capitalize;
         }
 
         .profile-subtitle {
@@ -161,7 +162,7 @@
         .video-badge {
             font-size: 10px;
             text-transform: uppercase;
-            background: rgba(229, 9, 20, 0.15);
+            background: rgba(229, 9, 20, 15);
             color: var(--accent-color);
             padding: 3px 8px;
             border-radius: 3px;
@@ -180,28 +181,72 @@
 
     <main class="container">
         <div class="profile-header">
-            <h1 class="profile-name">Minamisawa Umika</h1>
-            <p class="profile-subtitle">Actress Archive &bull; Filmography Catalog</p>
+            <h1 class="profile-name" id="actressNameDisplay">Actress Archive</h1>
+            <p class="profile-subtitle">Filmography Catalog &bull; Database Index</p>
         </div>
 
-        <h2 class="section-title">Featured Releases</h2>
+        <h2 class="section-title">Associated Releases</h2>
         
-        <div class="video-grid">
-            <!-- Kartu Video Milik Minamisawa Umika -->
-            <div class="video-card">
-                <div class="video-container">
-                    <iframe src="https://luluvido.com/e/13jr1kyhz6m7" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <div class="video-meta">
-                        <div class="video-title">JUR-655</div>
-                        <div class="video-actress">Minamisawa Umika</div>
-                    </div>
-                    <span class="video-badge">HD</span>
-                </div>
-            </div>
+        <div class="video-grid" id="actressVideoGrid">
+            <!-- Konten akan dimuat secara dinamis oleh JavaScript -->
         </div>
     </main>
+
+    <script>
+        // Simulasi database terpusat untuk katalog video aktris
+        const database = [
+            {
+                code: "JUR-655",
+                actress: "Minamisawa Umika",
+                actressSlug: "minamisawa-umika",
+                embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
+                badge: "HD"
+            }
+            // Anda bisa menambahkan data video aktris lain di sini di masa mendatang
+        ];
+
+        // Membaca parameter nama dari URL (Contoh: ?name=minamisawa-umika)
+        const urlParams = new URLSearchParams(window.location.search);
+        let querySlug = urlParams.get('name') || '';
+        querySlug = querySlug.toLowerCase().trim();
+
+        let grid = document.getElementById('actressVideoGrid');
+        let nameDisplay = document.getElementById('actressNameDisplay');
+
+        if (querySlug) {
+            // Cari data yang cocok dengan slug aktris
+            let matchedVideos = database.filter(item => item.actressSlug === querySlug);
+            
+            if (matchedVideos.length > 0) {
+                nameDisplay.innerText = matchedVideos[0].actress;
+                document.title = matchedVideos[0].actress + " - Actress Directory - JavStream";
+
+                matchedVideos.forEach(video => {
+                    let card = document.createElement('div');
+                    card.className = 'video-card';
+                    card.innerHTML = `
+                        <div class="video-container">
+                            <iframe src="${video.embedUrl}" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <div class="video-title">${video.code}</div>
+                                <div class="video-actress">${video.actress}</div>
+                            </div>
+                            <span class="video-badge">${video.badge}</span>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } else {
+                nameDisplay.innerText = "Actress Not Found";
+                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No archive records found for this profile.</div>';
+            }
+        } else {
+            nameDisplay.innerText = "All Actresses Directory";
+            grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">Please select an actress from the main directory or search index.</div>';
+        }
+    </script>
 
 </body>
 </html>
