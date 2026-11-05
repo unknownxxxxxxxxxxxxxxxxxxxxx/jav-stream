@@ -283,15 +283,35 @@
         }
 
         function triggerSearch() {
-            let query = document.getElementById('searchInput').value.toLowerCase();
+            let inputVal = document.getElementById('searchInput').value;
+            let query = inputVal.toLowerCase().trim();
             let cards = document.getElementsByClassName('video-card');
+            let grid = document.querySelector('.video-grid');
+            let foundCount = 0;
 
             for (let i = 0; i < cards.length; i++) {
                 let title = cards[i].getElementsByClassName('video-title')[0].innerText.toLowerCase();
                 if (title.includes(query)) {
                     cards[i].style.display = "";
+                    foundCount++;
                 } else {
                     cards[i].style.display = "none";
+                }
+            }
+
+            let notFoundMsg = document.getElementById('noResultMsg');
+            if (foundCount === 0) {
+                if (!notFoundMsg) {
+                    notFoundMsg = document.createElement('div');
+                    notFoundMsg.id = 'noResultMsg';
+                    notFoundMsg.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;';
+                    grid.appendChild(notFoundMsg);
+                }
+                notFoundMsg.innerText = 'No results found for "' + inputVal + '"';
+                notFoundMsg.style.display = 'block';
+            } else {
+                if (notFoundMsg) {
+                    notFoundMsg.style.display = 'none';
                 }
             }
         }
@@ -301,6 +321,12 @@
                 triggerSearch();
             }
         }
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            if (this.value === '') {
+                triggerSearch();
+            }
+        });
     </script>
 
 </body>
