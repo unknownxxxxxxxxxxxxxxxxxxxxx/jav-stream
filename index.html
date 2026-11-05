@@ -33,7 +33,7 @@
             justify-content: space-between;
             align-items: center;
             background-color: var(--card-bg);
-            padding: 14px 24px;
+            padding: 12px 20px;
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
@@ -55,22 +55,28 @@
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
+        /* Kolom Pencarian Responsif */
         .search-box {
             display: flex;
             align-items: center;
             background: #0f1015;
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            padding: 6px 14px;
-            width: 180px;
+            padding: 5px 12px;
+            width: 150px;
             transition: width 0.3s ease;
         }
 
+        @media (min-width: 768px) {
+            .search-box {
+                width: 220px;
+            }
+        }
+
         .search-box:focus-within {
-            width: 240px;
             border-color: var(--accent-color);
         }
 
@@ -78,7 +84,7 @@
             background: transparent;
             border: none;
             color: var(--text-main);
-            font-size: 13px;
+            font-size: 12px;
             outline: none;
             width: 100%;
         }
@@ -91,9 +97,51 @@
             background: none;
             border: none;
             color: var(--text-main);
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             padding: 4px;
+        }
+
+        /* Dropdown Menu Interaktif */
+        .menu-container {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 45px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 180px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(229, 9, 20, 0.15);
+            color: var(--accent-color);
         }
 
         /* Container & Grid Arsip Video */
@@ -134,7 +182,7 @@
         .video-container {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* Aspect Ratio 16:9 */
+            padding-top: 56.25%; /* Rasio 16:9 */
             background: #000;
         }
 
@@ -169,29 +217,30 @@
             border-radius: 4px;
             font-weight: 600;
         }
-
-        /* Responsive untuk HP kecil */
-        @media (max-width: 480px) {
-            .search-box {
-                display: none; /* Sembunyikan search bar kecil di mobile, pakai tombol */
-            }
-            .navbar {
-                padding: 12px 16px;
-            }
-        }
     </style>
 </head>
 <body>
 
-    <!-- Navbar Utama -->
+    <!-- Navbar Profesional -->
     <header class="navbar">
         <a href="#" class="logo">Jav<span>Stream</span></a>
         <div class="nav-right">
+            <!-- Kolom Pencarian -->
             <div class="search-box">
-                <input type="text" class="search-input" placeholder="Cari kode/aktris..." id="searchInput" onkeypress="handleSearchKey(event)">
+                <input type="text" class="search-input" placeholder="Cari kode..." id="searchInput" onkeypress="handleSearchKey(event)">
                 <span style="font-size: 14px; cursor: pointer;" onclick="triggerSearch()">🔍</span>
             </div>
-            <button class="icon-btn" onclick="toggleMenu()" title="Menu">☰</button>
+
+            <!-- Tombol Menu 3 Garis dengan Dropdown Interaktif -->
+            <div class="menu-container">
+                <button class="icon-btn" onclick="toggleMenu()" title="Menu">☰</button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="#" class="dropdown-item">🏠 Beranda</a>
+                    <a href="actress/" class="dropdown-item">✨ Actress</a>
+                    <a href="#" class="dropdown-item">📂 Kategori Kode</a>
+                    <a href="#" class="dropdown-item">ℹ️ Tentang Arsip</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -210,19 +259,37 @@
                     <span class="video-badge">HD</span>
                 </div>
             </div>
-            
-            <!-- (Contoh slot video berikutnya bisa ditambahkan di sini dengan struktur yang sama) -->
         </div>
     </main>
 
-    <!-- Skrip Interaktif Standar -->
+    <!-- Skrip Interaktif -->
     <script>
+        // Fungsi Membuka/Menutup Menu Dropdown 3 Garis
+        function toggleMenu() {
+            let menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('show');
+        }
+
+        // Menutup menu jika pengguna mengklik di luar area menu
+        window.onclick = function(event) {
+            if (!event.target.matches('.icon-btn')) {
+                let dropdowns = document.getElementsByClassName("dropdown-menu");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        // Fungsi Pencarian
         function triggerSearch() {
             let query = document.getElementById('searchInput').value;
             if(query) {
                 alert("Mencari arsip untuk: " + query);
             } else {
-                alert("Silakan ketik kode atau nama aktris yang ingin dicari.");
+                alert("Silakan ketik kode video pada kolom pencarian.");
             }
         }
 
@@ -230,10 +297,6 @@
             if (e.key === 'Enter') {
                 triggerSearch();
             }
-        }
-
-        function toggleMenu() {
-            alert("Menu Navigasi:\n• Beranda\n• Daftar Aktris\n• Kategori Studio\n• Arsip Koleksi");
         }
     </script>
 
