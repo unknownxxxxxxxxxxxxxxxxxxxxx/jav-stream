@@ -35,7 +35,7 @@
             text-decoration: none;
         }
         .logo span {
-            color: #e50914; /* Akses warna merah */
+            color: #e50914;
         }
         .nav-icons {
             display: flex;
@@ -48,6 +48,7 @@
             color: #ffffff;
             font-size: 20px;
             cursor: pointer;
+            padding: 5px;
         }
 
         /* Content Container */
@@ -95,12 +96,12 @@
 </head>
 <body>
 
-    <!-- Header / Navbar mirip Jav.Guru -->
+    <!-- Header / Navbar -->
     <header class="navbar">
         <a href="#" class="logo">Jav<span>Stream</span></a>
         <div class="nav-icons">
-            <button class="icon-btn" title="Search">🔍</button>
-            <button class="icon-btn" title="Menu">☰</button>
+            <button class="icon-btn" onclick="handleSearch()" title="Search">🔍</button>
+            <button class="icon-btn" onclick="handleMenu()" title="Menu">☰</button>
         </div>
     </header>
 
@@ -117,6 +118,20 @@
             </div>
         </div>
     </main>
+
+    <!-- JavaScript Interaktif untuk Tombol -->
+    <script>
+        function handleSearch() {
+            let keyword = prompt("Masukkan kode video atau nama aktris yang ingin dicari:");
+            if (keyword) {
+                alert("Mencari katalog dengan kata kunci: " + keyword);
+            }
+        }
+
+        function handleMenu() {
+            alert("Menu Navigasi:\n• Beranda\n• Daftar Aktris\n• Kategori Kode\n• Pengaturan Arsip");
+        }
+    </script>
 
 </body>
 </html>
