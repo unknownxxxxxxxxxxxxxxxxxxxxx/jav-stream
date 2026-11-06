@@ -306,11 +306,6 @@
             color: var(--text-muted);
         }
 
-        .video-date {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
         .video-badge {
             font-size: 10px;
             text-transform: uppercase;
@@ -344,9 +339,8 @@
             
             <div class="profile-header-right">
                 <select class="filter-select" id="sortSelect" style="display: none;" onchange="sortActressVideos()">
-                    <option value="latest">Latest Added</option>
-                    <option value="oldest">Oldest Added</option>
-                    <option value="title">Title (A-Z)</option>
+                    <option value="az">Title (A-Z)</option>
+                    <option value="za">Title (Z-A)</option>
                 </select>
 
                 <div class="search-box" id="videoSearchBoxContainer" style="display: none; width: 100%; max-width: 260px;">
@@ -361,14 +355,20 @@
     </main>
 
     <script>
-        // Database murni hanya berisi data nyata Anda
+        // Database terpusat (Tanpa atribut date)
         const database = [
+            {
+                code: "JUR-683",
+                actress: "Minamisawa Umika",
+                actressSlug: "minamisawa-umika",
+                embedUrl: "https://luluvido.com/e/a68tcurf645r",
+                badge: "HD"
+            },
             {
                 code: "JUR-655",
                 actress: "Minamisawa Umika",
                 actressSlug: "minamisawa-umika",
                 embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
-                date: "2026-11-05",
                 badge: "HD"
             }
         ];
@@ -500,7 +500,6 @@
         }
 
         function renderVideoGrid(videos) {
-            // Label "Associated Releases" sudah dihilangkan untuk tampilan yang lebih bersih
             let html = '<div class="video-grid" id="videoGridContainer">';
             videos.forEach(video => {
                 html += `
@@ -512,7 +511,6 @@
                             <div class="video-meta">
                                 <div class="video-title">${video.code}</div>
                                 <div class="video-actress">${video.actress}</div>
-                                <div class="video-date">Added: ${video.date}</div>
                             </div>
                             <span class="video-badge">${video.badge}</span>
                         </div>
@@ -543,12 +541,10 @@
                 video.code.toLowerCase().includes(query)
             );
 
-            if (sortMethod === 'latest') {
-                filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
-            } else if (sortMethod === 'oldest') {
-                filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
-            } else if (sortMethod === 'title') {
+            if (sortMethod === 'az') {
                 filtered.sort((a, b) => a.code.localeCompare(b.code));
+            } else if (sortMethod === 'za') {
+                filtered.sort((a, b) => b.code.localeCompare(a.code));
             }
 
             let totalCount = window.currentActressVideos.length;
