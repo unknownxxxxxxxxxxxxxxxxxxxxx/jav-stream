@@ -361,14 +361,20 @@
     </footer>
 
     <script>
-        // Database terpusat beranda (Struktur identik dengan actress/index.html)
+        // Database terpusat beranda (Tanpa atribut date)
         const database = [
+            {
+                code: "JUR-683",
+                actress: "Minamisawa Umika",
+                actressSlug: "minamisawa-umika",
+                embedUrl: "https://luluvido.com/e/a68tcurf645r",
+                badge: "HD"
+            },
             {
                 code: "JUR-655",
                 actress: "Minamisawa Umika",
                 actressSlug: "minamisawa-umika",
                 embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
-                date: "2026-11-05",
                 badge: "HD"
             }
         ];
@@ -429,10 +435,9 @@
             renderVideos(filtered);
         }
 
-        // Render otomatis video saat halaman dimuat (Urut berdasarkan rilis terbaru)
+        // Render otomatis video saat halaman dimuat
         window.onload = function() {
-            let sortedLatest = [...database].sort((a, b) => new Date(b.date) - new Date(a.date));
-            renderVideos(sortedLatest);
+            renderVideos(database);
         };
     </script>
 
