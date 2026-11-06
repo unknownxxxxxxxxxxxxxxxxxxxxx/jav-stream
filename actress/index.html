@@ -147,22 +147,6 @@
             flex-wrap: wrap;
         }
 
-        .filter-select {
-            background: var(--card-bg);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 13px;
-            outline: none;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-
-        .filter-select:focus {
-            border-color: var(--accent-color);
-        }
-
         .az-bar {
             display: flex;
             flex-wrap: wrap;
@@ -338,11 +322,6 @@
             </div>
             
             <div class="profile-header-right">
-                <select class="filter-select" id="sortSelect" style="display: none;" onchange="sortActressVideos()">
-                    <option value="az">Title (A-Z)</option>
-                    <option value="za">Title (Z-A)</option>
-                </select>
-
                 <div class="search-box" id="videoSearchBoxContainer" style="display: none; width: 100%; max-width: 260px;">
                     <input type="text" class="search-input" placeholder="Search releases..." id="videoSearchInput" oninput="filterActressVideos()">
                 </div>
@@ -382,7 +361,6 @@
         let contentSection = document.getElementById('contentSection');
         let searchBoxContainer = document.getElementById('searchBoxContainer');
         let videoSearchBoxContainer = document.getElementById('videoSearchBoxContainer');
-        let sortSelect = document.getElementById('sortSelect');
 
         if (querySlug) {
             let matchedVideos = database.filter(item => item.actressSlug === querySlug);
@@ -393,10 +371,9 @@
                 
                 videoCountBadge.style.display = "block";
                 videoSearchBoxContainer.style.display = "flex";
-                sortSelect.style.display = "block";
 
                 window.currentActressVideos = matchedVideos;
-                sortActressVideos();
+                filterActressVideos();
             } else {
                 pageTitle.innerText = "Actress Not Found";
                 contentSection.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No archive records found for this profile.</div>';
@@ -531,21 +508,13 @@
             }
         }
 
-        function sortActressVideos() {
+        function filterActressVideos() {
             if (!window.currentActressVideos) return;
 
             let query = document.getElementById('videoSearchInput').value.toLowerCase().trim();
-            let sortMethod = document.getElementById('sortSelect').value;
-
             let filtered = window.currentActressVideos.filter(video => 
                 video.code.toLowerCase().includes(query)
             );
-
-            if (sortMethod === 'az') {
-                filtered.sort((a, b) => a.code.localeCompare(b.code));
-            } else if (sortMethod === 'za') {
-                filtered.sort((a, b) => b.code.localeCompare(a.code));
-            }
 
             let totalCount = window.currentActressVideos.length;
             videoCountBadge.innerText = totalCount + (totalCount === 1 ? " Video Available" : " Videos Available");
@@ -557,10 +526,6 @@
             }
 
             renderVideoGrid(filtered);
-        }
-
-        function filterActressVideos() {
-            sortActressVideos();
         }
     </script>
 
