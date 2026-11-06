@@ -205,21 +205,36 @@
             font-weight: 600;
         }
 
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
         .section-title {
             font-size: 16px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 24px;
             color: var(--text-muted);
             border-left: 3px solid var(--accent-color);
             padding-left: 12px;
+            margin-bottom: 0;
+        }
+
+        .page-info-badge {
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
+            scroll-margin-top: 80px;
         }
 
         .video-card {
@@ -227,12 +242,13 @@
             border-radius: 6px;
             overflow: hidden;
             border: 1px solid var(--border-color);
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .video-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-4px);
             border-color: #3a3f4b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
         .video-container {
@@ -312,6 +328,51 @@
             text-decoration: underline;
         }
 
+        /* Styling Paginasi UX */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .page-btn:hover:not(.disabled):not(.active) {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-muted);
+        }
+
+        .page-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--text-main);
+        }
+
+        .page-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
         .site-footer {
             text-align: center;
             padding: 30px 24px;
@@ -349,11 +410,17 @@
             💡 <strong>Tip for the Best Experience:</strong> For smooth, fast, and interruption-free playback, we highly recommend using an ad-blocker extension such as <span class="highlight">uBlock Origin</span> on your browser.
         </div>
 
-        <h2 class="section-title">Latest Releases</h2>
+        <div class="section-header">
+            <h2 class="section-title">Latest Releases</h2>
+            <div class="page-info-badge" id="pageInfoBadge"></div>
+        </div>
         
         <div class="video-grid" id="mainVideoGrid">
             <!-- Video dimuat secara dinamis via JavaScript -->
         </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination-container" id="paginationContainer"></div>
     </main>
 
     <footer class="site-footer">
@@ -386,6 +453,11 @@
             }
         ];
 
+        // Pengaturan Paginasi
+        const ITEMS_PER_PAGE = 8;
+        let currentPage = 1;
+        let currentFilteredDatabase = [...database];
+
         function toggleMenu() {
             let menu = document.getElementById('dropdownMenu');
             menu.classList.toggle('show');
@@ -403,15 +475,59 @@
             }
         }
 
-        function renderVideos(videosToRender) {
-            const grid = document.getElementById('mainVideoGrid');
-            if (videosToRender.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No releases found matching your search.</div>';
+        function renderPagination() {
+            const container = document.getElementById('paginationContainer');
+            const pageBadge = document.getElementById('pageInfoBadge');
+            const totalItems = currentFilteredDatabase.length;
+
+            if (totalItems === 0) {
+                container.innerHTML = '';
+                pageBadge.innerText = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+            // Update Badge Informasi Halaman
+            pageBadge.innerText = `Showing Page ${currentPage} of ${totalPages} (${totalItems} Video${totalItems > 1 ? 's' : ''})`;
+
+            if (totalPages <= 1) {
+                container.innerHTML = '';
                 return;
             }
 
             let html = '';
-            videosToRender.forEach(video => {
+
+            // Tombol Previous
+            html += `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo; Prev</button>`;
+
+            // Nombor Halaman
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+
+            // Tombol Next
+            html += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &raquo;</button>`;
+
+            container.innerHTML = html;
+        }
+
+        function renderVideos() {
+            const grid = document.getElementById('mainVideoGrid');
+
+            if (currentFilteredDatabase.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No releases found matching your search.</div>';
+                renderPagination();
+                return;
+            }
+
+            // Hitung Indeks Paginasi Slice
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const pageVideos = currentFilteredDatabase.slice(startIndex, endIndex);
+
+            let html = '';
+            pageVideos.forEach(video => {
                 html += `
                     <div class="video-card">
                         <div class="video-container">
@@ -431,20 +547,47 @@
                 `;
             });
             grid.innerHTML = html;
+
+            renderPagination();
+        }
+
+        function changePage(newPage) {
+            const totalPages = Math.ceil(currentFilteredDatabase.length / ITEMS_PER_PAGE);
+            if (newPage < 1 || newPage > totalPages) return;
+
+            currentPage = newPage;
+            renderVideos();
+
+            // Auto Smooth-Scroll ke bagian atas daftar video
+            document.getElementById('mainVideoGrid').scrollIntoView({ behavior: 'smooth' });
         }
 
         function triggerSearch() {
             let query = document.getElementById('searchInput').value.toLowerCase().trim();
-            let filtered = database.filter(item => 
+            currentFilteredDatabase = database.filter(item => 
                 item.code.toLowerCase().includes(query) || 
                 item.actress.toLowerCase().includes(query)
             );
-            renderVideos(filtered);
+            currentPage = 1; // Reset ke halaman 1 saat mencari
+            renderVideos();
         }
 
-        // Render otomatis video saat halaman dimuat
+        // Fitur UX Shortcut Keyboard (Panah Kiri & Kanan untuk Ganti Halaman)
+        document.addEventListener('keydown', function(e) {
+            const activeElement = document.activeElement;
+            if (activeElement && activeElement.tagName === 'INPUT') return;
+
+            const totalPages = Math.ceil(currentFilteredDatabase.length / ITEMS_PER_PAGE);
+            if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                changePage(currentPage + 1);
+            } else if (e.key === 'ArrowLeft' && currentPage > 1) {
+                changePage(currentPage - 1);
+            }
+        });
+
+        // Render otomatis saat dimuat
         window.onload = function() {
-            renderVideos(database);
+            renderVideos();
         };
     </script>
 
