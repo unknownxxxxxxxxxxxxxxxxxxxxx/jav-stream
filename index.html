@@ -328,15 +328,38 @@
             text-decoration: underline;
         }
 
-        /* Styling Paginasi UX */
+        /* Styling Paginasi UX & Tips */
+        .pagination-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            gap: 8px;
+        }
+
         .pagination-container {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 6px;
-            margin-top: 40px;
-            margin-bottom: 10px;
             flex-wrap: wrap;
+        }
+
+        .page-tip {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .page-tip kbd {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            padding: 1px 5px;
+            font-family: inherit;
+            color: var(--text-main);
+            font-size: 10px;
         }
 
         .page-btn {
@@ -405,9 +428,10 @@
     </header>
 
     <main class="container">
-        <!-- Friendly Reminder Banner for Ad-Blocker -->
+        <!-- Friendly Reminder Banner for Ad-Blocker & Mobile Player -->
         <div class="adblock-notice">
-            💡 <strong>Tip for the Best Experience:</strong> For smooth, fast, and interruption-free playback, we highly recommend using an ad-blocker extension such as <span class="highlight">uBlock Origin</span> on your browser.
+            💡 <strong>Tip for the Best Experience:</strong> For smooth, fast, and interruption-free playback, we highly recommend using an ad-blocker extension such as <span class="highlight">uBlock Origin</span> on your browser.<br><br>
+            📱 <strong>Mobile User Notice:</strong> Skip controls (±10s) may be hidden by the default mobile player. To enable them, switch to "Desktop Site" in your browser settings.
         </div>
 
         <div class="section-header">
@@ -419,8 +443,11 @@
             <!-- Video dimuat secara dinamis via JavaScript -->
         </div>
 
-        <!-- Pagination Controls -->
-        <div class="pagination-container" id="paginationContainer"></div>
+        <!-- Pagination Controls with Keyboard Shortcut Tip -->
+        <div class="pagination-wrapper">
+            <div class="pagination-container" id="paginationContainer"></div>
+            <div class="page-tip">Tip: Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> arrow keys on your keyboard to navigate pages.</div>
+        </div>
     </main>
 
     <footer class="site-footer">
