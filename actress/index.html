@@ -163,7 +163,6 @@
             border-color: var(--accent-color);
         }
 
-        /* Styling Bar Abjad A-Z */
         .az-bar {
             display: flex;
             flex-wrap: wrap;
@@ -344,14 +343,12 @@
             </div>
             
             <div class="profile-header-right">
-                <!-- Filter / Sorting Dropdown (Hanya muncul di halaman profil aktris) -->
                 <select class="filter-select" id="sortSelect" style="display: none;" onchange="sortActressVideos()">
                     <option value="latest">Latest Added</option>
                     <option value="oldest">Oldest Added</option>
                     <option value="title">Title (A-Z)</option>
                 </select>
 
-                <!-- Kotak Pencarian Video -->
                 <div class="search-box" id="videoSearchBoxContainer" style="display: none; width: 100%; max-width: 260px;">
                     <input type="text" class="search-input" placeholder="Search releases..." id="videoSearchInput" oninput="filterActressVideos()">
                 </div>
@@ -359,12 +356,12 @@
         </div>
 
         <div id="contentSection">
-            <!-- Konten dinamis (Bar A-Z dan Grid Aktris) -->
+            <!-- Konten dinamis -->
         </div>
     </main>
 
     <script>
-        // Database contoh dengan beberapa data tambahan agar pengelompokan A-Z terlihat rapi
+        // Database murni hanya berisi data nyata Anda
         const database = [
             {
                 code: "JUR-655",
@@ -372,22 +369,6 @@
                 actressSlug: "minamisawa-umika",
                 embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
                 date: "2026-11-05",
-                badge: "HD"
-            },
-            {
-                code: "ABC-123",
-                actress: "Aoi Tsukasa",
-                actressSlug: "aoi-tsukasa",
-                embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
-                date: "2026-10-15",
-                badge: "HD"
-            },
-            {
-                code: "XYZ-789",
-                actress: "Eimi Fukada",
-                actressSlug: "eimi-fukada",
-                embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
-                date: "2026-11-01",
                 badge: "HD"
             }
         ];
@@ -443,7 +424,6 @@
         function renderDirectoryView(actresses) {
             let html = '';
 
-            // 1. Render Bar Navigasi A-Z (Termasuk tombol All / #)
             let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
             html += '<div class="az-bar">';
             html += '<button class="az-btn active" onclick="filterByLetter(\'ALL\', this)">ALL</button>';
@@ -452,7 +432,6 @@
             });
             html += '</div>';
 
-            // 2. Wadah untuk daftar grup berdasarkan abjad
             html += '<div id="alphabetGroupsContainer">';
             html += generateAlphabetGroupsHtml(actresses);
             html += '</div>';
@@ -465,7 +444,6 @@
                 return '<div style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No actress profiles found.</div>';
             }
 
-            // Kelompokkan aktris berdasarkan huruf pertama nama mereka
             let groups = {};
             actresses.forEach(actress => {
                 let firstChar = actress.name.charAt(0).toUpperCase();
@@ -478,7 +456,6 @@
                 groups[firstChar].push(actress);
             });
 
-            // Urutkan kunci grup (A-Z, lalu #)
             let sortedKeys = Object.keys(groups).sort((a, b) => {
                 if (a === '#') return 1;
                 if (b === '#') return -1;
@@ -507,7 +484,6 @@
         }
 
         function filterByLetter(letter, btnElement) {
-            // Ubah status aktif tombol di bar A-Z
             let buttons = document.querySelectorAll('.az-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
@@ -550,7 +526,6 @@
             let query = document.getElementById('actressSearchInput').value.toLowerCase().trim();
             let filtered = window.actressList.filter(a => a.name.toLowerCase().includes(query));
             
-            // Perbarui bagian grup abjad berdasarkan hasil pencarian teks
             let container = document.getElementById('alphabetGroupsContainer');
             if (container) {
                 container.innerHTML = generateAlphabetGroupsHtml(filtered);
