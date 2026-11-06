@@ -122,11 +122,45 @@
             }
         }
 
+        .profile-header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
         .profile-name {
             font-size: 24px;
             font-weight: 700;
             color: var(--text-main);
             text-transform: capitalize;
+        }
+
+        .video-count-badge {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .profile-header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .filter-select:focus {
+            border-color: var(--accent-color);
         }
 
         .section-title {
@@ -234,6 +268,11 @@
             color: var(--text-muted);
         }
 
+        .video-date {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
         .video-badge {
             font-size: 10px;
             text-transform: uppercase;
@@ -260,9 +299,23 @@
 
     <main class="container">
         <div class="profile-header">
-            <h1 class="profile-name" id="pageTitle">Actress Directory</h1>
-            <div class="search-box" id="videoSearchBoxContainer" style="display: none; width: 100%; max-width: 260px;">
-                <input type="text" class="search-input" placeholder="Search releases..." id="videoSearchInput" oninput="filterActressVideos()">
+            <div class="profile-header-left">
+                <h1 class="profile-name" id="pageTitle">Actress Directory</h1>
+                <div class="video-count-badge" id="videoCountBadge" style="display: none;">0 Videos Available</div>
+            </div>
+            
+            <div class="profile-header-right">
+                <!-- Filter / Sorting Dropdown (Hanya muncul di halaman profil aktris) -->
+                <select class="filter-select" id="sortSelect" style="display: none;" onchange="sortActressVideos()">
+                    <option value="latest">Latest Added</option>
+                    <option value="oldest">Oldest Added</option>
+                    <option value="title">Title (A-Z)</option>
+                </select>
+
+                <!-- Kotak Pencarian Video -->
+                <div class="search-box" id="videoSearchBoxContainer" style="display: none; width: 100%; max-width: 260px;">
+                    <input type="text" class="search-input" placeholder="Search releases..." id="videoSearchInput" oninput="filterActressVideos()">
+                </div>
             </div>
         </div>
 
@@ -272,12 +325,14 @@
     </main>
 
     <script>
+        // Database dengan tambahan properti 'date' (Format: YYYY-MM-DD) untuk sorting "Latest Added"
         const database = [
             {
                 code: "JUR-655",
                 actress: "Minamisawa Umika",
                 actressSlug: "minamisawa-umika",
                 embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
+                date: "2026-11-05",
                 badge: "HD"
             }
         ];
@@ -287,9 +342,11 @@
         querySlug = querySlug.toLowerCase().trim();
 
         let pageTitle = document.getElementById('pageTitle');
+        let videoCountBadge = document.getElementById('videoCountBadge');
         let contentSection = document.getElementById('contentSection');
         let searchBoxContainer = document.getElementById('searchBoxContainer');
         let videoSearchBoxContainer = document.getElementById('videoSearchBoxContainer');
+        let sortSelect = document.getElementById('sortSelect');
 
         if (querySlug) {
             let matchedVideos = database.filter(item => item.actressSlug === querySlug);
@@ -298,11 +355,15 @@
                 pageTitle.innerText = matchedVideos[0].actress;
                 document.title = matchedVideos[0].actress + " - Actress Directory - JavStream";
                 
-                // Tampilkan kotak pencarian video khusus aktris ini
+                // Tampilkan elemen pendukung profil aktris
+                videoCountBadge.style.display = "block";
                 videoSearchBoxContainer.style.display = "flex";
+                sortSelect.style.display = "block";
+
                 window.currentActressVideos = matchedVideos;
 
-                renderVideoGrid(matchedVideos);
+                // Render pertama kali (otomatis terurut berdasarkan 'latest' sesuai default dropdown)
+                sortActressVideos();
             } else {
                 pageTitle.innerText = "Actress Not Found";
                 contentSection.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No archive records found for this profile.</div>';
@@ -358,6 +419,7 @@
                             <div class="video-meta">
                                 <div class="video-title">${video.code}</div>
                                 <div class="video-actress">${video.actress}</div>
+                                <div class="video-date">Added: ${video.date}</div>
                             </div>
                             <span class="video-badge">${video.badge}</span>
                         </div>
@@ -374,38 +436,44 @@
             renderActressGrid(filtered);
         }
 
-        function filterActressVideos() {
-            let query = document.getElementById('videoSearchInput').value.toLowerCase().trim();
-            let container = document.getElementById('videoGridContainer');
-            if (!container) return;
+        // Fungsi Sort & Filter gabungan untuk Halaman Profil Aktris
+        function sortActressVideos() {
+            if (!window.currentActressVideos) return;
 
+            let query = document.getElementById('videoSearchInput').value.toLowerCase().trim();
+            let sortMethod = document.getElementById('sortSelect').value;
+
+            // 1. Filter berdasarkan teks pencarian (jika ada)
             let filtered = window.currentActressVideos.filter(video => 
                 video.code.toLowerCase().includes(query)
             );
 
+            // 2. Sorting data
+            if (sortMethod === 'latest') {
+                filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else if (sortMethod === 'oldest') {
+                filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+            } else if (sortMethod === 'title') {
+                filtered.sort((a, b) => a.code.localeCompare(b.code));
+            }
+
+            // Update Badge Jumlah Video Aktif
+            let totalCount = window.currentActressVideos.length;
+            videoCountBadge.innerText = totalCount + (totalCount === 1 ? " Video Available" : " Videos Available");
+
+            // Render hasil ke grid
+            let container = document.getElementById('contentSection');
             if (filtered.length === 0) {
-                container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No releases found matching your search.</div>';
+                container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No releases found matching your search.</div>';
                 return;
             }
 
-            let html = '';
-            filtered.forEach(video => {
-                html += `
-                    <div class="video-card">
-                        <div class="video-container">
-                            <iframe src="${video.embedUrl}" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-meta">
-                                <div class="video-title">${video.code}</div>
-                                <div class="video-actress">${video.actress}</div>
-                            </div>
-                            <span class="video-badge">${video.badge}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
+            renderVideoGrid(filtered);
+        }
+
+        // Panggil fungsi sort saat kotak pencarian video diketik
+        function filterActressVideos() {
+            sortActressVideos();
         }
     </script>
 
