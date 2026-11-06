@@ -163,15 +163,54 @@
             border-color: var(--accent-color);
         }
 
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 24px;
+        /* Styling Bar Abjad A-Z */
+        .az-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 28px;
+            background: var(--card-bg);
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            justify-content: center;
+        }
+
+        .az-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
             color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .az-btn:hover, .az-btn.active {
+            background: var(--accent-color);
+            color: var(--text-main);
+            border-color: var(--accent-color);
+        }
+
+        .alphabet-section {
+            margin-bottom: 32px;
+        }
+
+        .alphabet-heading {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
             border-left: 3px solid var(--accent-color);
             padding-left: 12px;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
         }
 
         .grid {
@@ -320,12 +359,12 @@
         </div>
 
         <div id="contentSection">
-            <!-- Konten dinamis -->
+            <!-- Konten dinamis (Bar A-Z dan Grid Aktris) -->
         </div>
     </main>
 
     <script>
-        // Database dengan tambahan properti 'date' (Format: YYYY-MM-DD) untuk sorting "Latest Added"
+        // Database contoh dengan beberapa data tambahan agar pengelompokan A-Z terlihat rapi
         const database = [
             {
                 code: "JUR-655",
@@ -333,6 +372,22 @@
                 actressSlug: "minamisawa-umika",
                 embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
                 date: "2026-11-05",
+                badge: "HD"
+            },
+            {
+                code: "ABC-123",
+                actress: "Aoi Tsukasa",
+                actressSlug: "aoi-tsukasa",
+                embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
+                date: "2026-10-15",
+                badge: "HD"
+            },
+            {
+                code: "XYZ-789",
+                actress: "Eimi Fukada",
+                actressSlug: "eimi-fukada",
+                embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
+                date: "2026-11-01",
                 badge: "HD"
             }
         ];
@@ -355,14 +410,11 @@
                 pageTitle.innerText = matchedVideos[0].actress;
                 document.title = matchedVideos[0].actress + " - Actress Directory - JavStream";
                 
-                // Tampilkan elemen pendukung profil aktris
                 videoCountBadge.style.display = "block";
                 videoSearchBoxContainer.style.display = "flex";
                 sortSelect.style.display = "block";
 
                 window.currentActressVideos = matchedVideos;
-
-                // Render pertama kali (otomatis terurut berdasarkan 'latest' sesuai default dropdown)
                 sortActressVideos();
             } else {
                 pageTitle.innerText = "Actress Not Found";
@@ -385,26 +437,90 @@
             });
 
             window.actressList = Object.values(actressMap);
-            renderActressGrid(window.actressList);
+            renderDirectoryView(window.actressList);
         }
 
-        function renderActressGrid(actresses) {
-            if (actresses.length === 0) {
-                contentSection.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No results found.</div>';
-                return;
-            }
+        function renderDirectoryView(actresses) {
+            let html = '';
 
-            let html = '<h2 class="section-title">Available Profiles</h2><div class="grid">';
-            actresses.forEach(actress => {
-                html += `
-                    <a href="?name=${actress.slug}" class="actress-card">
-                        <div class="actress-card-name">${actress.name}</div>
-                        <div class="actress-card-count">${actress.count} Release${actress.count > 1 ? 's' : ''}</div>
-                    </a>
-                `;
+            // 1. Render Bar Navigasi A-Z (Termasuk tombol All / #)
+            let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+            html += '<div class="az-bar">';
+            html += '<button class="az-btn active" onclick="filterByLetter(\'ALL\', this)">ALL</button>';
+            letters.forEach(letter => {
+                html += `<button class="az-btn" onclick="filterByLetter('${letter}', this)">${letter}</button>`;
             });
             html += '</div>';
+
+            // 2. Wadah untuk daftar grup berdasarkan abjad
+            html += '<div id="alphabetGroupsContainer">';
+            html += generateAlphabetGroupsHtml(actresses);
+            html += '</div>';
+
             contentSection.innerHTML = html;
+        }
+
+        function generateAlphabetGroupsHtml(actresses) {
+            if (actresses.length === 0) {
+                return '<div style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No actress profiles found.</div>';
+            }
+
+            // Kelompokkan aktris berdasarkan huruf pertama nama mereka
+            let groups = {};
+            actresses.forEach(actress => {
+                let firstChar = actress.name.charAt(0).toUpperCase();
+                if (!/[A-Z]/.test(firstChar)) {
+                    firstChar = '#';
+                }
+                if (!groups[firstChar]) {
+                    groups[firstChar] = [];
+                }
+                groups[firstChar].push(actress);
+            });
+
+            // Urutkan kunci grup (A-Z, lalu #)
+            let sortedKeys = Object.keys(groups).sort((a, b) => {
+                if (a === '#') return 1;
+                if (b === '#') return -1;
+                return a.localeCompare(b);
+            });
+
+            let html = '';
+            sortedKeys.forEach(letter => {
+                html += `
+                    <div class="alphabet-section" data-letter="${letter}">
+                        <div class="alphabet-heading">${letter}</div>
+                        <div class="grid">
+                `;
+                groups[letter].forEach(actress => {
+                    html += `
+                        <a href="?name=${actress.slug}" class="actress-card">
+                            <div class="actress-card-name">${actress.name}</div>
+                            <div class="actress-card-count">${actress.count} Release${actress.count > 1 ? 's' : ''}</div>
+                        </a>
+                    `;
+                });
+                html += `</div></div>`;
+            });
+
+            return html;
+        }
+
+        function filterByLetter(letter, btnElement) {
+            // Ubah status aktif tombol di bar A-Z
+            let buttons = document.querySelectorAll('.az-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            let sections = document.querySelectorAll('.alphabet-section');
+            sections.forEach(section => {
+                let secLetter = section.getAttribute('data-letter');
+                if (letter === 'ALL' || secLetter === letter) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
         }
 
         function renderVideoGrid(videos) {
@@ -433,22 +549,24 @@
         function filterActresses() {
             let query = document.getElementById('actressSearchInput').value.toLowerCase().trim();
             let filtered = window.actressList.filter(a => a.name.toLowerCase().includes(query));
-            renderActressGrid(filtered);
+            
+            // Perbarui bagian grup abjad berdasarkan hasil pencarian teks
+            let container = document.getElementById('alphabetGroupsContainer');
+            if (container) {
+                container.innerHTML = generateAlphabetGroupsHtml(filtered);
+            }
         }
 
-        // Fungsi Sort & Filter gabungan untuk Halaman Profil Aktris
         function sortActressVideos() {
             if (!window.currentActressVideos) return;
 
             let query = document.getElementById('videoSearchInput').value.toLowerCase().trim();
             let sortMethod = document.getElementById('sortSelect').value;
 
-            // 1. Filter berdasarkan teks pencarian (jika ada)
             let filtered = window.currentActressVideos.filter(video => 
                 video.code.toLowerCase().includes(query)
             );
 
-            // 2. Sorting data
             if (sortMethod === 'latest') {
                 filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
             } else if (sortMethod === 'oldest') {
@@ -457,11 +575,9 @@
                 filtered.sort((a, b) => a.code.localeCompare(b.code));
             }
 
-            // Update Badge Jumlah Video Aktif
             let totalCount = window.currentActressVideos.length;
             videoCountBadge.innerText = totalCount + (totalCount === 1 ? " Video Available" : " Videos Available");
 
-            // Render hasil ke grid
             let container = document.getElementById('contentSection');
             if (filtered.length === 0) {
                 container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No releases found matching your search.</div>';
@@ -471,7 +587,6 @@
             renderVideoGrid(filtered);
         }
 
-        // Panggil fungsi sort saat kotak pencarian video diketik
         function filterActressVideos() {
             sortActressVideos();
         }
