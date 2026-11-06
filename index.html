@@ -139,7 +139,6 @@
             display: block;
         }
 
-        /* Tombol Actress yang sangat menonjol */
         .dropdown-item-primary {
             display: block;
             padding: 12px 16px;
@@ -157,7 +156,6 @@
             color: var(--accent-color);
         }
 
-        /* Tautan formalitas untuk Disclaimer & Privacy yang tidak mencolok */
         .dropdown-divider {
             height: 1px;
             background: var(--border-color);
@@ -186,7 +184,6 @@
             width: 100%;
         }
 
-        /* Ad-Blocker Notice Banner Style */
         .adblock-notice {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -315,7 +312,6 @@
             text-decoration: underline;
         }
 
-        /* Footer murni teks */
         .site-footer {
             text-align: center;
             padding: 30px 24px;
@@ -332,19 +328,14 @@
         <a href="/" class="logo">Jav<span>Stream</span></a>
         <div class="nav-right">
             <div class="search-box">
-                <input type="text" class="search-input" placeholder="Search archive..." id="searchInput" onkeypress="handleSearchKey(event)">
-                <button class="icon-btn" onclick="triggerSearch()" style="font-size: 12px;">Search</button>
+                <input type="text" class="search-input" placeholder="Search archive..." id="searchInput" oninput="triggerSearch()">
             </div>
 
             <div class="menu-container">
                 <button class="icon-btn" onclick="toggleMenu()" aria-label="Navigation Menu">Menu</button>
                 <div class="dropdown-menu" id="dropdownMenu">
-                    <!-- Tombol Actress yang Paling Menonjol -->
                     <a href="actress/" class="dropdown-item-primary">Actress</a>
-                    
                     <div class="dropdown-divider"></div>
-                    
-                    <!-- Formalitas (Tidak Menonjol) -->
                     <a href="disclaimer.html" class="dropdown-item-secondary">Disclaimer & DMCA</a>
                     <a href="privacy.html" class="dropdown-item-secondary">Privacy Policy</a>
                 </div>
@@ -360,32 +351,28 @@
 
         <h2 class="section-title">Latest Releases</h2>
         
-        <div class="video-grid">
-            <div class="video-card">
-                <div class="video-container">
-                    <iframe src="https://luluvido.com/e/13jr1kyhz6m7" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <div class="video-meta">
-                        <div class="video-title">JUR-655</div>
-                        <a href="actress/?name=minamisawa-umika" class="video-actress">Minamisawa Umika</a>
-                    </div>
-                    <div class="video-right-side">
-                        <span class="video-badge">HD</span>
-                        <!-- Tautan Google Form laporan video rusak yang aktif -->
-                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
-                    </div>
-                </div>
-            </div>
+        <div class="video-grid" id="mainVideoGrid">
+            <!-- Video dimuat secara dinamis via JavaScript -->
         </div>
     </main>
 
-    <!-- Footer Murni Teks -->
     <footer class="site-footer">
         <p>&copy; 2026 JavStream HD. All rights reserved.</p>
     </footer>
 
     <script>
+        // Database terpusat beranda (Struktur identik dengan actress/index.html)
+        const database = [
+            {
+                code: "JUR-655",
+                actress: "Minamisawa Umika",
+                actressSlug: "minamisawa-umika",
+                embedUrl: "https://luluvido.com/e/13jr1kyhz6m7",
+                date: "2026-11-05",
+                badge: "HD"
+            }
+        ];
+
         function toggleMenu() {
             let menu = document.getElementById('dropdownMenu');
             menu.classList.toggle('show');
@@ -403,69 +390,50 @@
             }
         }
 
-        function stopHiddenVideos() {
-            let cards = document.getElementsByClassName('video-card');
-            for (let i = 0; i < cards.length; i++) {
-                if (cards[i].style.display === "none") {
-                    let iframe = cards[i].querySelector('iframe');
-                    if (iframe) {
-                        let currentSrc = iframe.src;
-                        iframe.src = '';
-                        iframe.src = currentSrc;
-                    }
-                }
+        function renderVideos(videosToRender) {
+            const grid = document.getElementById('mainVideoGrid');
+            if (videosToRender.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No releases found matching your search.</div>';
+                return;
             }
+
+            let html = '';
+            videosToRender.forEach(video => {
+                html += `
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe src="${video.embedUrl}" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <div class="video-title">${video.code}</div>
+                                <a href="actress/?name=${video.actressSlug}" class="video-actress">${video.actress}</a>
+                            </div>
+                            <div class="video-right-side">
+                                <span class="video-badge">${video.badge}</span>
+                                <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
         }
 
         function triggerSearch() {
-            let inputVal = document.getElementById('searchInput').value;
-            let query = inputVal.toLowerCase().trim();
-            let cards = document.getElementsByClassName('video-card');
-            let grid = document.querySelector('.video-grid');
-            let foundCount = 0;
-
-            for (let i = 0; i < cards.length; i++) {
-                let title = cards[i].getElementsByClassName('video-title')[0].innerText.toLowerCase();
-                let actress = cards[i].getElementsByClassName('video-actress')[0].innerText.toLowerCase();
-                
-                if (title.includes(query) || actress.includes(query)) {
-                    cards[i].style.display = "";
-                    foundCount++;
-                } else {
-                    cards[i].style.display = "none";
-                }
-            }
-
-            stopHiddenVideos();
-
-            let notFoundMsg = document.getElementById('noResultMsg');
-            if (foundCount === 0) {
-                if (!notFoundMsg) {
-                    notFoundMsg = document.createElement('div');
-                    notFoundMsg.id = 'noResultMsg';
-                    notFoundMsg.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;';
-                    grid.appendChild(notFoundMsg);
-                }
-                notFoundMsg.innerText = 'No results found for "' + inputVal + '"';
-                notFoundMsg.style.display = 'block';
-            } else {
-                if (notFoundMsg) {
-                    notFoundMsg.style.display = 'none';
-                }
-            }
+            let query = document.getElementById('searchInput').value.toLowerCase().trim();
+            let filtered = database.filter(item => 
+                item.code.toLowerCase().includes(query) || 
+                item.actress.toLowerCase().includes(query)
+            );
+            renderVideos(filtered);
         }
 
-        function handleSearchKey(e) {
-            if (e.key === 'Enter') {
-                triggerSearch();
-            }
-        }
-
-        document.getElementById('searchInput').addEventListener('input', function() {
-            if (this.value === '') {
-                triggerSearch();
-            }
-        });
+        // Render otomatis video saat halaman dimuat (Urut berdasarkan rilis terbaru)
+        window.onload = function() {
+            let sortedLatest = [...database].sort((a, b) => new Date(b.date) - new Date(a.date));
+            renderVideos(sortedLatest);
+        };
     </script>
 
 </body>
