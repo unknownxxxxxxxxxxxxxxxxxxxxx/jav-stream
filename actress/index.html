@@ -500,7 +500,8 @@
         }
 
         function renderVideoGrid(videos) {
-            let html = '<h2 class="section-title">Associated Releases</h2><div class="video-grid" id="videoGridContainer">';
+            // Label "Associated Releases" sudah dihilangkan untuk tampilan yang lebih bersih
+            let html = '<div class="video-grid" id="videoGridContainer">';
             videos.forEach(video => {
                 html += `
                     <div class="video-card">
