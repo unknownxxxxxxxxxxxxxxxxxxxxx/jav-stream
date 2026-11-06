@@ -186,6 +186,28 @@
             width: 100%;
         }
 
+        /* Ad-Blocker Notice Banner Style */
+        .adblock-notice {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 6px;
+            padding: 12px 18px;
+            margin-bottom: 28px;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .adblock-notice strong {
+            color: var(--text-main);
+        }
+
+        .adblock-notice .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
         .section-title {
             font-size: 16px;
             font-weight: 600;
@@ -331,6 +353,11 @@
     </header>
 
     <main class="container">
+        <!-- Friendly Reminder Banner for Ad-Blocker -->
+        <div class="adblock-notice">
+            💡 <strong>Tip for the Best Experience:</strong> For smooth, fast, and interruption-free playback, we highly recommend using an ad-blocker extension such as <span class="highlight">uBlock Origin</span> on your browser.
+        </div>
+
         <h2 class="section-title">Latest Releases</h2>
         
         <div class="video-grid">
