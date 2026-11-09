@@ -11,6 +11,7 @@
     
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="WKsgCWA9Sjz-bw_bkkrmzkVkt-CaIXmNXbR2FbcE-3M" />
+</head>
 
     <style>
         :root {
@@ -349,6 +350,7 @@
         <!-- KONTEN HTML STATIS UTAMA (Langsung dibaca Googlebot) -->
         <div class="video-grid" id="mainVideoGrid">
             
+            <!-- Video 3 -->
             <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/a68tcurf645r" allowfullscreen loading="lazy"></iframe>
@@ -365,6 +367,7 @@
                 </div>
             </div>
 
+            <!-- Video 2 -->
             <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/13jr1kyhz6m7" allowfullscreen loading="lazy"></iframe>
@@ -381,6 +384,7 @@
                 </div>
             </div>
 
+            <!-- Video 1 -->
             <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/413cododyut4" allowfullscreen loading="lazy"></iframe>
@@ -417,7 +421,7 @@
             { code: "JUR-064", actress: "Minamisawa Umika", embedUrl: "https://luluvido.com/e/413cododyut4", badge: "HD" }
         ];
 
-        const ITEMS_PER_PAGE = 8;
+        const ITEMS_PER_PAGE = 12;
         let currentPage = 1;
         let currentFilteredDatabase = [...database];
 
@@ -518,6 +522,9 @@
                 changePage(currentPage - 1);
             }
         });
+
+        // Panggil renderPagination saat halaman dimuat agar badge dan status langsung sinkron
+        renderPagination();
     </script>
 
 </body>
