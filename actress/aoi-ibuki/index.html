@@ -62,6 +62,46 @@
             color: var(--accent-color);
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px 12px;
+            width: 180px;
+            transition: width 0.3s ease, border-color 0.2s;
+        }
+
+        @media (min-width: 768px) {
+            .search-box {
+                width: 240px;
+            }
+        }
+
+        .search-box:focus-within {
+            border-color: var(--accent-color);
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
         .container {
             max-width: 1200px;
             margin: 32px auto;
@@ -95,6 +135,17 @@
             margin-bottom: 24px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .profile-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
         }
 
         .profile-name {
@@ -240,6 +291,11 @@
 
     <header class="navbar">
         <a href="../../" class="logo">Jav<span>Stream</span></a>
+        <div class="nav-right">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search releases..." id="videoSearchInput" oninput="filterActressVideos()">
+            </div>
+        </div>
     </header>
 
     <main class="container">
@@ -250,14 +306,16 @@
         </div>
 
         <div class="profile-header">
-            <h1 class="profile-name">Aoi Ibuki</h1>
-            <div class="video-count-badge">Showing 5 Videos</div>
+            <div>
+                <h1 class="profile-name">Aoi Ibuki</h1>
+                <div class="video-count-badge">Showing 5 Videos</div>
+            </div>
         </div>
         
-        <!-- Daftar Video Aoi Ibuki (Urutan terbaru di atas) -->
-        <div class="video-grid">
+        <!-- Daftar Video Aoi Ibuki (Statis murni terbaca Google, dilengkapi atribut data-code untuk pencarian) -->
+        <div class="video-grid" id="videoGridContainer">
             
-            <div class="video-card">
+            <div class="video-card" data-code="midv-073">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/ehxd29ifwn0h" allowfullscreen loading="lazy"></iframe>
                 </div>
@@ -273,7 +331,7 @@
                 </div>
             </div>
 
-            <div class="video-card">
+            <div class="video-card" data-code="midv-535">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/m7ud4wtimlbw" allowfullscreen loading="lazy"></iframe>
                 </div>
@@ -289,7 +347,7 @@
                 </div>
             </div>
 
-            <div class="video-card">
+            <div class="video-card" data-code="midv-719">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/3ehlixfhy5wk" allowfullscreen loading="lazy"></iframe>
                 </div>
@@ -305,7 +363,7 @@
                 </div>
             </div>
 
-            <div class="video-card">
+            <div class="video-card" data-code="midv-390">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/0ji1bqt21ot1" allowfullscreen loading="lazy"></iframe>
                 </div>
@@ -321,7 +379,7 @@
                 </div>
             </div>
 
-            <div class="video-card">
+            <div class="video-card" data-code="midv-296">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/d6kiyxhpxfha" allowfullscreen loading="lazy"></iframe>
                 </div>
@@ -348,6 +406,23 @@
     <footer class="site-footer">
         <p>&copy; 2026 JavStream HD. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Fungsi untuk menyaring video secara instan saat diketik di kolom search
+        function filterActressVideos() {
+            let query = document.getElementById('videoSearchInput').value.toLowerCase().trim();
+            let cards = document.querySelectorAll('.video-card');
+
+            cards.forEach(card => {
+                let code = card.getAttribute('data-code');
+                if (code.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
