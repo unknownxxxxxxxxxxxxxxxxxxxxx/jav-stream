@@ -136,16 +136,10 @@
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
             display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        @media (min-width: 768px) {
-            .profile-header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .profile-name {
@@ -154,16 +148,16 @@
             color: var(--text-main);
         }
 
-        .video-count-badge {
+        .page-info-badge {
             font-size: 12px;
             color: var(--text-muted);
-            margin-top: 4px;
         }
 
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
+            scroll-margin-top: 80px;
         }
 
         .video-card {
@@ -251,7 +245,7 @@
             text-decoration: underline;
         }
 
-        /* Styling Tip Navigasi Keyboard */
+        /* Styling Paginasi UX & Tips */
         .pagination-wrapper {
             display: flex;
             flex-direction: column;
@@ -259,6 +253,14 @@
             margin-top: 40px;
             margin-bottom: 10px;
             gap: 8px;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
         .page-tip {
@@ -277,6 +279,40 @@
             font-size: 10px;
         }
 
+        .page-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .page-btn:hover:not(.disabled):not(.active) {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-muted);
+        }
+
+        .page-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--text-main);
+        }
+
+        .page-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
         .site-footer {
             text-align: center;
             padding: 30px 24px;
@@ -293,7 +329,7 @@
         <a href="../../" class="logo">Jav<span>Stream</span></a>
         <div class="nav-right">
             <div class="search-box">
-                <input type="text" class="search-input" placeholder="Search releases..." id="videoSearchInput" oninput="filterActressVideos()">
+                <input type="text" class="search-input" placeholder="Search archive..." id="searchInput" oninput="triggerSearch()">
             </div>
         </div>
     </header>
@@ -306,16 +342,14 @@
         </div>
 
         <div class="profile-header">
-            <div>
-                <h1 class="profile-name">Minamisawa Umika</h1>
-                <div class="video-count-badge">Showing 3 Videos</div>
-            </div>
+            <h1 class="profile-name">Minamisawa Umika</h1>
+            <div class="page-info-badge" id="pageInfoBadge">Showing Page 1 of 1 (3 Videos)</div>
         </div>
         
-        <!-- Daftar Video Minamisawa Umika (Urutan terbaru di atas, lengkap dengan data-code untuk search) -->
-        <div class="video-grid" id="videoGridContainer">
+        <!-- KONTEN HTML STATIS UTAMA (Langsung dibaca Googlebot) -->
+        <div class="video-grid" id="mainVideoGrid">
             
-            <div class="video-card" data-code="jur-683">
+            <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/a68tcurf645r" allowfullscreen loading="lazy"></iframe>
                 </div>
@@ -331,7 +365,7 @@
                 </div>
             </div>
 
-            <div class="video-card" data-code="jur-655">
+            <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/13jr1kyhz6m7" allowfullscreen loading="lazy"></iframe>
                 </div>
@@ -347,7 +381,7 @@
                 </div>
             </div>
 
-            <div class="video-card" data-code="jur-064">
+            <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/413cododyut4" allowfullscreen loading="lazy"></iframe>
                 </div>
@@ -365,8 +399,9 @@
 
         </div>
 
-        <!-- Tip Navigasi Keyboard -->
+        <!-- Pagination Controls with Keyboard Shortcut Tip -->
         <div class="pagination-wrapper">
+            <div class="pagination-container" id="paginationContainer"></div>
             <div class="page-tip">Tip: Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> arrow keys on your keyboard to navigate pages.</div>
         </div>
     </main>
@@ -376,26 +411,112 @@
     </footer>
 
     <script>
-        // Fungsi untuk menyaring video secara instan saat diketik di kolom search
-        function filterActressVideos() {
-            let query = document.getElementById('videoSearchInput').value.toLowerCase().trim();
-            let cards = document.querySelectorAll('.video-card');
+        const database = [
+            { code: "JUR-683", actress: "Minamisawa Umika", embedUrl: "https://luluvido.com/e/a68tcurf645r", badge: "HD" },
+            { code: "JUR-655", actress: "Minamisawa Umika", embedUrl: "https://luluvido.com/e/13jr1kyhz6m7", badge: "HD" },
+            { code: "JUR-064", actress: "Minamisawa Umika", embedUrl: "https://luluvido.com/e/413cododyut4", badge: "HD" }
+        ];
 
-            cards.forEach(card => {
-                let code = card.getAttribute('data-code');
-                if (code.includes(query)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+        const ITEMS_PER_PAGE = 8;
+        let currentPage = 1;
+        let currentFilteredDatabase = [...database];
+
+        function renderPagination() {
+            const container = document.getElementById('paginationContainer');
+            const pageBadge = document.getElementById('pageInfoBadge');
+            const totalItems = currentFilteredDatabase.length;
+
+            if (totalItems === 0) {
+                container.innerHTML = '';
+                pageBadge.innerText = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+            pageBadge.innerText = `Showing Page ${currentPage} of ${totalPages} (${totalItems} Video${totalItems > 1 ? 's' : ''})`;
+
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            html += `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo; Prev</button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+
+            html += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &raquo;</button>`;
+
+            container.innerHTML = html;
         }
 
-        // Shortcut Keyboard Pendukung
+        function renderVideos() {
+            const grid = document.getElementById('mainVideoGrid');
+
+            if (currentFilteredDatabase.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No releases found matching your search.</div>';
+                renderPagination();
+                return;
+            }
+
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const pageVideos = currentFilteredDatabase.slice(startIndex, endIndex);
+
+            let html = '';
+            pageVideos.forEach(video => {
+                html += `
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe src="${video.embedUrl}" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <div class="video-title">${video.code}</div>
+                                <div class="video-actress">${video.actress}</div>
+                            </div>
+                            <div class="video-right-side">
+                                <span class="video-badge">${video.badge}</span>
+                                <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+            renderPagination();
+        }
+
+        function changePage(newPage) {
+            const totalPages = Math.ceil(currentFilteredDatabase.length / ITEMS_PER_PAGE);
+            if (newPage < 1 || newPage > totalPages) return;
+
+            currentPage = newPage;
+            renderVideos();
+            document.getElementById('mainVideoGrid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function triggerSearch() {
+            let query = document.getElementById('searchInput').value.toLowerCase().trim();
+            currentFilteredDatabase = database.filter(item => 
+                item.code.toLowerCase().includes(query)
+            );
+            currentPage = 1;
+            renderVideos();
+        }
+
         document.addEventListener('keydown', function(e) {
             const activeElement = document.activeElement;
             if (activeElement && activeElement.tagName === 'INPUT') return;
-            // Navigasi tambahan dapat disesuaikan di sini jika halaman aktris memiliki banyak halaman
+
+            const totalPages = Math.ceil(currentFilteredDatabase.length / ITEMS_PER_PAGE);
+            if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                changePage(currentPage + 1);
+            } else if (e.key === 'ArrowLeft' && currentPage > 1) {
+                changePage(currentPage - 1);
+            }
         });
     </script>
 
