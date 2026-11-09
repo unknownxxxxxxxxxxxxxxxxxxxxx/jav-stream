@@ -380,7 +380,7 @@
             user-select: none;
         }
 
-        .page-btn.hover:not(.disabled):not(.active) {
+        .page-btn:hover:not(.disabled):not(.active) {
             background: rgba(255, 255, 255, 0.08);
             border-color: var(--text-muted);
         }
@@ -436,7 +436,7 @@
 
         <div class="section-header">
             <h2 class="section-title">Latest Releases</h2>
-            <div class="page-info-badge" id="pageInfoBadge">Showing Page 1 of 1 (9 Videos)</div>
+            <div class="page-info-badge" id="pageInfoBadge">Showing Page 1 of 2 (9 Videos)</div>
         </div>
         
         <!-- KONTEN HTML STATIS UTAMA (Langsung dibaca Googlebot secara instan tanpa menunggu JS) -->
@@ -742,8 +742,8 @@
             }
         });
 
-        // Hapus window.onload agar teks HTML aslinya langsung terlihat saat halaman dibuka, 
-        // sementara fungsi JavaScript tetap siap sedia saat user mengetik di kolom search atau pindah halaman.
+        // Panggil renderPagination saat halaman dimuat agar tombol langsung aktif
+        renderPagination();
     </script>
 
 </body>
