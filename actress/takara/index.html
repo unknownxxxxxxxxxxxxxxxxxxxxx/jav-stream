@@ -1,1 +1,496 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title & SEO Meta Tags -->
+    <title>Takara - JAV Streaming Archive & Videos | JavStream HD</title>
+    <meta name="description" content="Watch high quality JAV streaming videos starring Takara online on JavStream HD. Explore complete actress archives.">
+    <meta name="keywords" content="Takara, jav takara, streaming takara, javstream, javstreamhd">
+    
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="WKsgCWA9Sjz-bw_bkkrmzkVkt-CaIXmNXbR2FbcE-3M" />
+</head>
+
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #15161c;
+            --accent-color: #e50914;
+            --text-main: #ffffff;
+            --text-muted: #8c8f96;
+            --border-color: #22252a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--card-bg);
+            padding: 14px 24px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px 12px;
+            width: 180px;
+            transition: width 0.3s ease, border-color 0.2s;
+        }
+
+        @media (min-width: 768px) {
+            .search-box {
+                width: 240px;
+            }
+        }
+
+        .search-box:focus-within {
+            border-color: var(--accent-color);
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 32px auto;
+            padding: 0 24px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .adblock-notice {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 6px;
+            padding: 12px 18px;
+            margin-bottom: 28px;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .adblock-notice strong {
+            color: var(--text-main);
+        }
+
+        .adblock-notice .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .profile-header {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .page-info-badge {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            scroll-margin-top: 80px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            border-color: #3a3f4b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-info {
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .video-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .video-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .video-actress {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .video-right-side {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .video-badge {
+            font-size: 10px;
+            text-transform: uppercase;
+            background: rgba(229, 9, 20, 0.15);
+            color: var(--accent-color);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .report-btn {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .report-btn:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        /* Styling Paginasi UX & Tips */
+        .pagination-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            gap: 8px;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .page-tip {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .page-tip kbd {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            padding: 1px 5px;
+            font-family: inherit;
+            color: var(--text-main);
+            font-size: 10px;
+        }
+
+        .page-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .page-btn:hover:not(.disabled):not(.active) {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-muted);
+        }
+
+        .page-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--text-main);
+        }
+
+        .page-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .site-footer {
+            text-align: center;
+            padding: 30px 24px;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="../../" class="logo">Jav<span>Stream</span></a>
+        <div class="nav-right">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search archive..." id="searchInput" oninput="triggerSearch()">
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Friendly Reminder Banner -->
+        <div class="adblock-notice">
+            💡 <strong>Tip for the Best Experience:</strong> For smooth, fast, and interruption-free playback, we highly recommend using an ad-blocker extension such as <span class="highlight">uBlock Origin</span> on your browser.<br><br>
+            📱 <strong>Mobile User Notice:</strong> Skip controls (±10s) may be hidden by the default mobile player. To enable them, switch to "Desktop Site" in your browser settings.
+        </div>
+
+        <div class="profile-header">
+            <h1 class="profile-name">Takara</h1>
+            <div class="page-info-badge" id="pageInfoBadge">Showing Page 1 of 1 (1 Videos)</div>
+        </div>
+        
+        <!-- KONTEN HTML STATIS UTAMA (Langsung dibaca Googlebot) -->
+        <div class="video-grid" id="mainVideoGrid">
+            
+            <!-- Video 1 -->
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://luluvido.com/e/h1hysvsqumvx" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <h3 class="video-title">STARS-769</h3>
+                        <div class="video-actress">Takara</div>
+                    </div>
+                    <div class="video-right-side">
+                        <span class="video-badge">HD</span>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Pagination Controls with Keyboard Shortcut Tip -->
+        <div class="pagination-wrapper">
+            <div class="pagination-container" id="paginationContainer"></div>
+            <div class="page-tip">Tip: Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> arrow keys on your keyboard to navigate pages.</div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 JavStream HD. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const database = [
+            { code: "STARS-769", actress: "Takara", embedUrl: "https://luluvido.com/e/h1hysvsqumvx", badge: "HD" }
+        ];
+
+        const ITEMS_PER_PAGE = 12;
+        let currentPage = 1;
+        let currentFilteredDatabase = [...database];
+
+        function renderPagination() {
+            const container = document.getElementById('paginationContainer');
+            const pageBadge = document.getElementById('pageInfoBadge');
+            const totalItems = currentFilteredDatabase.length;
+
+            if (totalItems === 0) {
+                container.innerHTML = '';
+                pageBadge.innerText = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+            pageBadge.innerText = `Showing Page ${currentPage} of ${totalPages} (${totalItems} Video${totalItems > 1 ? 's' : ''})`;
+
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            html += `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo; Prev</button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+
+            html += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &raquo;</button>`;
+
+            container.innerHTML = html;
+        }
+
+        function renderVideos() {
+            const grid = document.getElementById('mainVideoGrid');
+
+            if (currentFilteredDatabase.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No releases found matching your search.</div>';
+                renderPagination();
+                return;
+            }
+
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const pageVideos = currentFilteredDatabase.slice(startIndex, endIndex);
+
+            let html = '';
+            pageVideos.forEach(video => {
+                html += `
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe src="${video.embedUrl}" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <div class="video-title">${video.code}</div>
+                                <div class="video-actress">${video.actress}</div>
+                            </div>
+                            <div class="video-right-side">
+                                <span class="video-badge">${video.badge}</span>
+                                <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+            renderPagination();
+        }
+
+        function changePage(newPage) {
+            const totalPages = Math.ceil(currentFilteredDatabase.length / ITEMS_PER_PAGE);
+            if (newPage < 1 || newPage > totalPages) return;
+
+            currentPage = newPage;
+            renderVideos();
+            document.getElementById('mainVideoGrid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function triggerSearch() {
+            let query = document.getElementById('searchInput').value.toLowerCase().trim();
+            currentFilteredDatabase = database.filter(item => 
+                item.code.toLowerCase().includes(query)
+            );
+            currentPage = 1;
+            renderVideos();
+        }
+
+        document.addEventListener('keydown', function(e) {
+            const activeElement = document.activeElement;
+            if (activeElement && activeElement.tagName === 'INPUT') return;
+
+            const totalPages = Math.ceil(currentFilteredDatabase.length / ITEMS_PER_PAGE);
+            if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                changePage(currentPage + 1);
+            } else if (e.key === 'ArrowLeft' && currentPage > 1) {
+                changePage(currentPage - 1);
+            }
+        });
+
+        // Panggil renderPagination saat halaman dimuat agar badge dan status langsung sinkron
+        renderPagination();
+    </script>
+
+</body>
+</html>
 
