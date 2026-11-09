@@ -62,6 +62,46 @@
             color: var(--accent-color);
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px 12px;
+            width: 180px;
+            transition: width 0.3s ease, border-color 0.2s;
+        }
+
+        @media (min-width: 768px) {
+            .search-box {
+                width: 240px;
+            }
+        }
+
+        .search-box:focus-within {
+            border-color: var(--accent-color);
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
         .container {
             max-width: 1200px;
             margin: 32px auto;
@@ -95,6 +135,17 @@
             margin-bottom: 24px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .profile-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
         }
 
         .profile-name {
@@ -200,6 +251,32 @@
             text-decoration: underline;
         }
 
+        /* Styling Tip Navigasi Keyboard */
+        .pagination-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            gap: 8px;
+        }
+
+        .page-tip {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .page-tip kbd {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            padding: 1px 5px;
+            font-family: inherit;
+            color: var(--text-main);
+            font-size: 10px;
+        }
+
         .site-footer {
             text-align: center;
             padding: 30px 24px;
@@ -214,6 +291,11 @@
 
     <header class="navbar">
         <a href="../../" class="logo">Jav<span>Stream</span></a>
+        <div class="nav-right">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search releases..." id="videoSearchInput" oninput="filterActressVideos()">
+            </div>
+        </div>
     </header>
 
     <main class="container">
@@ -224,14 +306,16 @@
         </div>
 
         <div class="profile-header">
-            <h1 class="profile-name">Minamisawa Umika</h1>
-            <div class="video-count-badge">Showing 3 Videos</div>
+            <div>
+                <h1 class="profile-name">Minamisawa Umika</h1>
+                <div class="video-count-badge">Showing 3 Videos</div>
+            </div>
         </div>
         
-        <!-- Daftar Video Minamisawa Umika (Urutan terbaru di atas) -->
-        <div class="video-grid">
+        <!-- Daftar Video Minamisawa Umika (Urutan terbaru di atas, lengkap dengan data-code untuk search) -->
+        <div class="video-grid" id="videoGridContainer">
             
-            <div class="video-card">
+            <div class="video-card" data-code="jur-683">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/a68tcurf645r" allowfullscreen loading="lazy"></iframe>
                 </div>
@@ -247,7 +331,7 @@
                 </div>
             </div>
 
-            <div class="video-card">
+            <div class="video-card" data-code="jur-655">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/13jr1kyhz6m7" allowfullscreen loading="lazy"></iframe>
                 </div>
@@ -263,7 +347,7 @@
                 </div>
             </div>
 
-            <div class="video-card">
+            <div class="video-card" data-code="jur-064">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/413cododyut4" allowfullscreen loading="lazy"></iframe>
                 </div>
@@ -280,12 +364,33 @@
             </div>
 
         </div>
+
+        <!-- Tip Navigasi Keyboard -->
+        <div class="pagination-wrapper">
+            <div class="page-tip">Tip: Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> arrow keys on your keyboard to navigate pages.</div>
+        </div>
     </main>
 
     <footer class="site-footer">
         <p>&copy; 2026 JavStream HD. All rights reserved.</p>
     </footer>
 
+    <script>
+        // Fungsi untuk menyaring video secara instan saat diketik di kolom search
+        function filterActressVideos() {
+            let query = document.getElementById('videoSearchInput').value.toLowerCase().trim();
+            let cards = document.querySelectorAll('.video-card');
+
+            cards.forEach(card => {
+                let code = card.getAttribute('data-code');
+                if (code.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
 </body>
 </html>
-
