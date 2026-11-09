@@ -293,6 +293,32 @@
             text-decoration: underline;
         }
 
+        /* Styling Tip Navigasi Keyboard */
+        .pagination-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            gap: 8px;
+        }
+
+        .page-tip {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .page-tip kbd {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            padding: 1px 5px;
+            font-family: inherit;
+            color: var(--text-main);
+            font-size: 10px;
+        }
+
         .site-footer {
             text-align: center;
             padding: 30px 24px;
@@ -471,6 +497,11 @@
                 </div>
             </div>
 
+        </div>
+
+        <!-- Tip Navigasi Keyboard -->
+        <div class="pagination-wrapper">
+            <div class="page-tip">Tip: Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> arrow keys on your keyboard to navigate pages.</div>
         </div>
     </main>
 
