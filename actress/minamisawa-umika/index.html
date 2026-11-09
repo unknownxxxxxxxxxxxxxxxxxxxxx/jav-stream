@@ -390,6 +390,13 @@
                 }
             });
         }
+
+        // Shortcut Keyboard Pendukung
+        document.addEventListener('keydown', function(e) {
+            const activeElement = document.activeElement;
+            if (activeElement && activeElement.tagName === 'INPUT') return;
+            // Navigasi tambahan dapat disesuaikan di sini jika halaman aktris memiliki banyak halaman
+        });
     </script>
 
 </body>
