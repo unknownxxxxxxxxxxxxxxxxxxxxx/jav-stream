@@ -11,6 +11,7 @@
     
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="WKsgCWA9Sjz-bw_bkkrmzkVkt-CaIXmNXbR2FbcE-3M" />
+</head>
 
     <style>
         :root {
@@ -349,6 +350,7 @@
         <!-- KONTEN HTML STATIS UTAMA (Langsung dibaca Googlebot) -->
         <div class="video-grid" id="mainVideoGrid">
             
+            <!-- Video 5 -->
             <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/ehxd29ifwn0h" allowfullscreen loading="lazy"></iframe>
@@ -365,6 +367,7 @@
                 </div>
             </div>
 
+            <!-- Video 4 -->
             <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/m7ud4wtimlbw" allowfullscreen loading="lazy"></iframe>
@@ -381,6 +384,7 @@
                 </div>
             </div>
 
+            <!-- Video 3 -->
             <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/3ehlixfhy5wk" allowfullscreen loading="lazy"></iframe>
@@ -397,6 +401,7 @@
                 </div>
             </div>
 
+            <!-- Video 2 -->
             <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/0ji1bqt21ot1" allowfullscreen loading="lazy"></iframe>
@@ -413,6 +418,7 @@
                 </div>
             </div>
 
+            <!-- Video 1 -->
             <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/d6kiyxhpxfha" allowfullscreen loading="lazy"></iframe>
@@ -451,7 +457,7 @@
             { code: "MIDV-296", actress: "Aoi Ibuki", embedUrl: "https://luluvido.com/e/d6kiyxhpxfha", badge: "HD" }
         ];
 
-        const ITEMS_PER_PAGE = 8;
+        const ITEMS_PER_PAGE = 12;
         let currentPage = 1;
         let currentFilteredDatabase = [...database];
 
@@ -552,6 +558,9 @@
                 changePage(currentPage - 1);
             }
         });
+
+        // Panggil renderPagination saat halaman dimuat agar tombol langsung aktif
+        renderPagination();
     </script>
 
 </body>
