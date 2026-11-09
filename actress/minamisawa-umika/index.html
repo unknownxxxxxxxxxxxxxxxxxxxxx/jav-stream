@@ -1,1 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title & SEO Meta Tags -->
+    <title>Minamisawa Umika - JAV Streaming Archive & Videos | JavStream HD</title>
+    <meta name="description" content="Watch high quality JAV streaming videos starring Minamisawa Umika online on JavStream HD. Explore complete actress archives.">
+    <meta name="keywords" content="Minamisawa Umika, jav minamisawa umika, streaming minamisawa umika, javstream, javstreamhd">
+    
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="WKsgCWA9Sjz-bw_bkkrmzkVkt-CaIXmNXbR2FbcE-3M" />
+
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #15161c;
+            --accent-color: #e50914;
+            --text-main: #ffffff;
+            --text-muted: #8c8f96;
+            --border-color: #22252a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--card-bg);
+            padding: 14px 24px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 32px auto;
+            padding: 0 24px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .adblock-notice {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 6px;
+            padding: 12px 18px;
+            margin-bottom: 28px;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .adblock-notice strong {
+            color: var(--text-main);
+        }
+
+        .adblock-notice .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .profile-header {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .video-count-badge {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            border-color: #3a3f4b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-info {
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .video-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .video-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .video-actress {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .video-right-side {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .video-badge {
+            font-size: 10px;
+            text-transform: uppercase;
+            background: rgba(229, 9, 20, 0.15);
+            color: var(--accent-color);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .report-btn {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .report-btn:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        .site-footer {
+            text-align: center;
+            padding: 30px 24px;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="../../" class="logo">Jav<span>Stream</span></a>
+    </header>
+
+    <main class="container">
+        <!-- Friendly Reminder Banner -->
+        <div class="adblock-notice">
+            💡 <strong>Tip for the Best Experience:</strong> For smooth, fast, and interruption-free playback, we highly recommend using an ad-blocker extension such as <span class="highlight">uBlock Origin</span> on your browser.<br><br>
+            📱 <strong>Mobile User Notice:</strong> Skip controls (±10s) may be hidden by the default mobile player. To enable them, switch to "Desktop Site" in your browser settings.
+        </div>
+
+        <div class="profile-header">
+            <h1 class="profile-name">Minamisawa Umika</h1>
+            <div class="video-count-badge">Showing 3 Videos</div>
+        </div>
+        
+        <!-- Daftar Video Minamisawa Umika (Urutan terbaru di atas) -->
+        <div class="video-grid">
+            
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://luluvido.com/e/a68tcurf645r" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <h3 class="video-title">JUR-683</h3>
+                        <div class="video-actress">Minamisawa Umika</div>
+                    </div>
+                    <div class="video-right-side">
+                        <span class="video-badge">HD</span>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://luluvido.com/e/13jr1kyhz6m7" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <h3 class="video-title">JUR-655</h3>
+                        <div class="video-actress">Minamisawa Umika</div>
+                    </div>
+                    <div class="video-right-side">
+                        <span class="video-badge">HD</span>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://luluvido.com/e/413cododyut4" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <h3 class="video-title">JUR-064</h3>
+                        <div class="video-actress">Minamisawa Umika</div>
+                    </div>
+                    <div class="video-right-side">
+                        <span class="video-badge">HD</span>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 JavStream HD. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
 
