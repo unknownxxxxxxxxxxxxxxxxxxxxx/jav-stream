@@ -234,6 +234,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
+            scroll-margin-top: 80px;
         }
 
         .video-card {
@@ -327,6 +328,74 @@
             text-decoration: underline;
         }
 
+        /* Styling Paginasi UX & Tips */
+        .pagination-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            gap: 8px;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .page-tip {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .page-tip kbd {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            padding: 1px 5px;
+            font-family: inherit;
+            color: var(--text-main);
+            font-size: 10px;
+        }
+
+        .page-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .page-btn.hover:not(.disabled):not(.active) {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-muted);
+        }
+
+        .page-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--text-main);
+        }
+
+        .page-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
         .site-footer {
             text-align: center;
             padding: 30px 24px;
@@ -343,7 +412,7 @@
         <a href="/" class="logo">Jav<span>Stream</span></a>
         <div class="nav-right">
             <div class="search-box">
-                <input type="text" class="search-input" placeholder="Search archive..." id="searchInput" oninput="filterVideos()">
+                <input type="text" class="search-input" placeholder="Search archive..." id="searchInput" oninput="triggerSearch()">
             </div>
 
             <div class="menu-container">
@@ -367,13 +436,13 @@
 
         <div class="section-header">
             <h2 class="section-title">Latest Releases</h2>
-            <div class="page-info-badge">Showing 8 Videos</div>
+            <div class="page-info-badge" id="pageInfoBadge">Showing Page 1 of 1 (8 Videos)</div>
         </div>
         
-        <!-- GRID VIDEO STATIS (100% Bersih, Langsung Terbaca Google & Mudah Dirawat) -->
-        <div class="video-grid" id="videoGrid">
+        <!-- KONTEN HTML STATIS UTAMA (Langsung dibaca Googlebot secara instan tanpa menunggu JS) -->
+        <div class="video-grid" id="mainVideoGrid">
             
-            <!-- Video 1 (Paling Atas) -->
+            <!-- Video 1 -->
             <div class="video-card">
                 <div class="video-container">
                     <iframe src="https://luluvido.com/e/ehxd29ifwn0h" allowfullscreen loading="lazy"></iframe>
@@ -510,6 +579,12 @@
             </div>
 
         </div>
+
+        <!-- Pagination Controls with Keyboard Shortcut Tip -->
+        <div class="pagination-wrapper">
+            <div class="pagination-container" id="paginationContainer"></div>
+            <div class="page-tip">Tip: Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> arrow keys on your keyboard to navigate pages.</div>
+        </div>
     </main>
 
     <footer class="site-footer">
@@ -517,7 +592,22 @@
     </footer>
 
     <script>
-        // Menu dropdown atas
+        // Database JavaScript tetap dipertahankan untuk fitur Pencarian & Paginasi interaktif
+        const database = [
+            { code: "MIDV-073", actress: "Aoi Ibuki", actressSlug: "aoi-ibuki", embedUrl: "https://luluvido.com/e/ehxd29ifwn0h", badge: "HD" },
+            { code: "MIDV-535", actress: "Aoi Ibuki", actressSlug: "aoi-ibuki", embedUrl: "https://luluvido.com/e/m7ud4wtimlbw", badge: "HD" },
+            { code: "MIDV-719", actress: "Aoi Ibuki", actressSlug: "aoi-ibuki", embedUrl: "https://luluvido.com/e/3ehlixfhy5wk", badge: "HD" },
+            { code: "MIDV-390", actress: "Aoi Ibuki", actressSlug: "aoi-ibuki", embedUrl: "https://luluvido.com/e/0ji1bqt21ot1", badge: "HD" },
+            { code: "MIDV-296", actress: "Aoi Ibuki", actressSlug: "aoi-ibuki", embedUrl: "https://luluvido.com/e/d6kiyxhpxfha", badge: "HD" },
+            { code: "JUR-683", actress: "Minamisawa Umika", actressSlug: "minamisawa-umika", embedUrl: "https://luluvido.com/e/a68tcurf645r", badge: "HD" },
+            { code: "JUR-655", actress: "Minamisawa Umika", actressSlug: "minamisawa-umika", embedUrl: "https://luluvido.com/e/13jr1kyhz6m7", badge: "HD" },
+            { code: "JUR-064", actress: "Minamisawa Umika", actressSlug: "minamisawa-umika", embedUrl: "https://luluvido.com/e/413cododyut4", badge: "HD" }
+        ];
+
+        const ITEMS_PER_PAGE = 8;
+        let currentPage = 1;
+        let currentFilteredDatabase = [...database];
+
         function toggleMenu() {
             let menu = document.getElementById('dropdownMenu');
             menu.classList.toggle('show');
@@ -535,20 +625,108 @@
             }
         }
 
-        // Fitur Pencarian Otomatis Langsung Menyaring Elemen di Layar
-        function filterVideos() {
-            let query = document.getElementById('searchInput').value.toLowerCase().trim();
-            let cards = document.querySelectorAll('.video-card');
+        function renderPagination() {
+            const container = document.getElementById('paginationContainer');
+            const pageBadge = document.getElementById('pageInfoBadge');
+            const totalItems = currentFilteredDatabase.length;
 
-            cards.forEach(card => {
-                let text = card.innerText.toLowerCase();
-                if (text.includes(query)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            if (totalItems === 0) {
+                container.innerHTML = '';
+                pageBadge.innerText = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+            pageBadge.innerText = `Showing Page ${currentPage} of ${totalPages} (${totalItems} Video${totalItems > 1 ? 's' : ''})`;
+
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            html += `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo; Prev</button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+
+            html += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &raquo;</button>`;
+
+            container.innerHTML = html;
         }
+
+        function renderVideos() {
+            const grid = document.getElementById('mainVideoGrid');
+
+            if (currentFilteredDatabase.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No releases found matching your search.</div>';
+                renderPagination();
+                return;
+            }
+
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const pageVideos = currentFilteredDatabase.slice(startIndex, endIndex);
+
+            let html = '';
+            pageVideos.forEach(video => {
+                html += `
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe src="${video.embedUrl}" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-meta">
+                                <div class="video-title">${video.code}</div>
+                                <a href="actress/${video.actressSlug}/" class="video-actress">${video.actress}</a>
+                            </div>
+                            <div class="video-right-side">
+                                <span class="video-badge">${video.badge}</span>
+                                <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+            renderPagination();
+        }
+
+        function changePage(newPage) {
+            const totalPages = Math.ceil(currentFilteredDatabase.length / ITEMS_PER_PAGE);
+            if (newPage < 1 || newPage > totalPages) return;
+
+            currentPage = newPage;
+            renderVideos();
+            document.getElementById('mainVideoGrid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function triggerSearch() {
+            let query = document.getElementById('searchInput').value.toLowerCase().trim();
+            currentFilteredDatabase = database.filter(item => 
+                item.code.toLowerCase().includes(query) || 
+                item.actress.toLowerCase().includes(query)
+            );
+            currentPage = 1;
+            renderVideos();
+        }
+
+        document.addEventListener('keydown', function(e) {
+            const activeElement = document.activeElement;
+            if (activeElement && activeElement.tagName === 'INPUT') return;
+
+            const totalPages = Math.ceil(currentFilteredDatabase.length / ITEMS_PER_PAGE);
+            if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                changePage(currentPage + 1);
+            } else if (e.key === 'ArrowLeft' && currentPage > 1) {
+                changePage(currentPage - 1);
+            }
+        });
+
+        // Hapus window.onload agar teks HTML aslinya langsung terlihat saat halaman dibuka, 
+        // sementara fungsi JavaScript tetap siap sedia saat user mengetik di kolom search atau pindah halaman.
     </script>
+
 </body>
 </html>
