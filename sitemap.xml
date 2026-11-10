@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+    <!-- Halaman Utama (Homepage) -->
+    <url>
+        <loc>https://javstreamhd.com/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Halaman Direktori Aktris -->
+    <url>
+        <loc>https://javstreamhd.com/actress/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Profil Aktris: Aoi Ibuki -->
+    <url>
+        <loc>https://javstreamhd.com/actress/aoi-ibuki/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Profil Aktris: Minamisawa Umika -->
+    <url>
+        <loc>https://javstreamhd.com/actress/minamisawa-umika/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Profil Aktris: Takara -->
+    <url>
+        <loc>https://javstreamhd.com/actress/takara/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+</urlset>
