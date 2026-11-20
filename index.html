@@ -387,12 +387,12 @@
             color: var(--text-main);
         }
 
-        /* Section Header & Filter Pills */
+        /* Section Header */
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 10px;
         }
@@ -414,44 +414,6 @@
             border: 1px solid var(--border-color);
             padding: 4px 11px;
             border-radius: 6px;
-        }
-
-        .filter-bar {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-            margin-bottom: 22px;
-            scrollbar-width: none;
-        }
-
-        .filter-bar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .filter-pill {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 6px 13px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-        }
-
-        .filter-pill:hover {
-            border-color: var(--border-hover);
-            color: var(--text-main);
-        }
-
-        .filter-pill.active {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-            color: #ffffff;
         }
 
         /* Clean, Spacious Video Grid */
@@ -791,14 +753,6 @@
             <h1 class="section-title">Latest Releases</h1>
             <div class="page-info-badge" id="pageInfoBadge">Showing Page 1 of 1 (9 Videos)</div>
         </div>
-
-        <!-- Quick Actress Filter Pills -->
-        <div class="filter-bar" id="filterBar" aria-label="Filter by actress">
-            <button type="button" class="filter-pill active" onclick="filterByActress('ALL', this)">All (9)</button>
-            <button type="button" class="filter-pill" onclick="filterByActress('Aoi Ibuki', this)">Aoi Ibuki (5)</button>
-            <button type="button" class="filter-pill" onclick="filterByActress('Minamisawa Umika', this)">Minamisawa Umika (3)</button>
-            <button type="button" class="filter-pill" onclick="filterByActress('Takara', this)">Takara (1)</button>
-        </div>
         
         <!-- Static HTML Video Grid (Directly crawlable by Googlebot) -->
         <div class="video-grid" id="mainVideoGrid">
@@ -998,7 +952,6 @@
 
         const ITEMS_PER_PAGE = 12;
         let currentPage = 1;
-        let selectedActress = 'ALL';
         let currentFilteredDatabase = [...database];
 
         // Check saved notice preference
@@ -1052,22 +1005,13 @@
             }
 
             currentFilteredDatabase = database.filter(item => {
-                const matchesActress = selectedActress === 'ALL' || item.actress === selectedActress;
-                const matchesQuery = !query || 
+                return !query || 
                     item.code.toLowerCase().includes(query) || 
                     item.actress.toLowerCase().includes(query);
-                return matchesActress && matchesQuery;
             });
 
             currentPage = 1;
             renderVideos();
-        }
-
-        function filterByActress(actressName, pillElement) {
-            selectedActress = actressName;
-            document.querySelectorAll('.filter-pill').forEach(pill => pill.classList.remove('active'));
-            if (pillElement) pillElement.classList.add('active');
-            applyFilters();
         }
 
         function triggerSearch() {
@@ -1082,10 +1026,7 @@
         }
 
         function resetAllFilters() {
-            selectedActress = 'ALL';
             document.getElementById('searchInput').value = '';
-            const pills = document.querySelectorAll('.filter-pill');
-            pills.forEach((pill, idx) => pill.classList.toggle('active', idx === 0));
             applyFilters();
         }
 
