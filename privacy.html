@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title & Core SEO Meta Tags -->
     <title>Privacy Policy &amp; Terms - JavStream HD</title>
-    <meta name="description" content="Privacy Policy and Terms of Service for JavStream HD.">
+    <meta name="description" content="Privacy Policy and Terms of Use for JavStream HD.">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#090a0f">
+    <meta name="theme-color" content="#0f1115">
     <link rel="canonical" href="https://javstreamhd.com/privacy.html">
 
     <!-- Favicon & App Icon -->
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
     <link rel="apple-touch-icon" href="/favicon.jpg">
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="JavStream HD">
-    <meta property="og:title" content="Privacy Policy &amp; Terms - JavStream HD">
-    <meta property="og:description" content="Privacy Policy and Terms of Service for JavStream HD.">
-    <meta property="og:url" content="https://javstreamhd.com/privacy.html">
-    <meta property="og:image" content="https://javstreamhd.com/favicon.jpg">
-
     <style>
         :root {
-            --bg-color: #090a0f;
-            --card-bg: #141722;
-            --accent-color: #e50914;
-            --text-main: #f8f9fa;
-            --text-secondary: #c4c9d4;
-            --text-muted: #848b9d;
-            --border-color: rgba(255, 255, 255, 0.08);
+            --bg-color: #0f1115;
+            --navbar-bg: #13161c;
+            --card-bg: #161920;
+            --card-hover: #1b1f28;
+            --accent-color: #c8323b;
+            --accent-hover: #d93b44;
+            --accent-soft: rgba(200, 50, 59, 0.12);
+            --accent-border: rgba(200, 50, 59, 0.32);
+            --text-main: #e6e8ec;
+            --text-secondary: #a8b0bd;
+            --text-muted: #78808e;
+            --border-color: #232732;
+            --border-hover: #353b4b;
         }
 
         * {
@@ -42,27 +42,25 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.08) 0%, transparent 50%);
-            background-repeat: no-repeat;
             color: var(--text-main);
-            line-height: 1.7;
+            line-height: 1.65;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
+        /* Navbar */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(13, 15, 23, 0.85);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            background-color: var(--navbar-bg);
             padding: 12px 20px;
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
+            gap: 12px;
         }
 
         @media (min-width: 768px) {
@@ -75,68 +73,151 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 19px;
-            font-weight: 800;
+            font-size: 18px;
+            font-weight: 700;
             color: var(--text-main);
             text-decoration: none;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
         }
 
         .logo-mark {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 7px;
-            background: #15161c;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background-color: #1b1f28;
+            border: 1px solid #2b303e;
             color: var(--accent-color);
-            font-weight: 900;
-            font-size: 16px;
-            box-shadow: 0 2px 10px rgba(229, 9, 20, 0.25);
+            font-weight: 800;
+            font-size: 14px;
         }
 
         .logo span.accent {
-            color: var(--accent-color);
+            color: #d6454e;
         }
 
         .logo-hd {
             font-size: 9px;
-            font-weight: 800;
-            letter-spacing: 0.8px;
-            background: rgba(229, 9, 20, 0.16);
-            color: var(--accent-color);
-            border: 1px solid rgba(229, 9, 20, 0.35);
+            font-weight: 700;
+            letter-spacing: 0.7px;
+            background-color: var(--accent-soft);
+            color: #d85b63;
+            border: 1px solid var(--accent-border);
             padding: 2px 5px;
             border-radius: 4px;
             text-transform: uppercase;
         }
 
-        .back-link {
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-home-btn {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.04);
+            background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 13px;
             font-weight: 600;
-            padding: 7px 14px;
-            border-radius: 8px;
-            transition: all 0.2s ease;
+            padding: 7px 12px;
+            border-radius: 7px;
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
         }
 
-        .back-link:hover {
-            background: rgba(255, 255, 255, 0.09);
+        .nav-home-btn:hover {
+            background-color: var(--card-hover);
+            border-color: var(--border-hover);
             color: var(--text-main);
-            border-color: rgba(255, 255, 255, 0.2);
         }
 
+        /* Menu Button & Dropdown */
+        .menu-container {
+            position: relative;
+        }
+
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 7px 12px;
+            border-radius: 7px;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .icon-btn:hover, .icon-btn[aria-expanded="true"] {
+            background-color: var(--card-hover);
+            border-color: var(--border-hover);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            background-color: #181b23;
+            border: 1px solid #2a2f3d;
+            border-radius: 8px;
+            width: 200px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item-primary {
+            display: block;
+            padding: 12px 15px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 600;
+            background-color: var(--accent-soft);
+            border-left: 3px solid var(--accent-color);
+            transition: background-color 0.15s ease;
+        }
+
+        .dropdown-item-primary:hover {
+            background-color: rgba(200, 50, 59, 0.2);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--border-color);
+        }
+
+        .dropdown-item-secondary {
+            display: block;
+            padding: 10px 15px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 12.5px;
+            transition: color 0.15s ease, background-color 0.15s ease;
+        }
+
+        .dropdown-item-secondary:hover {
+            color: var(--text-main);
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        /* Article Container */
         .container {
             max-width: 820px;
-            margin: 28px auto 48px;
+            margin: 28px auto 52px;
             padding: 0 20px;
             flex: 1;
             width: 100%;
@@ -148,7 +229,7 @@
             gap: 8px;
             font-size: 12.5px;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .breadcrumb a {
@@ -157,73 +238,68 @@
         }
 
         .breadcrumb a:hover {
-            color: var(--accent-color);
-        }
-
-        .breadcrumb span.sep {
-            opacity: 0.45;
+            color: var(--text-main);
         }
 
         .doc-card {
-            background: var(--card-bg);
+            background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-top: 3px solid var(--accent-color);
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 26px 22px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         @media (min-width: 768px) {
             .doc-card {
-                padding: 36px 40px;
+                padding: 34px 38px;
             }
         }
 
-        h1 {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 16px;
-            color: var(--text-main);
-            letter-spacing: 0.2px;
-        }
-
-        h2 {
-            font-size: 17px;
+        .doc-title {
+            font-size: 21px;
             font-weight: 700;
-            margin-top: 26px;
-            margin-bottom: 10px;
-            color: #ff4750;
+            color: var(--text-main);
             border-left: 3px solid var(--accent-color);
-            padding-left: 10px;
-        }
-
-        p, ul {
-            font-size: 14.5px;
-            color: var(--text-secondary);
-            margin-bottom: 14px;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        li {
+            padding-left: 12px;
             margin-bottom: 8px;
         }
 
-        a {
-            color: var(--accent-color);
-            text-decoration: none;
+        .doc-updated {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            padding-left: 15px;
         }
 
-        a:hover {
-            text-decoration: underline;
+        .doc-section {
+            margin-bottom: 22px;
         }
 
+        .doc-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .doc-section h2 {
+            font-size: 15.5px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .doc-section p {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .doc-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
         .site-footer {
-            background: rgba(11, 13, 20, 0.9);
+            background-color: var(--navbar-bg);
             border-top: 1px solid var(--border-color);
-            padding: 28px 20px;
+            padding: 26px 20px;
             margin-top: auto;
             text-align: center;
         }
@@ -231,21 +307,21 @@
         .footer-links {
             display: flex;
             justify-content: center;
+            align-items: center;
             flex-wrap: wrap;
             gap: 18px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .footer-links a {
             color: var(--text-muted);
             text-decoration: none;
             font-size: 12.5px;
-            transition: color 0.2s;
+            transition: color 0.15s ease;
         }
 
         .footer-links a:hover {
             color: var(--text-main);
-            text-decoration: none;
         }
 
         .footer-copy {
@@ -263,34 +339,63 @@
             <span>Jav<span class="accent">Stream</span></span>
             <span class="logo-hd">HD</span>
         </a>
-        <a href="/" class="back-link">&larr; Home</a>
+        <div class="nav-right">
+            <a href="/" class="nav-home-btn">Home</a>
+            <div class="menu-container">
+                <button type="button" class="icon-btn" id="menuBtn" onclick="toggleMenu()" aria-expanded="false" aria-label="Navigation Menu">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    <span>Menu</span>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="actress/" class="dropdown-item-primary">Actress Directory</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="disclaimer.html" class="dropdown-item-secondary">Disclaimer &amp; DMCA</a>
+                    <a href="privacy.html" class="dropdown-item-secondary">Privacy Policy &amp; Terms</a>
+                </div>
+            </div>
+        </div>
     </header>
 
     <main class="container">
         <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Home</a>
-            <span class="sep">/</span>
+            <span>/</span>
             <span>Privacy Policy &amp; Terms</span>
         </nav>
 
         <article class="doc-card">
-            <h1>Privacy Policy &amp; Terms of Service</h1>
-            
-            <h2>Privacy Policy</h2>
-            <p>At JavStream HD, accessible from javstreamhd.com, we respect your privacy. This Privacy Policy document outlines the types of information that is collected and recorded by JavStream HD and how we use it.</p>
-            <p>We do not require user registration or collect personal identifiable information (PII) such as names, addresses, or phone numbers. Standard server logs and analytics may collect non-personal data such as browser types, IP addresses, and referring pages for performance and security purposes.</p>
-            <p>Third-party video hosts (such as LuluStream) embedded on our site may use cookies or track interactions according to their respective privacy policies.</p>
+            <h1 class="doc-title">Privacy Policy &amp; Terms of Use</h1>
+            <p class="doc-updated">Last Updated: 2026</p>
 
-            <h2>Terms of Service</h2>
-            <p>By accessing JavStream HD, you agree to comply with these terms of service:</p>
-            <ul>
-                <li>You must be at least 18 years of age or of legal age in your jurisdiction to view adult content.</li>
-                <li>JavStream HD is provided on an "as is" basis without warranties of any kind. We are not responsible for the availability or content of third-party embedded streams.</li>
-                <li>Users are strictly prohibited from attempting to disrupt, hack, or compromise the security of the website platform.</li>
-            </ul>
+            <section class="doc-section">
+                <h2>1. Information We Collect</h2>
+                <p>JavStream HD does not require user registration, accounts, or personal profile submissions to browse our catalog. We do not collect your name, email address, or personal identification details during normal browsing.</p>
+                <p>Like most standard websites, basic non-personally identifiable technical logs (such as browser type, referring page, and standard HTTP access logs) may be processed automatically by our hosting infrastructure for security and performance maintenance.</p>
+            </section>
 
-            <h2>Updates</h2>
-            <p>We reserve the right to modify or update this Privacy Policy and Terms of Service at any time without prior notice.</p>
+            <section class="doc-section">
+                <h2>2. Local Browser Storage</h2>
+                <p>We use minimal browser local storage (<code>localStorage</code>) strictly to remember interface preferences—such as whether you have dismissed the playback tip banner. This data stays solely on your device and is never transmitted to external servers.</p>
+            </section>
+
+            <section class="doc-section">
+                <h2>3. Third-Party Embeds &amp; Cookies</h2>
+                <p>Video players embedded on JavStream HD are served directly from third-party streaming domains. These external providers may set their own cookies, collect usage telemetry, or display advertisements governed by their respective privacy policies. We recommend using reputable browser privacy tools or ad-blockers for an optimal viewing experience.</p>
+            </section>
+
+            <section class="doc-section">
+                <h2>4. Terms of Use</h2>
+                <p>By using JavStream HD, you agree to use the site solely for lawful, personal, and non-commercial browsing. Automated scraping, denial-of-service attempts, or misuse of site resources is strictly prohibited.</p>
+            </section>
+
+            <section class="doc-section">
+                <h2>5. Policy Updates</h2>
+                <p>We reserve the right to update this Privacy Policy and Terms of Use at any time without prior notice. Continued use of the website constitutes acceptance of the current terms.</p>
+            </section>
         </article>
     </main>
 
@@ -304,5 +409,24 @@
         <p class="footer-copy">&copy; 2026 JavStream HD. All rights reserved.</p>
     </footer>
 
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            const btn = document.getElementById('menuBtn');
+            const isOpen = menu.classList.toggle('show');
+            btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+
+        window.addEventListener('click', function(event) {
+            if (!event.target.closest('.menu-container')) {
+                const menu = document.getElementById('dropdownMenu');
+                const btn = document.getElementById('menuBtn');
+                if (menu && menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
