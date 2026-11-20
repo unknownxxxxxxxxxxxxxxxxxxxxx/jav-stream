@@ -1,463 +1,894 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Title & SEO Meta Tags -->
+    <!-- Title & Core SEO Meta Tags -->
     <title>JavStream HD - Watch Free JAV Stream Online</title>
     <meta name="description" content="Watch high quality JAV streaming videos online on JavStream HD. Explore latest releases and actress archives.">
     <meta name="keywords" content="jav, javstream, jav stream, javstreamhd, streaming jav, free jav streaming, latest jav releases">
-<link rel="canonical" href="https://javstreamhd.com/">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#090a0f">
+    <link rel="canonical" href="https://javstreamhd.com/">
     
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="WKsgCWA9Sjz-bw_bkkrmzkVkt-CaIXmNXbR2FbcE-3M" />
 
-    <!-- Favicon -->
+    <!-- Favicon & App Icon -->
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
-</head>
-<style>
-    :root {
-        --bg-color: #0b0c10;
-        --card-bg: #15161c;
-        --accent-color: #e50914;
-        --text-main: #ffffff;
-        --text-muted: #8c8f96;
-        --border-color: #22252a;
-    }
+    <link rel="apple-touch-icon" href="/favicon.jpg">
 
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+    <!-- Open Graph / Social Media Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="JavStream HD">
+    <meta property="og:title" content="JavStream HD - Watch Free JAV Stream Online">
+    <meta property="og:description" content="Watch high quality JAV streaming videos online on JavStream HD. Explore latest releases and actress archives.">
+    <meta property="og:url" content="https://javstreamhd.com/">
+    <meta property="og:image" content="https://javstreamhd.com/favicon.jpg">
 
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background-color: var(--bg-color);
-        color: var(--text-main);
-        line-height: 1.5;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JavStream HD - Watch Free JAV Stream Online">
+    <meta name="twitter:description" content="Watch high quality JAV streaming videos online on JavStream HD. Explore latest releases and actress archives.">
+    <meta name="twitter:image" content="https://javstreamhd.com/favicon.jpg">
 
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: var(--card-bg);
-        padding: 14px 24px;
-        border-bottom: 1px solid var(--border-color);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "JavStream HD",
+      "url": "https://javstreamhd.com/",
+      "description": "Watch high quality JAV streaming videos online on JavStream HD. Explore latest releases and actress archives.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://javstreamhd.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
     }
+    </script>
 
-    .logo {
-        font-size: 20px;
-        font-weight: 800;
-        color: var(--text-main);
-        text-decoration: none;
-        letter-spacing: 0.5px;
-    }
-
-    .logo span {
-        color: var(--accent-color);
-    }
-
-    .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .search-box {
-        display: flex;
-        align-items: center;
-        background: var(--bg-color);
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
-        padding: 6px 12px;
-        width: 180px;
-        transition: width 0.3s ease, border-color 0.2s;
-    }
-
-    @media (min-width: 768px) {
-        .search-box {
-            width: 240px;
+    <style>
+        :root {
+            --bg-color: #090a0f;
+            --bg-elevated: #11131b;
+            --card-bg: #141722;
+            --card-hover: #191d2b;
+            --accent-color: #e50914;
+            --accent-hover: #ff1e27;
+            --accent-glow: rgba(229, 9, 20, 0.32);
+            --text-main: #f8f9fa;
+            --text-secondary: #c4c9d4;
+            --text-muted: #848b9d;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(229, 9, 20, 0.45);
         }
-    }
 
-    .search-box:focus-within {
-        border-color: var(--accent-color);
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    .search-input {
-        background: transparent;
-        border: none;
-        color: var(--text-main);
-        font-size: 13px;
-        outline: none;
-        width: 100%;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    .search-input::placeholder {
-        color: var(--text-muted);
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.09) 0%, transparent 55%);
+            background-repeat: no-repeat;
+            color: var(--text-main);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    .icon-btn {
-        background: none;
-        border: none;
-        color: var(--text-main);
-        font-size: 18px;
-        cursor: pointer;
-        padding: 4px 8px;
-        border-radius: 4px;
-        transition: background 0.2s;
-    }
+        /* Glassmorphic Sticky Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(13, 15, 23, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            gap: 12px;
+        }
 
-    .icon-btn:hover {
-        background: rgba(255, 255, 255, 0.05);
-    }
+        @media (min-width: 768px) {
+            .navbar {
+                padding: 14px 32px;
+            }
+        }
 
-    .menu-container {
-        position: relative;
-    }
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 19px;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 0.3px;
+            flex-shrink: 0;
+        }
 
-    .dropdown-menu {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 48px;
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        width: 180px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-        overflow: hidden;
-        z-index: 1001;
-    }
+        .logo-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            background: #15161c;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--accent-color);
+            font-weight: 900;
+            font-size: 16px;
+            box-shadow: 0 2px 10px rgba(229, 9, 20, 0.25);
+        }
 
-    .dropdown-menu.show {
-        display: block;
-    }
+        .logo span.accent {
+            color: var(--accent-color);
+        }
 
-    .dropdown-item-primary {
-        display: block;
-        padding: 12px 16px;
-        color: var(--text-main);
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 700;
-        background: rgba(229, 9, 20, 0.15);
-        border-left: 3px solid var(--accent-color);
-        transition: background 0.2s;
-    }
+        .logo-hd {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            background: rgba(229, 9, 20, 0.16);
+            color: var(--accent-color);
+            border: 1px solid rgba(229, 9, 20, 0.35);
+            padding: 2px 5px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
 
-    .dropdown-item-primary:hover {
-        background: rgba(229, 9, 20, 0.25);
-        color: var(--accent-color);
-    }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .dropdown-divider {
-        height: 1px;
-        background: var(--border-color);
-        margin: 4px 0;
-    }
+        @media (min-width: 768px) {
+            .nav-right {
+                gap: 14px;
+            }
+        }
 
-    .dropdown-item-secondary {
-        display: block;
-        padding: 8px 16px;
-        color: var(--text-muted);
-        text-decoration: none;
-        font-size: 11px;
-        transition: color 0.2s, background 0.2s;
-    }
+        /* Enhanced Search Box */
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 7px 11px;
+            width: 155px;
+            transition: all 0.25s ease;
+        }
 
-    .dropdown-item-secondary:hover {
-        color: var(--text-main);
-        background: rgba(255, 255, 255, 0.03);
-    }
+        @media (min-width: 480px) {
+            .search-box {
+                width: 200px;
+            }
+        }
 
-    .container {
-        max-width: 1200px;
-        margin: 32px auto;
-        padding: 0 24px;
-        flex: 1;
-        width: 100%;
-    }
+        @media (min-width: 768px) {
+            .search-box {
+                width: 260px;
+                padding: 8px 14px;
+            }
+        }
 
-    .adblock-notice {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-left: 4px solid var(--accent-color);
-        border-radius: 6px;
-        padding: 12px 18px;
-        margin-bottom: 28px;
-        font-size: 13px;
-        color: var(--text-muted);
-        line-height: 1.6;
-    }
+        .search-box:focus-within {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.15);
+        }
 
-    .adblock-notice strong {
-        color: var(--text-main);
-    }
+        .search-icon {
+            color: var(--text-muted);
+            flex-shrink: 0;
+            transition: color 0.2s;
+        }
 
-    .adblock-notice .highlight {
-        color: var(--accent-color);
-        font-weight: 600;
-    }
+        .search-box:focus-within .search-icon {
+            color: var(--accent-color);
+        }
 
-    .section-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 24px;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
+        .search-input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+            min-width: 0;
+        }
 
-    .section-title {
-        font-size: 16px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--text-muted);
-        border-left: 3px solid var(--accent-color);
-        padding-left: 12px;
-        margin-bottom: 0;
-    }
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
 
-    .page-info-badge {
-        font-size: 12px;
-        color: var(--text-muted);
-    }
+        .search-clear {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-secondary);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 12px;
+            line-height: 1;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
 
-    .video-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 24px;
-        scroll-margin-top: 80px;
-    }
+        .search-clear:hover {
+            background: var(--accent-color);
+            color: #fff;
+        }
 
-    .video-card {
-        background: var(--card-bg);
-        border-radius: 6px;
-        overflow: hidden;
-        border: 1px solid var(--border-color);
-        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    }
+        .search-clear.visible {
+            display: flex;
+        }
 
-    .video-card:hover {
-        transform: translateY(-4px);
-        border-color: #3a3f4b;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    }
+        /* Menu Button & Dropdown */
+        .menu-container {
+            position: relative;
+        }
 
-    .video-container {
-        position: relative;
-        width: 100%;
-        padding-top: 56.25%;
-        background: #000;
-    }
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 7px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
 
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
-    }
+        .icon-btn:hover, .icon-btn[aria-expanded="true"] {
+            background: rgba(255, 255, 255, 0.09);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
 
-    .video-info {
-        padding: 14px 16px;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 10px);
+            background: #151823;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            width: 205px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+            overflow: hidden;
+            z-index: 1001;
+            animation: dropdownFade 0.18s ease-out;
+        }
 
-    .video-meta {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
+        @keyframes dropdownFade {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .video-title {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--text-main);
-        letter-spacing: 0.5px;
-    }
+        .dropdown-menu.show {
+            display: block;
+        }
 
-    .video-actress {
-        font-size: 12px;
-        color: var(--text-muted);
-        text-decoration: none;
-        transition: color 0.2s;
-    }
+        .dropdown-item-primary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 16px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            background: linear-gradient(90deg, rgba(229, 9, 20, 0.18) 0%, rgba(229, 9, 20, 0.04) 100%);
+            border-left: 3px solid var(--accent-color);
+            transition: all 0.2s;
+        }
 
-    .video-actress:hover {
-        color: var(--accent-color);
-    }
+        .dropdown-item-primary:hover {
+            background: rgba(229, 9, 20, 0.28);
+            color: #fff;
+        }
 
-    .video-right-side {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 6px;
-    }
+        .dropdown-divider {
+            height: 1px;
+            background: var(--border-color);
+        }
 
-    .video-badge {
-        font-size: 10px;
-        text-transform: uppercase;
-        background: rgba(229, 9, 20, 0.15);
-        color: var(--accent-color);
-        padding: 3px 8px;
-        border-radius: 3px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-    }
+        .dropdown-item-secondary {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.2s, background 0.2s;
+        }
 
-    .report-btn {
-        font-size: 10px;
-        color: var(--text-muted);
-        text-decoration: none;
-        transition: color 0.2s;
-    }
+        .dropdown-item-secondary:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
 
-    .report-btn:hover {
-        color: var(--accent-color);
-        text-decoration: underline;
-    }
+        /* Main Container */
+        .container {
+            max-width: 1240px;
+            margin: 24px auto 40px;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
 
-    /* Styling Paginasi UX & Tips */
-    .pagination-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 40px;
-        margin-bottom: 10px;
-        gap: 8px;
-    }
+        @media (min-width: 768px) {
+            .container {
+                margin: 32px auto 48px;
+                padding: 0 32px;
+            }
+        }
 
-    .pagination-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-        flex-wrap: wrap;
-    }
+        /* Slim Dismissible Cinema Notice */
+        .adblock-notice {
+            position: relative;
+            background: linear-gradient(135deg, rgba(22, 25, 37, 0.95) 0%, rgba(17, 19, 28, 0.95) 100%);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-color);
+            border-radius: 10px;
+            padding: 14px 40px 14px 16px;
+            margin-bottom: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+        }
 
-    .page-tip {
-        font-size: 11px;
-        color: var(--text-muted);
-        letter-spacing: 0.3px;
-    }
+        .adblock-notice.hidden {
+            display: none;
+        }
 
-    .page-tip kbd {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-radius: 3px;
-        padding: 1px 5px;
-        font-family: inherit;
-        color: var(--text-main);
-        font-size: 10px;
-    }
+        .notice-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
 
-    .page-btn {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        color: var(--text-main);
-        min-width: 36px;
-        height: 36px;
-        padding: 0 10px;
-        border-radius: 4px;
-        font-size: 13px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        user-select: none;
-    }
+        .notice-icon {
+            color: var(--accent-color);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
 
-    .page-btn:hover:not(.disabled):not(.active) {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: var(--text-muted);
-    }
+        .notice-row strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
 
-    .page-btn.active {
-        background: var(--accent-color);
-        border-color: var(--accent-color);
-        color: var(--text-main);
-    }
+        .notice-row .highlight {
+            color: #ff4d56;
+            font-weight: 700;
+        }
 
-    .page-btn.disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
-    }
+        .notice-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 15px;
+            line-height: 1;
+            transition: all 0.2s;
+        }
 
-    .site-footer {
-        text-align: center;
-        padding: 30px 24px;
-        border-top: 1px solid var(--border-color);
-        margin-top: auto;
-        color: var(--text-muted);
-        font-size: 13px;
-    }
-</style>
+        .notice-close:hover {
+            background: rgba(229, 9, 20, 0.2);
+            color: var(--text-main);
+            border-color: rgba(229, 9, 20, 0.4);
+        }
+
+        /* Section Header & Filter Pills */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            border-left: 3px solid var(--accent-color);
+            padding-left: 12px;
+        }
+
+        .page-info-badge {
+            font-size: 12px;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            margin-bottom: 22px;
+            scrollbar-width: none;
+        }
+
+        .filter-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-pill {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .filter-pill:hover {
+            border-color: rgba(255, 255, 255, 0.22);
+            color: var(--text-main);
+        }
+
+        .filter-pill.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #fff;
+            box-shadow: 0 4px 14px var(--accent-glow);
+        }
+
+        /* Video Grid & Luxury Cards */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 22px;
+            scroll-margin-top: 84px;
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 6px 18px rgba(0, 0, 0, 0.35);
+            transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+            animation: cardFadeIn 0.35s ease-out both;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            background: var(--card-hover);
+            border-color: var(--border-hover);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 9, 20, 0.12);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #050608;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-info {
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .video-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            min-width: 0;
+        }
+
+        .video-title {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.4px;
+        }
+
+        .video-actress {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12.5px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .video-actress:hover {
+            color: var(--accent-hover);
+        }
+
+        .video-right-side {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 7px;
+            flex-shrink: 0;
+        }
+
+        .video-badge {
+            font-size: 10px;
+            text-transform: uppercase;
+            background: rgba(229, 9, 20, 0.16);
+            border: 1px solid rgba(229, 9, 20, 0.35);
+            color: #ff4750;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+        }
+
+        .report-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10.5px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .report-btn:hover {
+            color: var(--text-secondary);
+            text-decoration: underline;
+        }
+
+        /* Empty Search State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 52px 20px;
+            background: var(--card-bg);
+            border: 1px dashed rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            color: var(--text-muted);
+        }
+
+        .empty-state h3 {
+            color: var(--text-main);
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .empty-state p {
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .reset-btn {
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Pagination */
+        .pagination-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 38px;
+            gap: 10px;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .page-tip {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .page-tip kbd {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-family: inherit;
+            color: var(--text-main);
+            font-size: 10px;
+        }
+
+        .page-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            min-width: 38px;
+            height: 38px;
+            padding: 0 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .page-btn:hover:not(.disabled):not(.active) {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.22);
+        }
+
+        .page-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #fff;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .page-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Back to Top Floating Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 22px;
+            right: 20px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(21, 24, 35, 0.92);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.25s ease;
+            z-index: 990;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: rgba(11, 13, 20, 0.9);
+            border-top: 1px solid var(--border-color);
+            padding: 28px 20px;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 12.5px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-main);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 12px;
+            opacity: 0.75;
+        }
+    </style>
+</head>
 <body>
 
     <header class="navbar">
-        <a href="/" class="logo">Jav<span>Stream</span></a>
+        <a href="/" class="logo">
+            <span class="logo-mark">J</span>
+            <span>Jav<span class="accent">Stream</span></span>
+            <span class="logo-hd">HD</span>
+        </a>
         <div class="nav-right">
             <div class="search-box">
-                <input type="text" class="search-input" placeholder="Search archive..." id="searchInput" oninput="triggerSearch()">
+                <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="search-input" placeholder="Search code or actress..." id="searchInput" oninput="triggerSearch()" aria-label="Search video archive">
+                <button type="button" class="search-clear" id="searchClear" onclick="clearSearch()" aria-label="Clear search">&times;</button>
             </div>
 
             <div class="menu-container">
-                <button class="icon-btn" onclick="toggleMenu()" aria-label="Navigation Menu">Menu</button>
+                <button type="button" class="icon-btn" id="menuBtn" onclick="toggleMenu()" aria-expanded="false" aria-label="Navigation Menu">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    <span>Menu</span>
+                </button>
                 <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="actress/" class="dropdown-item-primary">Actress</a>
+                    <a href="actress/" class="dropdown-item-primary">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        <span>Actress Directory</span>
+                    </a>
                     <div class="dropdown-divider"></div>
-                    <a href="disclaimer.html" class="dropdown-item-secondary">Disclaimer & DMCA</a>
-                    <a href="privacy.html" class="dropdown-item-secondary">Privacy Policy</a>
+                    <a href="disclaimer.html" class="dropdown-item-secondary">Disclaimer &amp; DMCA</a>
+                    <a href="privacy.html" class="dropdown-item-secondary">Privacy Policy &amp; Terms</a>
                 </div>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <!-- Friendly Reminder Banner -->
-        <div class="adblock-notice">
-            💡 <strong>Tip for the Best Experience:</strong> For smooth, fast, and interruption-free playback, we highly recommend using an ad-blocker extension such as <span class="highlight">uBlock Origin</span> on your browser.<br><br>
-            📱 <strong>Mobile User Notice:</strong> Skip controls (±10s) may be hidden by the default mobile player. To enable them, switch to "Desktop Site" in your browser settings.
+        <!-- Slim Dismissible Cinema Notice -->
+        <div class="adblock-notice" id="cinemaNotice">
+            <button type="button" class="notice-close" onclick="dismissNotice()" aria-label="Dismiss notice">&times;</button>
+            <div class="notice-row">
+                <svg class="notice-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span><strong>Best Playback Tip:</strong> For smooth, interruption-free streaming, use an ad-blocker such as <span class="highlight">uBlock Origin</span>.</span>
+            </div>
+            <div class="notice-row">
+                <svg class="notice-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+                <span><strong>Mobile Tip:</strong> Skip controls (&plusmn;10s) may be hidden on mobile players. Enable <strong>Desktop Site</strong> in your browser menu to show them.</span>
+            </div>
         </div>
 
         <div class="section-header">
-            <h2 class="section-title">Latest Releases</h2>
+            <h1 class="section-title">Latest Releases</h1>
             <div class="page-info-badge" id="pageInfoBadge">Showing Page 1 of 1 (9 Videos)</div>
         </div>
+
+        <!-- Quick Actress Filter Pills -->
+        <div class="filter-bar" id="filterBar" aria-label="Filter by actress">
+            <button type="button" class="filter-pill active" onclick="filterByActress('ALL', this)">All (9)</button>
+            <button type="button" class="filter-pill" onclick="filterByActress('Aoi Ibuki', this)">Aoi Ibuki (5)</button>
+            <button type="button" class="filter-pill" onclick="filterByActress('Minamisawa Umika', this)">Minamisawa Umika (3)</button>
+            <button type="button" class="filter-pill" onclick="filterByActress('Takara', this)">Takara (1)</button>
+        </div>
         
-        <!-- KONTEN HTML STATIS UTAMA (Langsung dibaca Googlebot secara instan tanpa menunggu JS) -->
+        <!-- Static HTML Video Grid (Directly crawlable by Googlebot) -->
         <div class="video-grid" id="mainVideoGrid">
             
             <!-- Video 9 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/h1hysvsqumvx" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/h1hysvsqumvx" title="STARS-769 - Takara" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h3 class="video-title">STARS-769</h3>
+                        <h2 class="video-title">STARS-769</h2>
                         <a href="actress/takara/" class="video-actress">Takara</a>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
-                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
                     </div>
                 </div>
             </div>
@@ -465,16 +896,16 @@
             <!-- Video 8 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/ehxd29ifwn0h" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/ehxd29ifwn0h" title="MIDV-073 - Aoi Ibuki" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h3 class="video-title">MIDV-073</h3>
+                        <h2 class="video-title">MIDV-073</h2>
                         <a href="actress/aoi-ibuki/" class="video-actress">Aoi Ibuki</a>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
-                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
                     </div>
                 </div>
             </div>
@@ -482,16 +913,16 @@
             <!-- Video 7 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/m7ud4wtimlbw" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/m7ud4wtimlbw" title="MIDV-535 - Aoi Ibuki" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h3 class="video-title">MIDV-535</h3>
+                        <h2 class="video-title">MIDV-535</h2>
                         <a href="actress/aoi-ibuki/" class="video-actress">Aoi Ibuki</a>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
-                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
                     </div>
                 </div>
             </div>
@@ -499,16 +930,16 @@
             <!-- Video 6 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/3ehlixfhy5wk" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/3ehlixfhy5wk" title="MIDV-719 - Aoi Ibuki" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h3 class="video-title">MIDV-719</h3>
+                        <h2 class="video-title">MIDV-719</h2>
                         <a href="actress/aoi-ibuki/" class="video-actress">Aoi Ibuki</a>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
-                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
                     </div>
                 </div>
             </div>
@@ -516,16 +947,16 @@
             <!-- Video 5 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/0ji1bqt21ot1" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/0ji1bqt21ot1" title="MIDV-390 - Aoi Ibuki" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h3 class="video-title">MIDV-390</h3>
+                        <h2 class="video-title">MIDV-390</h2>
                         <a href="actress/aoi-ibuki/" class="video-actress">Aoi Ibuki</a>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
-                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
                     </div>
                 </div>
             </div>
@@ -533,16 +964,16 @@
             <!-- Video 4 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/d6kiyxhpxfha" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/d6kiyxhpxfha" title="MIDV-296 - Aoi Ibuki" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h3 class="video-title">MIDV-296</h3>
+                        <h2 class="video-title">MIDV-296</h2>
                         <a href="actress/aoi-ibuki/" class="video-actress">Aoi Ibuki</a>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
-                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
                     </div>
                 </div>
             </div>
@@ -550,16 +981,16 @@
             <!-- Video 3 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/a68tcurf645r" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/a68tcurf645r" title="JUR-683 - Minamisawa Umika" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h3 class="video-title">JUR-683</h3>
+                        <h2 class="video-title">JUR-683</h2>
                         <a href="actress/minamisawa-umika/" class="video-actress">Minamisawa Umika</a>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
-                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
                     </div>
                 </div>
             </div>
@@ -567,16 +998,16 @@
             <!-- Video 2 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/13jr1kyhz6m7" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/13jr1kyhz6m7" title="JUR-655 - Minamisawa Umika" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h3 class="video-title">JUR-655</h3>
+                        <h2 class="video-title">JUR-655</h2>
                         <a href="actress/minamisawa-umika/" class="video-actress">Minamisawa Umika</a>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
-                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
                     </div>
                 </div>
             </div>
@@ -584,35 +1015,47 @@
             <!-- Video 1 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/413cododyut4" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/413cododyut4" title="JUR-064 - Minamisawa Umika" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h3 class="video-title">JUR-064</h3>
+                        <h2 class="video-title">JUR-064</h2>
                         <a href="actress/minamisawa-umika/" class="video-actress">Minamisawa Umika</a>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
-                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- Pagination Controls with Smart Keyboard Shortcut Tip -->
+        <!-- Pagination Controls -->
         <div class="pagination-wrapper">
             <div class="pagination-container" id="paginationContainer"></div>
             <div class="page-tip" id="pageTip" style="display: none;">Tip: Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> arrow keys on your keyboard to navigate pages.</div>
         </div>
     </main>
 
+    <!-- Floating Back to Top Button -->
+    <button type="button" class="back-to-top" id="backToTopBtn" onclick="scrollToTop()" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
     <footer class="site-footer">
-        <p>&copy; 2026 JavStream HD. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="actress/">Actress Directory</a>
+            <a href="disclaimer.html">Disclaimer &amp; DMCA</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 JavStream HD. All rights reserved.</p>
     </footer>
 
     <script>
-        // Database JavaScript tetap dipertahankan untuk fitur Pencarian & Paginasi interaktif
         const database = [
             { code: "STARS-769", actress: "Takara", actressSlug: "takara", embedUrl: "https://lplaygo.com/e/h1hysvsqumvx", badge: "HD" },
             { code: "MIDV-073", actress: "Aoi Ibuki", actressSlug: "aoi-ibuki", embedUrl: "https://lplaygo.com/e/ehxd29ifwn0h", badge: "HD" },
@@ -627,23 +1070,86 @@
 
         const ITEMS_PER_PAGE = 12;
         let currentPage = 1;
+        let selectedActress = 'ALL';
         let currentFilteredDatabase = [...database];
 
-        function toggleMenu() {
-            let menu = document.getElementById('dropdownMenu');
-            menu.classList.toggle('show');
+        // Check saved notice preference
+        try {
+            if (localStorage.getItem('javstream_notice_dismissed') === '1') {
+                const notice = document.getElementById('cinemaNotice');
+                if (notice) notice.classList.add('hidden');
+            }
+        } catch (e) {}
+
+        function dismissNotice() {
+            const notice = document.getElementById('cinemaNotice');
+            if (notice) notice.classList.add('hidden');
+            try {
+                localStorage.setItem('javstream_notice_dismissed', '1');
+            } catch (e) {}
         }
 
-        window.onclick = function(event) {
-            if (!event.target.matches('.icon-btn')) {
-                let dropdowns = document.getElementsByClassName("dropdown-menu");
-                for (let i = 0; i < dropdowns.length; i++) {
-                    let openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            const btn = document.getElementById('menuBtn');
+            const isOpen = menu.classList.toggle('show');
+            btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+
+        window.addEventListener('click', function(event) {
+            if (!event.target.closest('.menu-container')) {
+                const menu = document.getElementById('dropdownMenu');
+                const btn = document.getElementById('menuBtn');
+                if (menu && menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                    btn.setAttribute('aria-expanded', 'false');
                 }
             }
+        });
+
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const clearBtn = document.getElementById('searchClear');
+            if (clearBtn) {
+                clearBtn.classList.toggle('visible', query.length > 0);
+            }
+
+            currentFilteredDatabase = database.filter(item => {
+                const matchesActress = selectedActress === 'ALL' || item.actress === selectedActress;
+                const matchesQuery = !query || 
+                    item.code.toLowerCase().includes(query) || 
+                    item.actress.toLowerCase().includes(query);
+                return matchesActress && matchesQuery;
+            });
+
+            currentPage = 1;
+            renderVideos();
+        }
+
+        function filterByActress(actressName, pillElement) {
+            selectedActress = actressName;
+            document.querySelectorAll('.filter-pill').forEach(pill => pill.classList.remove('active'));
+            if (pillElement) pillElement.classList.add('active');
+            applyFilters();
+        }
+
+        function triggerSearch() {
+            applyFilters();
+        }
+
+        function clearSearch() {
+            const input = document.getElementById('searchInput');
+            input.value = '';
+            input.focus();
+            applyFilters();
+        }
+
+        function resetAllFilters() {
+            selectedActress = 'ALL';
+            document.getElementById('searchInput').value = '';
+            const pills = document.querySelectorAll('.filter-pill');
+            pills.forEach((pill, idx) => pill.classList.toggle('active', idx === 0));
+            applyFilters();
         }
 
         function renderPagination() {
@@ -654,7 +1160,7 @@
 
             if (totalItems === 0) {
                 container.innerHTML = '';
-                pageBadge.innerText = '';
+                pageBadge.innerText = '0 Videos';
                 if (pageTip) pageTip.style.display = 'none';
                 return;
             }
@@ -662,7 +1168,6 @@
             const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
             pageBadge.innerText = `Showing Page ${currentPage} of ${totalPages} (${totalItems} Video${totalItems > 1 ? 's' : ''})`;
 
-            // Sembunyikan tombol paginasi dan tips keyboard secara cerdas jika total halaman hanya 1 atau kurang
             if (totalPages <= 1) {
                 container.innerHTML = '';
                 if (pageTip) pageTip.style.display = 'none';
@@ -671,14 +1176,13 @@
                 if (pageTip) pageTip.style.display = 'block';
             }
 
-            let html = '';
-            html += `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo; Prev</button>`;
+            let html = `<button type="button" class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo; Prev</button>`;
 
             for (let i = 1; i <= totalPages; i++) {
-                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+                html += `<button type="button" class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
             }
 
-            html += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &raquo;</button>`;
+            html += `<button type="button" class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &raquo;</button>`;
 
             container.innerHTML = html;
         }
@@ -687,7 +1191,13 @@
             const grid = document.getElementById('mainVideoGrid');
 
             if (currentFilteredDatabase.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px;">No releases found matching your search.</div>';
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No matching releases found</h3>
+                        <p>Try searching with another release code or actress name.</p>
+                        <button type="button" class="reset-btn" onclick="resetAllFilters()">Show All Releases</button>
+                    </div>
+                `;
                 renderPagination();
                 return;
             }
@@ -701,16 +1211,16 @@
                 html += `
                     <div class="video-card">
                         <div class="video-container">
-                            <iframe src="${video.embedUrl}" allowfullscreen loading="lazy"></iframe>
+                            <iframe src="${video.embedUrl}" title="${video.code} - ${video.actress}" allowfullscreen loading="lazy"></iframe>
                         </div>
                         <div class="video-info">
                             <div class="video-meta">
-                                <div class="video-title">${video.code}</div>
+                                <h2 class="video-title">${video.code}</h2>
                                 <a href="actress/${video.actressSlug}/" class="video-actress">${video.actress}</a>
                             </div>
                             <div class="video-right-side">
                                 <span class="video-badge">${video.badge}</span>
-                                <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" class="report-btn">Report Broken</a>
+                                <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
                             </div>
                         </div>
                     </div>
@@ -729,15 +1239,16 @@
             document.getElementById('mainVideoGrid').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function triggerSearch() {
-            let query = document.getElementById('searchInput').value.toLowerCase().trim();
-            currentFilteredDatabase = database.filter(item => 
-                item.code.toLowerCase().includes(query) || 
-                item.actress.toLowerCase().includes(query)
-            );
-            currentPage = 1;
-            renderVideos();
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        window.addEventListener('scroll', function() {
+            const btn = document.getElementById('backToTopBtn');
+            if (btn) {
+                btn.classList.toggle('visible', window.scrollY > 400);
+            }
+        });
 
         document.addEventListener('keydown', function(e) {
             const activeElement = document.activeElement;
@@ -751,8 +1262,15 @@
             }
         });
 
-        // Panggil renderPagination saat halaman dimuat agar status tips dan tombol langsung dikondisikan secara cerdas
-        renderPagination();
+        // Support ?q= query parameter if opened from search
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialQuery = urlParams.get('q');
+        if (initialQuery) {
+            document.getElementById('searchInput').value = initialQuery;
+            applyFilters();
+        } else {
+            renderPagination();
+        }
     </script>
 </body>
 </html>
