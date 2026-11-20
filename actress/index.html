@@ -6,14 +6,10 @@
     
     <!-- Title & Core SEO Meta Tags -->
     <title>Actress Directory - JavStream HD</title>
-    <meta name="description" content="Explore actress archives and associated high quality JAV streaming releases on JavStream HD.">
-    <meta name="keywords" content="jav actress directory, list of jav actresses, streaming jav actress, javstream, javstreamhd">
+    <meta name="description" content="Browse the complete JAV actress directory on JavStream HD. Find streaming collections by actress name.">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#090a0f">
+    <meta name="theme-color" content="#0f1115">
     <link rel="canonical" href="https://javstreamhd.com/actress/">
-    
-    <!-- Google Site Verification -->
-    <meta name="google-site-verification" content="WKsgCWA9Sjz-bw_bkkrmzkVkt-CaIXmNXbR2FbcE-3M" />
 
     <!-- Favicon & App Icon -->
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
@@ -23,14 +19,14 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="JavStream HD">
     <meta property="og:title" content="Actress Directory - JavStream HD">
-    <meta property="og:description" content="Explore actress archives and associated high quality JAV streaming releases on JavStream HD.">
+    <meta property="og:description" content="Browse the complete JAV actress directory on JavStream HD. Find streaming collections by actress name.">
     <meta property="og:url" content="https://javstreamhd.com/actress/">
     <meta property="og:image" content="https://javstreamhd.com/favicon.jpg">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Actress Directory - JavStream HD">
-    <meta name="twitter:description" content="Explore actress archives and associated high quality JAV streaming releases on JavStream HD.">
+    <meta name="twitter:description" content="Browse the complete JAV actress directory on JavStream HD. Find streaming collections by actress name.">
     <meta name="twitter:image" content="https://javstreamhd.com/favicon.jpg">
 
     <!-- Structured Data (Schema.org) -->
@@ -40,40 +36,25 @@
       "@type": "CollectionPage",
       "name": "Actress Directory - JavStream HD",
       "url": "https://javstreamhd.com/actress/",
-      "description": "Explore actress archives and associated high quality JAV streaming releases on JavStream HD.",
-      "breadcrumb": {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://javstreamhd.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Actress Directory",
-            "item": "https://javstreamhd.com/actress/"
-          }
-        ]
-      }
+      "description": "Browse the complete JAV actress directory on JavStream HD."
     }
     </script>
 
     <style>
         :root {
-            --bg-color: #090a0f;
-            --card-bg: #141722;
-            --card-hover: #191d2b;
-            --accent-color: #e50914;
-            --accent-hover: #ff1e27;
-            --accent-glow: rgba(229, 9, 20, 0.32);
-            --text-main: #f8f9fa;
-            --text-secondary: #c4c9d4;
-            --text-muted: #848b9d;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(229, 9, 20, 0.45);
+            --bg-color: #0f1115;
+            --navbar-bg: #13161c;
+            --card-bg: #161920;
+            --card-hover: #1b1f28;
+            --accent-color: #c8323b;
+            --accent-hover: #d93b44;
+            --accent-soft: rgba(200, 50, 59, 0.12);
+            --accent-border: rgba(200, 50, 59, 0.32);
+            --text-main: #e6e8ec;
+            --text-secondary: #a8b0bd;
+            --text-muted: #78808e;
+            --border-color: #232732;
+            --border-hover: #353b4b;
         }
 
         * {
@@ -90,8 +71,6 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.09) 0%, transparent 55%);
-            background-repeat: no-repeat;
             color: var(--text-main);
             line-height: 1.5;
             display: flex;
@@ -99,14 +78,12 @@
             min-height: 100vh;
         }
 
-        /* Glassmorphic Sticky Navbar */
+        /* Navbar */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(13, 15, 23, 0.85);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            background-color: var(--navbar-bg);
             padding: 12px 20px;
             border-bottom: 1px solid var(--border-color);
             position: sticky;
@@ -125,11 +102,11 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 19px;
-            font-weight: 800;
+            font-size: 18px;
+            font-weight: 700;
             color: var(--text-main);
             text-decoration: none;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
             flex-shrink: 0;
         }
 
@@ -137,28 +114,27 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 7px;
-            background: #15161c;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background-color: #1b1f28;
+            border: 1px solid #2b303e;
             color: var(--accent-color);
-            font-weight: 900;
-            font-size: 16px;
-            box-shadow: 0 2px 10px rgba(229, 9, 20, 0.25);
+            font-weight: 800;
+            font-size: 14px;
         }
 
         .logo span.accent {
-            color: var(--accent-color);
+            color: #d6454e;
         }
 
         .logo-hd {
             font-size: 9px;
-            font-weight: 800;
-            letter-spacing: 0.8px;
-            background: rgba(229, 9, 20, 0.16);
-            color: var(--accent-color);
-            border: 1px solid rgba(229, 9, 20, 0.35);
+            font-weight: 700;
+            letter-spacing: 0.7px;
+            background-color: var(--accent-soft);
+            color: #d85b63;
+            border: 1px solid var(--accent-border);
             padding: 2px 5px;
             border-radius: 4px;
             text-transform: uppercase;
@@ -172,50 +148,43 @@
 
         @media (min-width: 768px) {
             .nav-right {
-                gap: 14px;
+                gap: 12px;
             }
         }
 
-        /* Enhanced Search Box */
+        /* Search Box */
         .search-box {
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.04);
+            background-color: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 7px;
             padding: 7px 11px;
             width: 155px;
-            transition: all 0.25s ease;
+            transition: border-color 0.15s ease;
         }
 
         @media (min-width: 480px) {
             .search-box {
-                width: 200px;
+                width: 205px;
             }
         }
 
         @media (min-width: 768px) {
             .search-box {
                 width: 260px;
-                padding: 8px 14px;
+                padding: 8px 13px;
             }
         }
 
         .search-box:focus-within {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.15);
+            border-color: #464e63;
         }
 
         .search-icon {
             color: var(--text-muted);
             flex-shrink: 0;
-            transition: color 0.2s;
-        }
-
-        .search-box:focus-within .search-icon {
-            color: var(--accent-color);
         }
 
         .search-input {
@@ -236,7 +205,7 @@
             display: none;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
+            background: #232732;
             border: none;
             color: var(--text-secondary);
             width: 18px;
@@ -246,12 +215,11 @@
             line-height: 1;
             cursor: pointer;
             flex-shrink: 0;
-            transition: all 0.2s;
         }
 
         .search-clear:hover {
-            background: var(--accent-color);
-            color: #fff;
+            background: #323847;
+            color: var(--text-main);
         }
 
         .search-clear.visible {
@@ -267,40 +235,34 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.04);
+            background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             color: var(--text-main);
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             padding: 7px 12px;
-            border-radius: 8px;
-            transition: all 0.2s ease;
+            border-radius: 7px;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
         }
 
         .icon-btn:hover, .icon-btn[aria-expanded="true"] {
-            background: rgba(255, 255, 255, 0.09);
-            border-color: rgba(255, 255, 255, 0.2);
+            background-color: var(--card-hover);
+            border-color: var(--border-hover);
         }
 
         .dropdown-menu {
             display: none;
             position: absolute;
             right: 0;
-            top: calc(100% + 10px);
-            background: #151823;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 10px;
-            width: 205px;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+            top: calc(100% + 8px);
+            background-color: #181b23;
+            border: 1px solid #2a2f3d;
+            border-radius: 8px;
+            width: 200px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
             overflow: hidden;
             z-index: 1001;
-            animation: dropdownFade 0.18s ease-out;
-        }
-
-        @keyframes dropdownFade {
-            from { opacity: 0; transform: translateY(-6px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .dropdown-menu.show {
@@ -308,49 +270,44 @@
         }
 
         .dropdown-item-primary {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 13px 16px;
+            display: block;
+            padding: 12px 15px;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 700;
-            background: linear-gradient(90deg, rgba(229, 9, 20, 0.18) 0%, rgba(229, 9, 20, 0.04) 100%);
+            font-size: 13.5px;
+            font-weight: 600;
+            background-color: var(--accent-soft);
             border-left: 3px solid var(--accent-color);
-            transition: all 0.2s;
+            transition: background-color 0.15s ease;
         }
 
         .dropdown-item-primary:hover {
-            background: rgba(229, 9, 20, 0.28);
-            color: #fff;
+            background-color: rgba(200, 50, 59, 0.2);
         }
 
         .dropdown-divider {
             height: 1px;
-            background: var(--border-color);
+            background-color: var(--border-color);
         }
 
         .dropdown-item-secondary {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            color: var(--text-muted);
+            display: block;
+            padding: 10px 15px;
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 12px;
-            transition: color 0.2s, background 0.2s;
+            font-size: 12.5px;
+            transition: color 0.15s ease, background-color 0.15s ease;
         }
 
         .dropdown-item-secondary:hover {
             color: var(--text-main);
-            background: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.03);
         }
 
-        /* Container & Breadcrumb */
+        /* Main Container */
         .container {
-            max-width: 1240px;
-            margin: 24px auto 40px;
+            max-width: 1220px;
+            margin: 24px auto 48px;
             padding: 0 20px;
             flex: 1;
             width: 100%;
@@ -358,323 +315,213 @@
 
         @media (min-width: 768px) {
             .container {
-                margin: 32px auto 48px;
+                margin: 32px auto 56px;
                 padding: 0 32px;
             }
         }
 
+        /* Breadcrumb */
         .breadcrumb {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 12.5px;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .breadcrumb a {
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.2s;
+            transition: color 0.15s ease;
         }
 
         .breadcrumb a:hover {
-            color: var(--accent-color);
+            color: var(--text-main);
         }
 
-        .breadcrumb span.sep {
-            opacity: 0.45;
-        }
-
-        /* Header Section */
-        .profile-header {
-            margin-bottom: 22px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 18px;
+        /* Section Header */
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 16px;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .profile-title-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .profile-name {
-            font-size: 22px;
-            font-weight: 800;
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
             color: var(--text-main);
-            letter-spacing: 0.2px;
-        }
-
-        @media (min-width: 768px) {
-            .profile-name {
-                font-size: 26px;
-            }
-        }
-
-        .profile-subtitle {
-            font-size: 13px;
-            color: var(--text-muted);
+            border-left: 3px solid var(--accent-color);
+            padding-left: 11px;
         }
 
         .count-badge {
             font-size: 12px;
             color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.03);
+            background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 4px 11px;
+            border-radius: 6px;
         }
 
-        /* A-Z Filter Bar */
-        .az-bar {
+        /* Alphabet Filter Bar */
+        .alpha-bar {
             display: flex;
+            align-items: center;
+            gap: 6px;
             flex-wrap: wrap;
-            gap: 5px;
-            margin-bottom: 28px;
-            background: var(--card-bg);
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            justify-content: center;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+            margin-bottom: 22px;
         }
 
-        .az-btn {
-            background: rgba(255, 255, 255, 0.02);
+        .alpha-pill {
+            background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            color: rgba(132, 139, 157, 0.5);
-            min-width: 32px;
-            height: 32px;
-            padding: 0 6px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            color: var(--text-secondary);
+            padding: 5px 12px;
             border-radius: 6px;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
         }
 
-        .az-btn.has-items {
+        .alpha-pill:hover {
+            border-color: var(--border-hover);
             color: var(--text-main);
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.14);
         }
 
-        .az-btn:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            color: var(--text-main);
-            background: rgba(255, 255, 255, 0.09);
-        }
-
-        .az-btn.active {
-            background: var(--accent-color);
-            color: #fff;
+        .alpha-pill.active {
+            background-color: var(--accent-color);
             border-color: var(--accent-color);
-            box-shadow: 0 3px 12px var(--accent-glow);
+            color: #ffffff;
         }
 
-        /* Alphabet Section & Cards */
-        .alphabet-section {
-            margin-bottom: 32px;
-            animation: cardFadeIn 0.3s ease-out both;
-        }
-
-        @keyframes cardFadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .alphabet-heading {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text-main);
-            border-left: 3px solid var(--accent-color);
-            padding-left: 12px;
-            margin-bottom: 14px;
-            letter-spacing: 1px;
-        }
-
-        .grid {
+        /* Actress Directory Grid */
+        .actress-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 16px;
         }
 
         .actress-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 16px 18px;
-            text-decoration: none;
-            color: var(--text-main);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 6px 18px rgba(0, 0, 0, 0.32);
-            transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             gap: 14px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            text-decoration: none;
+            transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
         }
 
         .actress-card:hover {
-            transform: translateY(-4px);
-            background: var(--card-hover);
+            background-color: var(--card-hover);
             border-color: var(--border-hover);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 18px rgba(229, 9, 20, 0.12);
-        }
-
-        .actress-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            min-width: 0;
+            transform: translateY(-2px);
         }
 
         .actress-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, rgba(229, 9, 20, 0.22) 0%, rgba(229, 9, 20, 0.06) 100%);
-            border: 1px solid rgba(229, 9, 20, 0.35);
-            color: #ff4750;
-            font-size: 16px;
-            font-weight: 800;
+            width: 46px;
+            height: 46px;
+            border-radius: 8px;
+            background-color: #1c202a;
+            border: 1px solid #2b303e;
+            color: #d85b63;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            font-size: 15px;
+            font-weight: 700;
             letter-spacing: 0.5px;
-            transition: all 0.25s ease;
+            flex-shrink: 0;
         }
 
-        .actress-card:hover .actress-avatar {
-            background: var(--accent-color);
-            color: #fff;
-            border-color: var(--accent-color);
-        }
-
-        .actress-meta {
+        .actress-details {
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 4px;
             min-width: 0;
+            flex: 1;
         }
 
-        .actress-card-name {
-            font-size: 15.5px;
-            font-weight: 700;
+        .actress-name {
+            font-size: 15px;
+            font-weight: 600;
             color: var(--text-main);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .actress-card-count {
+        .actress-codes {
             font-size: 12px;
             color: var(--text-muted);
-            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .actress-arrow {
-            color: var(--text-muted);
+        .actress-count {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid #2b303e;
+            padding: 3px 8px;
+            border-radius: 5px;
+            white-space: nowrap;
             flex-shrink: 0;
-            transition: transform 0.2s ease, color 0.2s ease;
         }
 
-        .actress-card:hover .actress-arrow {
-            color: var(--accent-color);
-            transform: translateX(3px);
-        }
-
-        /* Empty State */
+        /* Empty Search State */
         .empty-state {
-            display: none;
+            grid-column: 1 / -1;
             text-align: center;
-            padding: 48px 20px;
-            background: var(--card-bg);
-            border: 1px dashed rgba(255, 255, 255, 0.14);
-            border-radius: 12px;
+            padding: 44px 20px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             color: var(--text-muted);
-        }
-
-        .empty-state.visible {
-            display: block;
         }
 
         .empty-state h3 {
             color: var(--text-main);
-            font-size: 16px;
+            font-size: 15px;
             margin-bottom: 6px;
         }
 
         .empty-state p {
             font-size: 13px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .reset-btn {
-            background: var(--accent-color);
-            color: #fff;
+            background-color: var(--accent-color);
+            color: #ffffff;
             border: none;
-            padding: 8px 18px;
+            padding: 8px 16px;
             border-radius: 6px;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background-color 0.15s ease;
         }
 
         .reset-btn:hover {
-            background: var(--accent-hover);
-        }
-
-        /* Back to Top Floating Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 22px;
-            right: 20px;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: rgba(21, 24, 35, 0.92);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.25s ease;
-            z-index: 990;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .back-to-top:hover {
-            background: var(--accent-color);
-            border-color: var(--accent-color);
+            background-color: var(--accent-hover);
         }
 
         /* Footer */
         .site-footer {
-            background: rgba(11, 13, 20, 0.9);
+            background-color: var(--navbar-bg);
             border-top: 1px solid var(--border-color);
-            padding: 28px 20px;
+            padding: 26px 20px;
             margin-top: auto;
             text-align: center;
         }
@@ -682,16 +529,17 @@
         .footer-links {
             display: flex;
             justify-content: center;
+            align-items: center;
             flex-wrap: wrap;
             gap: 18px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .footer-links a {
             color: var(--text-muted);
             text-decoration: none;
             font-size: 12.5px;
-            transition: color 0.2s;
+            transition: color 0.15s ease;
         }
 
         .footer-links a:hover {
@@ -708,7 +556,7 @@
 <body>
 
     <header class="navbar">
-        <a href="../" class="logo">
+        <a href="/" class="logo">
             <span class="logo-mark">J</span>
             <span>Jav<span class="accent">Stream</span></span>
             <span class="logo-hd">HD</span>
@@ -719,13 +567,13 @@
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <input type="text" class="search-input" placeholder="Search actress..." id="actressSearchInput" oninput="applyActressFilters()" aria-label="Search actress">
-                <button type="button" class="search-clear" id="searchClear" onclick="clearActressSearch()" aria-label="Clear search">&times;</button>
+                <input type="text" class="search-input" placeholder="Search actress..." id="actressSearchInput" oninput="filterActresses()" aria-label="Search actress">
+                <button type="button" class="search-clear" id="searchClear" onclick="clearSearch()" aria-label="Clear search">&times;</button>
             </div>
 
             <div class="menu-container">
                 <button type="button" class="icon-btn" id="menuBtn" onclick="toggleMenu()" aria-expanded="false" aria-label="Navigation Menu">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <line x1="3" y1="6" x2="21" y2="6"></line>
                         <line x1="3" y1="12" x2="21" y2="12"></line>
                         <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -733,13 +581,7 @@
                     <span>Menu</span>
                 </button>
                 <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="../" class="dropdown-item-primary">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                        </svg>
-                        <span>Latest Releases</span>
-                    </a>
+                    <a href="/" class="dropdown-item-primary">Latest Releases</a>
                     <div class="dropdown-divider"></div>
                     <a href="../disclaimer.html" class="dropdown-item-secondary">Disclaimer &amp; DMCA</a>
                     <a href="../privacy.html" class="dropdown-item-secondary">Privacy Policy &amp; Terms</a>
@@ -750,129 +592,63 @@
 
     <main class="container">
         <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="../">Home</a>
-            <span class="sep">/</span>
+            <a href="/">Home</a>
+            <span>/</span>
             <span>Actress Directory</span>
         </nav>
 
-        <div class="profile-header">
-            <div class="profile-title-group">
-                <h1 class="profile-name">Actress Directory</h1>
-                <p class="profile-subtitle">Browse streaming archives organized alphabetically by performer</p>
-            </div>
-            <div class="count-badge" id="actressCountBadge">Showing 3 Actresses</div>
+        <div class="section-header">
+            <h1 class="section-title">Actress Directory</h1>
+            <div class="count-badge" id="actressCountBadge">3 Actresses (9 Videos)</div>
         </div>
 
-        <!-- Alphabet Filter Bar -->
-        <div class="az-bar" id="azBar" role="group" aria-label="Filter actresses by letter">
-            <button type="button" class="az-btn has-items active" onclick="filterByLetter('ALL', this)">ALL</button>
-            <button type="button" class="az-btn has-items" onclick="filterByLetter('A', this)">A</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('B', this)">B</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('C', this)">C</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('D', this)">D</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('E', this)">E</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('F', this)">F</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('G', this)">G</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('H', this)">H</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('I', this)">I</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('J', this)">J</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('K', this)">K</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('L', this)">L</button>
-            <button type="button" class="az-btn has-items" onclick="filterByLetter('M', this)">M</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('N', this)">N</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('O', this)">O</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('P', this)">P</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('Q', this)">Q</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('R', this)">R</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('S', this)">S</button>
-            <button type="button" class="az-btn has-items" onclick="filterByLetter('T', this)">T</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('U', this)">U</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('V', this)">V</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('W', this)">W</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('X', this)">X</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('Y', this)">Y</button>
-            <button type="button" class="az-btn" onclick="filterByLetter('Z', this)">Z</button>
+        <div class="alpha-bar" aria-label="Filter by initial letter">
+            <button type="button" class="alpha-pill active" onclick="filterByLetter('ALL', this)">All</button>
+            <button type="button" class="alpha-pill" onclick="filterByLetter('A', this)">A</button>
+            <button type="button" class="alpha-pill" onclick="filterByLetter('M', this)">M</button>
+            <button type="button" class="alpha-pill" onclick="filterByLetter('T', this)">T</button>
         </div>
 
-        <div id="alphabetGroupsContainer">
-            <!-- Static Crawlable HTML Directory -->
-            
-            <!-- Letter A -->
-            <div class="alphabet-section" data-letter="A">
-                <h2 class="alphabet-heading">A</h2>
-                <div class="grid">
-                    <a href="aoi-ibuki/" class="actress-card" data-name="aoi ibuki">
-                        <div class="actress-left">
-                            <div class="actress-avatar">AI</div>
-                            <div class="actress-meta">
-                                <div class="actress-card-name">Aoi Ibuki</div>
-                                <div class="actress-card-count">5 Releases</div>
-                            </div>
-                        </div>
-                        <svg class="actress-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </a>
+        <div class="actress-grid" id="actressGrid">
+            <a href="aoi-ibuki/" class="actress-card" data-name="Aoi Ibuki" data-letter="A">
+                <div class="actress-avatar">AI</div>
+                <div class="actress-details">
+                    <h2 class="actress-name">Aoi Ibuki</h2>
+                    <span class="actress-codes">MIDV-073, MIDV-535, MIDV-719...</span>
                 </div>
-            </div>
+                <span class="actress-count">5 Videos</span>
+            </a>
 
-            <!-- Letter M -->
-            <div class="alphabet-section" data-letter="M">
-                <h2 class="alphabet-heading">M</h2>
-                <div class="grid">
-                    <a href="minamisawa-umika/" class="actress-card" data-name="minamisawa umika">
-                        <div class="actress-left">
-                            <div class="actress-avatar">MU</div>
-                            <div class="actress-meta">
-                                <div class="actress-card-name">Minamisawa Umika</div>
-                                <div class="actress-card-count">3 Releases</div>
-                            </div>
-                        </div>
-                        <svg class="actress-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </a>
+            <a href="minamisawa-umika/" class="actress-card" data-name="Minamisawa Umika" data-letter="M">
+                <div class="actress-avatar">MU</div>
+                <div class="actress-details">
+                    <h2 class="actress-name">Minamisawa Umika</h2>
+                    <span class="actress-codes">JUR-683, JUR-655, JUR-064</span>
                 </div>
-            </div>
+                <span class="actress-count">3 Videos</span>
+            </a>
 
-            <!-- Letter T -->
-            <div class="alphabet-section" data-letter="T">
-                <h2 class="alphabet-heading">T</h2>
-                <div class="grid">
-                    <a href="takara/" class="actress-card" data-name="takara">
-                        <div class="actress-left">
-                            <div class="actress-avatar">TK</div>
-                            <div class="actress-meta">
-                                <div class="actress-card-name">Takara</div>
-                                <div class="actress-card-count">1 Release</div>
-                            </div>
-                        </div>
-                        <svg class="actress-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </a>
+            <a href="takara/" class="actress-card" data-name="Takara" data-letter="T">
+                <div class="actress-avatar">TK</div>
+                <div class="actress-details">
+                    <h2 class="actress-name">Takara</h2>
+                    <span class="actress-codes">STARS-769</span>
                 </div>
-            </div>
+                <span class="actress-count">1 Video</span>
+            </a>
         </div>
 
-        <div class="empty-state" id="emptyState">
-            <h3>No actresses found</h3>
-            <p>No performers match your current filter or search query.</p>
-            <button type="button" class="reset-btn" onclick="resetActressFilters()">Show All Actresses</button>
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <h3>No matching actress found</h3>
+            <p>Try searching with another name or reset the filter.</p>
+            <button type="button" class="reset-btn" onclick="resetFilters()">Show All Actresses</button>
         </div>
     </main>
 
-    <!-- Floating Back to Top Button -->
-    <button type="button" class="back-to-top" id="backToTopBtn" onclick="scrollToTop()" aria-label="Back to top">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="18 15 12 9 6 15"></polyline>
-        </svg>
-    </button>
-
     <footer class="site-footer">
         <div class="footer-links">
-            <a href="../">Home</a>
-            <a href="./">Actress Directory</a>
+            <a href="/">Home</a>
+            <a href="/actress/">Actress Directory</a>
             <a href="../disclaimer.html">Disclaimer &amp; DMCA</a>
             <a href="../privacy.html">Privacy Policy</a>
         </div>
@@ -900,7 +676,14 @@
             }
         });
 
-        function applyActressFilters() {
+        function filterByLetter(letter, pillBtn) {
+            selectedLetter = letter;
+            document.querySelectorAll('.alpha-pill').forEach(p => p.classList.remove('active'));
+            if (pillBtn) pillBtn.classList.add('active');
+            filterActresses();
+        }
+
+        function filterActresses() {
             const input = document.getElementById('actressSearchInput');
             const query = input.value.toLowerCase().trim();
             const clearBtn = document.getElementById('searchClear');
@@ -908,74 +691,41 @@
                 clearBtn.classList.toggle('visible', query.length > 0);
             }
 
-            const sections = document.querySelectorAll('.alphabet-section');
-            let totalVisibleCards = 0;
+            const cards = document.querySelectorAll('.actress-card');
+            let visibleCount = 0;
 
-            sections.forEach(section => {
-                const secLetter = section.getAttribute('data-letter');
-                const matchesLetter = selectedLetter === 'ALL' || secLetter === selectedLetter;
-                const cards = section.querySelectorAll('.actress-card');
-                let sectionVisibleCards = 0;
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name').toLowerCase();
+                const letter = card.getAttribute('data-letter');
+                const matchesLetter = selectedLetter === 'ALL' || letter === selectedLetter;
+                const matchesQuery = !query || name.includes(query);
 
-                cards.forEach(card => {
-                    const name = card.getAttribute('data-name');
-                    const matchesQuery = !query || name.includes(query);
-                    if (matchesLetter && matchesQuery) {
-                        card.style.display = 'flex';
-                        sectionVisibleCards++;
-                        totalVisibleCards++;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                section.style.display = sectionVisibleCards > 0 ? 'block' : 'none';
+                if (matchesLetter && matchesQuery) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
             });
 
-            const countBadge = document.getElementById('actressCountBadge');
-            if (countBadge) {
-                countBadge.innerText = `Showing ${totalVisibleCards} Actress${totalVisibleCards === 1 ? '' : 'es'}`;
-            }
-
-            const emptyState = document.getElementById('emptyState');
-            if (emptyState) {
-                emptyState.classList.toggle('visible', totalVisibleCards === 0);
-            }
+            document.getElementById('emptyState').style.display = visibleCount === 0 ? 'block' : 'none';
+            document.getElementById('actressCountBadge').innerText = `${visibleCount} Actress${visibleCount !== 1 ? 'es' : ''}`;
         }
 
-        function filterByLetter(letter, btnElement) {
-            selectedLetter = letter;
-            document.querySelectorAll('.az-btn').forEach(btn => btn.classList.remove('active'));
-            if (btnElement) btnElement.classList.add('active');
-            applyActressFilters();
-        }
-
-        function clearActressSearch() {
+        function clearSearch() {
             const input = document.getElementById('actressSearchInput');
             input.value = '';
             input.focus();
-            applyActressFilters();
+            filterActresses();
         }
 
-        function resetActressFilters() {
+        function resetFilters() {
             selectedLetter = 'ALL';
             document.getElementById('actressSearchInput').value = '';
-            const btns = document.querySelectorAll('.az-btn');
-            btns.forEach((btn, idx) => btn.classList.toggle('active', idx === 0));
-            applyActressFilters();
+            const pills = document.querySelectorAll('.alpha-pill');
+            pills.forEach((pill, idx) => pill.classList.toggle('active', idx === 0));
+            filterActresses();
         }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        window.addEventListener('scroll', function() {
-            const btn = document.getElementById('backToTopBtn');
-            if (btn) {
-                btn.classList.toggle('visible', window.scrollY > 400);
-            }
-        });
     </script>
-
 </body>
 </html>
