@@ -4,39 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Title & Core SEO Meta Tags -->
     <title>Actress Directory - JavStream HD</title>
-    <meta name="description" content="Browse the complete JAV actress directory on JavStream HD. Find streaming collections by actress name.">
+    <meta name="description" content="Browse the complete JAV actress directory on JavStream HD. Find HD streaming collections by actress name including Kamiki Rei, Aoi Ibuki, Minamisawa Umika, Koibuchi Momona, and Takara.">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#0f1115">
     <link rel="canonical" href="https://javstreamhd.com/actress/">
 
-    <!-- Favicon & App Icon -->
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
     <link rel="apple-touch-icon" href="/favicon.jpg">
 
-    <!-- Open Graph / Social Media Preview -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="JavStream HD">
     <meta property="og:title" content="Actress Directory - JavStream HD">
-    <meta property="og:description" content="Browse the complete JAV actress directory on JavStream HD. Find streaming collections by actress name.">
+    <meta property="og:description" content="Browse the complete JAV actress directory on JavStream HD. Find HD streaming collections by actress name.">
     <meta property="og:url" content="https://javstreamhd.com/actress/">
     <meta property="og:image" content="https://javstreamhd.com/favicon.jpg">
 
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Actress Directory - JavStream HD">
-    <meta name="twitter:description" content="Browse the complete JAV actress directory on JavStream HD. Find streaming collections by actress name.">
+    <meta name="twitter:description" content="Browse the complete JAV actress directory on JavStream HD. Find HD streaming collections by actress name.">
     <meta name="twitter:image" content="https://javstreamhd.com/favicon.jpg">
 
-    <!-- Structured Data (Schema.org) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": "Actress Directory - JavStream HD",
       "url": "https://javstreamhd.com/actress/",
-      "description": "Browse the complete JAV actress directory on JavStream HD."
+      "description": "Browse the complete JAV actress directory on JavStream HD.",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://javstreamhd.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Actress Directory", "item": "https://javstreamhd.com/actress/" }
+        ]
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": 5,
+        "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Person",
+            "name": "Aoi Ibuki",
+            "url": "https://javstreamhd.com/actress/aoi-ibuki/"
+          }
+        },        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Person",
+            "name": "Kamiki Rei",
+            "url": "https://javstreamhd.com/actress/kamiki-rei/"
+          }
+        },        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "Person",
+            "name": "Koibuchi Momona",
+            "url": "https://javstreamhd.com/actress/koibuchi-momona/"
+          }
+        },        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "Person",
+            "name": "Minamisawa Umika",
+            "url": "https://javstreamhd.com/actress/minamisawa-umika/"
+          }
+        },        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "Person",
+            "name": "Takara",
+            "url": "https://javstreamhd.com/actress/takara/"
+          }
+        }
+        ]
+      }
     }
     </script>
 
@@ -76,9 +125,16 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            transition: background-color 0.25s ease;
         }
 
-        /* Navbar */
+        body.theater-mode {
+            --bg-color: #08090c;
+            --navbar-bg: #0b0c10;
+            --card-bg: #0f1116;
+            --border-color: #191c24;
+        }
+
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -152,7 +208,6 @@
             }
         }
 
-        /* Search Box */
         .search-box {
             display: flex;
             align-items: center;
@@ -161,7 +216,7 @@
             border: 1px solid var(--border-color);
             border-radius: 7px;
             padding: 7px 11px;
-            width: 155px;
+            width: 150px;
             transition: border-color 0.15s ease;
         }
 
@@ -226,7 +281,6 @@
             display: flex;
         }
 
-        /* Menu Button & Dropdown */
         .menu-container {
             position: relative;
         }
@@ -259,7 +313,7 @@
             background-color: #181b23;
             border: 1px solid #2a2f3d;
             border-radius: 8px;
-            width: 200px;
+            width: 210px;
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
             overflow: hidden;
             z-index: 1001;
@@ -304,10 +358,9 @@
             background-color: rgba(255, 255, 255, 0.03);
         }
 
-        /* Main Container */
         .container {
             max-width: 1220px;
-            margin: 24px auto 48px;
+            margin: 24px auto 44px;
             padding: 0 20px;
             flex: 1;
             width: 100%;
@@ -315,15 +368,15 @@
 
         @media (min-width: 768px) {
             .container {
-                margin: 32px auto 56px;
+                margin: 32px auto 52px;
                 padding: 0 32px;
             }
         }
 
-        /* Breadcrumb */
         .breadcrumb {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
             gap: 8px;
             font-size: 12.5px;
             color: var(--text-muted);
@@ -340,18 +393,74 @@
             color: var(--text-main);
         }
 
-        /* Section Header */
+        .adblock-notice {
+            position: relative;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 12px 38px 12px 15px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .adblock-notice.hidden {
+            display: none;
+        }
+
+        .notice-row {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .notice-row strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .notice-row .highlight {
+            color: #de646b;
+            font-weight: 600;
+        }
+
+        .notice-close {
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            width: 24px;
+            height: 24px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 15px;
+            line-height: 1;
+            transition: color 0.15s ease, background-color 0.15s ease;
+        }
+
+        .notice-close:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             flex-wrap: wrap;
             gap: 10px;
         }
 
         .section-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.8px;
@@ -367,25 +476,7 @@
             flex-wrap: wrap;
         }
 
-        .sort-btn {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 4px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-        }
-
-        .sort-btn:hover {
-            background-color: var(--card-hover);
-            border-color: var(--border-hover);
-            color: var(--text-main);
-        }
-
-        .count-badge {
+        .page-info-badge {
             font-size: 12px;
             color: var(--text-muted);
             background-color: var(--card-bg);
@@ -394,121 +485,232 @@
             border-radius: 6px;
         }
 
-        /* Alphabet Filter Bar */
-        .alpha-bar {
-            display: flex;
+        .control-btn {
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 22px;
-        }
-
-        .alpha-pill {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 5px 12px;
-            border-radius: 6px;
+            gap: 5px;
             font-size: 12px;
             font-weight: 600;
+            color: var(--text-secondary);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+            transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
         }
 
-        .alpha-pill:hover {
+        .control-btn:hover {
+            background-color: var(--card-hover);
             border-color: var(--border-hover);
             color: var(--text-main);
         }
 
-        .alpha-pill.active {
+        .control-btn.active {
+            background-color: var(--accent-soft);
+            border-color: var(--accent-border);
+            color: #e26d74;
+        }
+
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-pill {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 5px 11px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        }
+
+        .filter-pill:hover {
+            border-color: var(--border-hover);
+            color: var(--text-main);
+        }
+
+        .filter-pill.active {
             background-color: var(--accent-color);
             border-color: var(--accent-color);
             color: #ffffff;
         }
 
-        /* Actress Directory Grid */
-        .actress-grid {
+        .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 16px;
+            gap: 20px;
+            scroll-margin-top: 80px;
         }
 
-        .actress-card {
-            display: flex;
-            align-items: center;
-            gap: 14px;
+        .video-card {
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 16px;
-            text-decoration: none;
-            transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
         }
 
-        .actress-card:hover {
+        .video-card:hover {
+            transform: translateY(-2px);
             background-color: var(--card-hover);
             border-color: var(--border-hover);
-            transform: translateY(-2px);
         }
 
-        .actress-avatar {
-            width: 46px;
-            height: 46px;
-            border-radius: 8px;
-            background-color: #1c202a;
-            border: 1px solid #2b303e;
-            color: #d85b63;
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background-color: #090a0d;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-info {
+            padding: 13px 15px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            flex-shrink: 0;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
         }
 
-        .actress-details {
+        .video-meta {
             display: flex;
             flex-direction: column;
             gap: 4px;
             min-width: 0;
-            flex: 1;
         }
 
-        .actress-name {
-            font-size: 15px;
+        .video-title-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .video-title {
+            font-size: 14.5px;
             font-weight: 600;
             color: var(--text-main);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            letter-spacing: 0.3px;
         }
 
-        .actress-codes {
-            font-size: 12px;
+        .mini-action-btn {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
             color: var(--text-muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
         }
 
-        .actress-count {
-            font-size: 11px;
+        .mini-action-btn:hover {
+            color: var(--text-main);
+            border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .mini-action-btn.copied {
+            color: #6ee7b7;
+            border-color: rgba(110, 231, 183, 0.35);
+            background: rgba(16, 185, 129, 0.12);
+        }
+
+        .mini-action-btn.saved {
+            color: #fbbf24;
+            border-color: rgba(251, 191, 36, 0.38);
+            background: rgba(245, 158, 11, 0.12);
+        }
+
+        .watched-pill {
+            display: none;
+            font-size: 9.5px;
             font-weight: 600;
-            color: var(--text-secondary);
-            background-color: rgba(255, 255, 255, 0.04);
-            border: 1px solid #2b303e;
-            padding: 3px 8px;
-            border-radius: 5px;
-            white-space: nowrap;
+            color: #93c5fd;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(147, 197, 253, 0.3);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        .watched-pill.visible {
+            display: inline-block;
+        }
+
+        .video-actress-list {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .video-actress {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .video-actress:hover {
+            color: var(--text-main);
+        }
+
+        .video-right-side {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
             flex-shrink: 0;
         }
 
-        /* Empty Search State */
+        .video-badge {
+            font-size: 10px;
+            text-transform: uppercase;
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid #2b303e;
+            color: var(--text-secondary);
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .report-btn {
+            font-size: 10.5px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .report-btn:hover {
+            color: var(--text-secondary);
+            text-decoration: underline;
+        }
+
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 44px 20px;
+            padding: 48px 20px;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
@@ -517,13 +719,13 @@
 
         .empty-state h3 {
             color: var(--text-main);
-            font-size: 15px;
+            font-size: 15.5px;
             margin-bottom: 6px;
         }
 
         .empty-state p {
             font-size: 13px;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .reset-btn {
@@ -540,6 +742,159 @@
 
         .reset-btn:hover {
             background-color: var(--accent-hover);
+        }
+
+        /* Pagination */
+        .pagination-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 34px;
+            gap: 10px;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .page-ellipsis {
+            color: var(--text-muted);
+            font-size: 13px;
+            padding: 0 4px;
+            user-select: none;
+        }
+
+        .page-tip {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .page-tip kbd {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-family: inherit;
+            color: var(--text-secondary);
+            font-size: 10px;
+        }
+
+        .page-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            min-width: 36px;
+            height: 36px;
+            padding: 0 11px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .page-btn:hover:not(.disabled):not(.active) {
+            background-color: var(--card-hover);
+            border-color: var(--border-hover);
+            color: var(--text-main);
+        }
+
+        .page-btn.active {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #ffffff;
+        }
+
+        .page-btn.disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        /* Semantic SEO Archive Overview */
+        .archive-overview {
+            margin-top: 40px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px 20px;
+        }
+
+        .archive-overview h2 {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .archive-overview p {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .quick-actress-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .quick-actress-chip {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 5px 11px;
+            border-radius: 6px;
+            transition: border-color 0.15s ease, color 0.15s ease;
+        }
+
+        .quick-actress-chip:hover {
+            border-color: var(--border-hover);
+            color: var(--text-main);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            border: 1px solid #2b303e;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, background-color 0.15s ease, color 0.15s ease;
+            z-index: 990;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--card-hover);
+            color: var(--text-main);
+            border-color: var(--border-hover);
         }
 
         /* Footer */
@@ -560,14 +915,20 @@
             margin-bottom: 10px;
         }
 
-        .footer-links a {
+        .footer-links a,
+        .footer-tip-btn {
+            background: none;
+            border: none;
+            font-family: inherit;
             color: var(--text-muted);
             text-decoration: none;
             font-size: 12.5px;
+            cursor: pointer;
             transition: color 0.15s ease;
         }
 
-        .footer-links a:hover {
+        .footer-links a:hover,
+        .footer-tip-btn:hover {
             color: var(--text-main);
         }
 
@@ -575,6 +936,102 @@
             color: var(--text-muted);
             font-size: 12px;
             opacity: 0.75;
+        }
+        .alpha-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+        .alpha-pill {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        }
+        .alpha-pill:hover {
+            border-color: var(--border-hover);
+            color: var(--text-main);
+        }
+        .alpha-pill.active {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #ffffff;
+        }
+        .actress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .actress-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            text-decoration: none;
+            transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+        }
+        .actress-card:hover {
+            background-color: var(--card-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+        .actress-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 8px;
+            background-color: #1c202a;
+            border: 1px solid #2b303e;
+            color: #d85b63;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+        .actress-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+            flex: 1;
+        }
+        .actress-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .actress-codes {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .actress-count {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid #2b303e;
+            padding: 3px 8px;
+            border-radius: 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -625,10 +1082,10 @@
         <div class="section-header">
             <h1 class="section-title">Actress Directory</h1>
             <div class="header-controls">
-                <button type="button" class="sort-btn" onclick="toggleDirectorySort()">
+                <button type="button" class="control-btn" onclick="toggleDirectorySort()">
                     <span id="dirSortLabel">Sort: A–Z</span>
                 </button>
-                <div class="count-badge" id="actressCountBadge">5 Actresses (27 Videos)</div>
+                <div class="page-info-badge" id="actressCountBadge">5 Actresses (27 Videos)</div>
             </div>
         </div>
 
@@ -649,7 +1106,6 @@
                 </div>
                 <span class="actress-count">5 Videos</span>
             </a>
-
             <a href="kamiki-rei/" class="actress-card" data-name="Kamiki Rei" data-letter="K" data-videos="18">
                 <div class="actress-avatar">KR</div>
                 <div class="actress-details">
@@ -658,7 +1114,6 @@
                 </div>
                 <span class="actress-count">18 Videos</span>
             </a>
-
             <a href="koibuchi-momona/" class="actress-card" data-name="Koibuchi Momona" data-letter="K" data-videos="1">
                 <div class="actress-avatar">KM</div>
                 <div class="actress-details">
@@ -667,7 +1122,6 @@
                 </div>
                 <span class="actress-count">1 Video</span>
             </a>
-
             <a href="minamisawa-umika/" class="actress-card" data-name="Minamisawa Umika" data-letter="M" data-videos="3">
                 <div class="actress-avatar">MU</div>
                 <div class="actress-details">
@@ -676,7 +1130,6 @@
                 </div>
                 <span class="actress-count">3 Videos</span>
             </a>
-
             <a href="takara/" class="actress-card" data-name="Takara" data-letter="T" data-videos="1">
                 <div class="actress-avatar">TK</div>
                 <div class="actress-details">
@@ -753,9 +1206,7 @@
             const input = document.getElementById('actressSearchInput');
             const query = input.value.toLowerCase().trim();
             const clearBtn = document.getElementById('searchClear');
-            if (clearBtn) {
-                clearBtn.classList.toggle('visible', query.length > 0);
-            }
+            if (clearBtn) clearBtn.classList.toggle('visible', query.length > 0);
 
             const cards = document.querySelectorAll('.actress-card');
             let visibleCount = 0;
@@ -792,8 +1243,7 @@
         function resetFilters() {
             selectedLetter = 'ALL';
             document.getElementById('actressSearchInput').value = '';
-            const pills = document.querySelectorAll('.alpha-pill');
-            pills.forEach((pill, idx) => pill.classList.toggle('active', idx === 0));
+            document.querySelectorAll('.alpha-pill').forEach((pill, idx) => pill.classList.toggle('active', idx === 0));
             filterActresses();
         }
     </script>
