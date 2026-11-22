@@ -337,7 +337,7 @@
             border-left: 3px solid var(--accent-color);
             border-radius: 8px;
             padding: 12px 38px 12px 15px;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -392,7 +392,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 14px;
             flex-wrap: wrap;
             gap: 10px;
         }
@@ -407,6 +407,13 @@
             padding-left: 11px;
         }
 
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
         .page-info-badge {
             font-size: 12px;
             color: var(--text-muted);
@@ -414,6 +421,60 @@
             border: 1px solid var(--border-color);
             padding: 4px 11px;
             border-radius: 6px;
+        }
+
+        .sort-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+        }
+
+        .sort-btn:hover {
+            background-color: var(--card-hover);
+            border-color: var(--border-hover);
+            color: var(--text-main);
+        }
+
+        /* Series Quick-Filter Pills */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-pill {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 5px 11px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        }
+
+        .filter-pill:hover {
+            border-color: var(--border-hover);
+            color: var(--text-main);
+        }
+
+        .filter-pill.active {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #ffffff;
         }
 
         /* Clean, Spacious Video Grid */
@@ -470,6 +531,12 @@
             min-width: 0;
         }
 
+        .video-title-row {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
         .video-title {
             font-size: 14.5px;
             font-weight: 600;
@@ -477,11 +544,43 @@
             letter-spacing: 0.3px;
         }
 
-        .video-actress {
+        .copy-code-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+        }
+
+        .copy-code-btn:hover {
+            color: var(--text-main);
+            border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .copy-code-btn.copied {
+            color: #6ee7b7;
+            border-color: rgba(110, 231, 183, 0.35);
+            background: rgba(16, 185, 129, 0.12);
+        }
+
+        .video-actress-list {
             font-size: 12.5px;
             color: var(--text-muted);
-            text-decoration: none;
             font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .video-actress {
+            color: var(--text-muted);
+            text-decoration: none;
             transition: color 0.15s ease;
         }
 
@@ -574,6 +673,13 @@
             align-items: center;
             gap: 6px;
             flex-wrap: wrap;
+        }
+
+        .page-ellipsis {
+            color: var(--text-muted);
+            font-size: 13px;
+            padding: 0 4px;
+            user-select: none;
         }
 
         .page-tip {
@@ -714,7 +820,7 @@
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <input type="text" class="search-input" placeholder="​Code / name..." id="searchInput" oninput="triggerSearch()" aria-label="Search video archive">
+                <input type="text" class="search-input" placeholder="Code / name..." id="searchInput" oninput="triggerSearch()" aria-label="Search video archive">
                 <button type="button" class="search-clear" id="searchClear" onclick="clearSearch()" aria-label="Clear search">&times;</button>
             </div>
 
@@ -750,22 +856,40 @@
         </div>
 
         <div class="section-header">
-            <h1 class="section-title">Latest Releases</h1>
-            <div class="page-info-badge" id="pageInfoBadge">Showing Page 1 of 1 (9 Videos)</div>
+            <h1 class="section-title" id="sectionTitle">Latest Releases</h1>
+            <div class="header-controls">
+                <button type="button" class="sort-btn" id="sortToggleBtn" onclick="toggleSortOrder()" aria-label="Toggle sort order">
+                    <span id="sortLabel">Newest First</span>
+                </button>
+                <div class="page-info-badge" id="pageInfoBadge">Showing Page 1 of 3 (27 Videos)</div>
+            </div>
+        </div>
+
+        <!-- Series Prefix Quick Filter -->
+        <div class="filter-bar" aria-label="Filter by release code prefix">
+            <button type="button" class="filter-pill active" onclick="filterByPrefix('ALL', this)">All (27)</button>
+            <button type="button" class="filter-pill" onclick="filterByPrefix('START', this)">START</button>
+            <button type="button" class="filter-pill" onclick="filterByPrefix('STARS', this)">STARS</button>
+            <button type="button" class="filter-pill" onclick="filterByPrefix('MIDV', this)">MIDV</button>
+            <button type="button" class="filter-pill" onclick="filterByPrefix('JUR', this)">JUR</button>
+            <button type="button" class="filter-pill" onclick="filterByPrefix('SDDE', this)">SDDE</button>
         </div>
         
-        <!-- Static HTML Video Grid (Directly crawlable by Googlebot) -->
+        <!-- Static HTML Video Grid (Page 1 - Directly crawlable by Googlebot) -->
         <div class="video-grid" id="mainVideoGrid">
             
-            <!-- Video 9 -->
+            <!-- Video 27 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/h1hysvsqumvx" title="STARS-769 - Takara" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/7qlaepgswo9u" title="START-542 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h2 class="video-title">STARS-769</h2>
-                        <a href="actress/takara/" class="video-actress">Takara</a>
+                        <div class="video-title-row">
+                            <h2 class="video-title">START-542</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('START-542', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
@@ -774,15 +898,18 @@
                 </div>
             </div>
 
-            <!-- Video 8 -->
+            <!-- Video 26 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/ehxd29ifwn0h" title="MIDV-073 - Aoi Ibuki" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/6ujgqn859dkt" title="START-398 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h2 class="video-title">MIDV-073</h2>
-                        <a href="actress/aoi-ibuki/" class="video-actress">Aoi Ibuki</a>
+                        <div class="video-title-row">
+                            <h2 class="video-title">START-398</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('START-398', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
@@ -791,15 +918,18 @@
                 </div>
             </div>
 
-            <!-- Video 7 -->
+            <!-- Video 25 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/m7ud4wtimlbw" title="MIDV-535 - Aoi Ibuki" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/4twmdiehe20y" title="START-326 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h2 class="video-title">MIDV-535</h2>
-                        <a href="actress/aoi-ibuki/" class="video-actress">Aoi Ibuki</a>
+                        <div class="video-title-row">
+                            <h2 class="video-title">START-326</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('START-326', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
@@ -808,15 +938,18 @@
                 </div>
             </div>
 
-            <!-- Video 6 -->
+            <!-- Video 24 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/3ehlixfhy5wk" title="MIDV-719 - Aoi Ibuki" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/mr6nqd9wmzgn" title="START-285 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h2 class="video-title">MIDV-719</h2>
-                        <a href="actress/aoi-ibuki/" class="video-actress">Aoi Ibuki</a>
+                        <div class="video-title-row">
+                            <h2 class="video-title">START-285</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('START-285', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
@@ -825,15 +958,18 @@
                 </div>
             </div>
 
-            <!-- Video 5 -->
+            <!-- Video 23 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/0ji1bqt21ot1" title="MIDV-390 - Aoi Ibuki" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/pvsct9lbpz1l" title="START-272 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h2 class="video-title">MIDV-390</h2>
-                        <a href="actress/aoi-ibuki/" class="video-actress">Aoi Ibuki</a>
+                        <div class="video-title-row">
+                            <h2 class="video-title">START-272</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('START-272', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
@@ -842,15 +978,18 @@
                 </div>
             </div>
 
-            <!-- Video 4 -->
+            <!-- Video 22 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/d6kiyxhpxfha" title="MIDV-296 - Aoi Ibuki" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/2m4h1o4d9yok" title="START-255 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h2 class="video-title">MIDV-296</h2>
-                        <a href="actress/aoi-ibuki/" class="video-actress">Aoi Ibuki</a>
+                        <div class="video-title-row">
+                            <h2 class="video-title">START-255</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('START-255', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
@@ -859,15 +998,18 @@
                 </div>
             </div>
 
-            <!-- Video 3 -->
+            <!-- Video 21 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/a68tcurf645r" title="JUR-683 - Minamisawa Umika" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/l9mwk1rpyvsc" title="START-232 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h2 class="video-title">JUR-683</h2>
-                        <a href="actress/minamisawa-umika/" class="video-actress">Minamisawa Umika</a>
+                        <div class="video-title-row">
+                            <h2 class="video-title">START-232</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('START-232', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
@@ -876,15 +1018,18 @@
                 </div>
             </div>
 
-            <!-- Video 2 -->
+            <!-- Video 20 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/13jr1kyhz6m7" title="JUR-655 - Minamisawa Umika" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/bogqg9d31mb7" title="START-111 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h2 class="video-title">JUR-655</h2>
-                        <a href="actress/minamisawa-umika/" class="video-actress">Minamisawa Umika</a>
+                        <div class="video-title-row">
+                            <h2 class="video-title">START-111</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('START-111', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
@@ -893,15 +1038,78 @@
                 </div>
             </div>
 
-            <!-- Video 1 -->
+            <!-- Video 19 -->
             <div class="video-card">
                 <div class="video-container">
-                    <iframe src="https://lplaygo.com/e/413cododyut4" title="JUR-064 - Minamisawa Umika" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://lplaygo.com/e/fvgw8tnk2ram" title="START-023 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
                     <div class="video-meta">
-                        <h2 class="video-title">JUR-064</h2>
-                        <a href="actress/minamisawa-umika/" class="video-actress">Minamisawa Umika</a>
+                        <div class="video-title-row">
+                            <h2 class="video-title">START-023</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('START-023', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
+                    </div>
+                    <div class="video-right-side">
+                        <span class="video-badge">HD</span>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 18 -->
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://lplaygo.com/e/th0h2e1sx5xz" title="START-006 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <div class="video-title-row">
+                            <h2 class="video-title">START-006</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('START-006', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
+                    </div>
+                    <div class="video-right-side">
+                        <span class="video-badge">HD</span>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 17 -->
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://lplaygo.com/e/par5715egbb5" title="STARS-964 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <div class="video-title-row">
+                            <h2 class="video-title">STARS-964</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('STARS-964', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
+                    </div>
+                    <div class="video-right-side">
+                        <span class="video-badge">HD</span>
+                        <a href="https://forms.gle/g8xnq1XmNwTG1xYR6" target="_blank" rel="noopener noreferrer" class="report-btn">Report Broken</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 16 -->
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="https://lplaygo.com/e/fcojh6lvc8mw" title="STARS-947 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <div class="video-title-row">
+                            <h2 class="video-title">STARS-947</h2>
+                            <button type="button" class="copy-code-btn" onclick="copyCode('STARS-947', this)" title="Copy release code">Copy</button>
+                        </div>
+                        <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
                     <div class="video-right-side">
                         <span class="video-badge">HD</span>
@@ -915,7 +1123,7 @@
         <!-- Pagination Controls -->
         <div class="pagination-wrapper">
             <div class="pagination-container" id="paginationContainer"></div>
-            <div class="page-tip" id="pageTip" style="display: none;">Tip: Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> arrow keys on your keyboard to navigate pages.</div>
+            <div class="page-tip" id="pageTip">Tip: Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> arrow keys on your keyboard to navigate pages.</div>
         </div>
     </main>
 
@@ -939,19 +1147,39 @@
 
     <script>
         const database = [
-            { code: "STARS-769", actress: "Takara", actressSlug: "takara", embedUrl: "https://lplaygo.com/e/h1hysvsqumvx", badge: "HD" },
-            { code: "MIDV-073", actress: "Aoi Ibuki", actressSlug: "aoi-ibuki", embedUrl: "https://lplaygo.com/e/ehxd29ifwn0h", badge: "HD" },
-            { code: "MIDV-535", actress: "Aoi Ibuki", actressSlug: "aoi-ibuki", embedUrl: "https://lplaygo.com/e/m7ud4wtimlbw", badge: "HD" },
-            { code: "MIDV-719", actress: "Aoi Ibuki", actressSlug: "aoi-ibuki", embedUrl: "https://lplaygo.com/e/3ehlixfhy5wk", badge: "HD" },
-            { code: "MIDV-390", actress: "Aoi Ibuki", actressSlug: "aoi-ibuki", embedUrl: "https://lplaygo.com/e/0ji1bqt21ot1", badge: "HD" },
-            { code: "MIDV-296", actress: "Aoi Ibuki", actressSlug: "aoi-ibuki", embedUrl: "https://lplaygo.com/e/d6kiyxhpxfha", badge: "HD" },
-            { code: "JUR-683", actress: "Minamisawa Umika", actressSlug: "minamisawa-umika", embedUrl: "https://lplaygo.com/e/a68tcurf645r", badge: "HD" },
-            { code: "JUR-655", actress: "Minamisawa Umika", actressSlug: "minamisawa-umika", embedUrl: "https://lplaygo.com/e/13jr1kyhz6m7", badge: "HD" },
-            { code: "JUR-064", actress: "Minamisawa Umika", actressSlug: "minamisawa-umika", embedUrl: "https://lplaygo.com/e/413cododyut4", badge: "HD" }
+            { code: "START-542", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/7qlaepgswo9u", badge: "HD" },
+            { code: "START-398", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/6ujgqn859dkt", badge: "HD" },
+            { code: "START-326", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/4twmdiehe20y", badge: "HD" },
+            { code: "START-285", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/mr6nqd9wmzgn", badge: "HD" },
+            { code: "START-272", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/pvsct9lbpz1l", badge: "HD" },
+            { code: "START-255", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/2m4h1o4d9yok", badge: "HD" },
+            { code: "START-232", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/l9mwk1rpyvsc", badge: "HD" },
+            { code: "START-111", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/bogqg9d31mb7", badge: "HD" },
+            { code: "START-023", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/fvgw8tnk2ram", badge: "HD" },
+            { code: "START-006", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/th0h2e1sx5xz", badge: "HD" },
+            { code: "STARS-964", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/par5715egbb5", badge: "HD" },
+            { code: "STARS-947", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/fcojh6lvc8mw", badge: "HD" },
+            { code: "STARS-894", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/3c1x8wbsxmd8", badge: "HD" },
+            { code: "STARS-881", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }, { name: "Koibuchi Momona", slug: "koibuchi-momona" }], embedUrl: "https://lplaygo.com/e/yzsttch7h8rd", badge: "HD" },
+            { code: "STARS-766", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/dccy3k4yzxxw", badge: "HD" },
+            { code: "STARS-725", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/2d5yh0ps8j39", badge: "HD" },
+            { code: "STARS-703", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/jsmt2t234rr2", badge: "HD" },
+            { code: "SDDE-711", actresses: [{ name: "Kamiki Rei", slug: "kamiki-rei" }], embedUrl: "https://lplaygo.com/e/i8eis6khca0y", badge: "HD" },
+            { code: "STARS-769", actresses: [{ name: "Takara", slug: "takara" }], embedUrl: "https://lplaygo.com/e/h1hysvsqumvx", badge: "HD" },
+            { code: "MIDV-073", actresses: [{ name: "Aoi Ibuki", slug: "aoi-ibuki" }], embedUrl: "https://lplaygo.com/e/ehxd29ifwn0h", badge: "HD" },
+            { code: "MIDV-535", actresses: [{ name: "Aoi Ibuki", slug: "aoi-ibuki" }], embedUrl: "https://lplaygo.com/e/m7ud4wtimlbw", badge: "HD" },
+            { code: "MIDV-719", actresses: [{ name: "Aoi Ibuki", slug: "aoi-ibuki" }], embedUrl: "https://lplaygo.com/e/3ehlixfhy5wk", badge: "HD" },
+            { code: "MIDV-390", actresses: [{ name: "Aoi Ibuki", slug: "aoi-ibuki" }], embedUrl: "https://lplaygo.com/e/0ji1bqt21ot1", badge: "HD" },
+            { code: "MIDV-296", actresses: [{ name: "Aoi Ibuki", slug: "aoi-ibuki" }], embedUrl: "https://lplaygo.com/e/d6kiyxhpxfha", badge: "HD" },
+            { code: "JUR-683", actresses: [{ name: "Minamisawa Umika", slug: "minamisawa-umika" }], embedUrl: "https://lplaygo.com/e/a68tcurf645r", badge: "HD" },
+            { code: "JUR-655", actresses: [{ name: "Minamisawa Umika", slug: "minamisawa-umika" }], embedUrl: "https://lplaygo.com/e/13jr1kyhz6m7", badge: "HD" },
+            { code: "JUR-064", actresses: [{ name: "Minamisawa Umika", slug: "minamisawa-umika" }], embedUrl: "https://lplaygo.com/e/413cododyut4", badge: "HD" }
         ];
 
         const ITEMS_PER_PAGE = 12;
         let currentPage = 1;
+        let selectedPrefix = 'ALL';
+        let sortOldestFirst = false;
         let currentFilteredDatabase = [...database];
 
         // Check saved notice preference
@@ -997,37 +1225,106 @@
             }
         });
 
-        function applyFilters() {
+        function copyCode(code, btn) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(code).catch(() => {});
+            } else {
+                const temp = document.createElement('textarea');
+                temp.value = code;
+                document.body.appendChild(temp);
+                temp.select();
+                try { document.execCommand('copy'); } catch (e) {}
+                document.body.removeChild(temp);
+            }
+            const originalText = btn.innerText;
+            btn.innerText = 'Copied';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('copied');
+            }, 1400);
+        }
+
+        function updateUrlState() {
+            try {
+                const url = new URL(window.location.href);
+                const query = document.getElementById('searchInput').value.trim();
+                if (query) {
+                    url.searchParams.set('q', query);
+                } else {
+                    url.searchParams.delete('q');
+                }
+                if (currentPage > 1) {
+                    url.searchParams.set('page', String(currentPage));
+                } else {
+                    url.searchParams.delete('page');
+                }
+                window.history.replaceState({}, '', url.toString());
+            } catch (e) {}
+        }
+
+        function filterByPrefix(prefix, pillBtn) {
+            selectedPrefix = prefix;
+            document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+            if (pillBtn) pillBtn.classList.add('active');
+            applyFilters();
+        }
+
+        function toggleSortOrder() {
+            sortOldestFirst = !sortOldestFirst;
+            document.getElementById('sortLabel').innerText = sortOldestFirst ? 'Oldest First' : 'Newest First';
+            document.getElementById('sectionTitle').innerText = sortOldestFirst ? 'Oldest Releases' : 'Latest Releases';
+            applyFilters();
+        }
+
+        function applyFilters(preservePage = false) {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
             const clearBtn = document.getElementById('searchClear');
             if (clearBtn) {
                 clearBtn.classList.toggle('visible', query.length > 0);
             }
 
-            currentFilteredDatabase = database.filter(item => {
-                return !query || 
-                    item.code.toLowerCase().includes(query) || 
-                    item.actress.toLowerCase().includes(query);
+            let list = database.filter(item => {
+                const matchesPrefix = selectedPrefix === 'ALL' || item.code.toUpperCase().startsWith(selectedPrefix + '-');
+                const matchesQuery = !query ||
+                    item.code.toLowerCase().includes(query) ||
+                    item.actresses.some(a => a.name.toLowerCase().includes(query));
+                return matchesPrefix && matchesQuery;
             });
 
-            currentPage = 1;
+            if (sortOldestFirst) {
+                list = [...list].reverse();
+            }
+
+            currentFilteredDatabase = list;
+            if (!preservePage) {
+                currentPage = 1;
+            }
             renderVideos();
+            updateUrlState();
         }
 
         function triggerSearch() {
-            applyFilters();
+            applyFilters(false);
         }
 
         function clearSearch() {
             const input = document.getElementById('searchInput');
             input.value = '';
             input.focus();
-            applyFilters();
+            applyFilters(false);
         }
 
         function resetAllFilters() {
             document.getElementById('searchInput').value = '';
-            applyFilters();
+            selectedPrefix = 'ALL';
+            sortOldestFirst = false;
+            document.getElementById('sortLabel').innerText = 'Newest First';
+            document.getElementById('sectionTitle').innerText = 'Latest Releases';
+            document.querySelectorAll('.filter-pill').forEach((pill, idx) => {
+                pill.classList.toggle('active', idx === 0);
+            });
+            applyFilters(false);
         }
 
         function renderPagination() {
@@ -1044,6 +1341,7 @@
             }
 
             const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+            if (currentPage > totalPages) currentPage = totalPages;
             pageBadge.innerText = `Showing Page ${currentPage} of ${totalPages} (${totalItems} Video${totalItems > 1 ? 's' : ''})`;
 
             if (totalPages <= 1) {
@@ -1056,9 +1354,22 @@
 
             let html = `<button type="button" class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo; Prev</button>`;
 
+            const pagesToShow = [];
             for (let i = 1; i <= totalPages; i++) {
-                html += `<button type="button" class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+                if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
+                    pagesToShow.push(i);
+                } else if (pagesToShow[pagesToShow.length - 1] !== '...') {
+                    pagesToShow.push('...');
+                }
             }
+
+            pagesToShow.forEach(p => {
+                if (p === '...') {
+                    html += `<span class="page-ellipsis">&hellip;</span>`;
+                } else {
+                    html += `<button type="button" class="page-btn ${p === currentPage ? 'active' : ''}" onclick="changePage(${p})">${p}</button>`;
+                }
+            });
 
             html += `<button type="button" class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &raquo;</button>`;
 
@@ -1072,7 +1383,7 @@
                 grid.innerHTML = `
                     <div class="empty-state">
                         <h3>No matching releases found</h3>
-                        <p>Try searching with another release code or actress name.</p>
+                        <p>Try searching with another release code, actress name, or reset filters.</p>
                         <button type="button" class="reset-btn" onclick="resetAllFilters()">Show All Releases</button>
                     </div>
                 `;
@@ -1080,21 +1391,32 @@
                 return;
             }
 
+            const totalPages = Math.ceil(currentFilteredDatabase.length / ITEMS_PER_PAGE);
+            if (currentPage > totalPages) currentPage = totalPages;
+
             const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
             const endIndex = startIndex + ITEMS_PER_PAGE;
             const pageVideos = currentFilteredDatabase.slice(startIndex, endIndex);
 
             let html = '';
             pageVideos.forEach(video => {
+                const actressNames = video.actresses.map(a => a.name).join(', ');
+                const actressLinks = video.actresses
+                    .map(a => `<a href="actress/${a.slug}/" class="video-actress">${a.name}</a>`)
+                    .join(', ');
+
                 html += `
                     <div class="video-card">
                         <div class="video-container">
-                            <iframe src="${video.embedUrl}" title="${video.code} - ${video.actress}" allowfullscreen loading="lazy"></iframe>
+                            <iframe src="${video.embedUrl}" title="${video.code} - ${actressNames}" allowfullscreen loading="lazy"></iframe>
                         </div>
                         <div class="video-info">
                             <div class="video-meta">
-                                <h2 class="video-title">${video.code}</h2>
-                                <a href="actress/${video.actressSlug}/" class="video-actress">${video.actress}</a>
+                                <div class="video-title-row">
+                                    <h2 class="video-title">${video.code}</h2>
+                                    <button type="button" class="copy-code-btn" onclick="copyCode('${video.code}', this)" title="Copy release code">Copy</button>
+                                </div>
+                                <div class="video-actress-list">${actressLinks}</div>
                             </div>
                             <div class="video-right-side">
                                 <span class="video-badge">${video.badge}</span>
@@ -1114,6 +1436,7 @@
 
             currentPage = newPage;
             renderVideos();
+            updateUrlState();
             document.getElementById('mainVideoGrid').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -1140,12 +1463,18 @@
             }
         });
 
-        // Support ?q= query parameter if opened from search
+        // Initialize from URL query parameters (?q=... and ?page=...)
         const urlParams = new URLSearchParams(window.location.search);
         const initialQuery = urlParams.get('q');
+        const initialPage = parseInt(urlParams.get('page'), 10);
+
         if (initialQuery) {
             document.getElementById('searchInput').value = initialQuery;
-            applyFilters();
+            if (!isNaN(initialPage) && initialPage > 1) currentPage = initialPage;
+            applyFilters(true);
+        } else if (!isNaN(initialPage) && initialPage > 1) {
+            currentPage = initialPage;
+            renderVideos();
         } else {
             renderPagination();
         }
