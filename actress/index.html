@@ -360,6 +360,31 @@
             padding-left: 11px;
         }
 
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sort-btn {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        }
+
+        .sort-btn:hover {
+            background-color: var(--card-hover);
+            border-color: var(--border-hover);
+            color: var(--text-main);
+        }
+
         .count-badge {
             font-size: 12px;
             color: var(--text-muted);
@@ -599,18 +624,24 @@
 
         <div class="section-header">
             <h1 class="section-title">Actress Directory</h1>
-            <div class="count-badge" id="actressCountBadge">3 Actresses (9 Videos)</div>
+            <div class="header-controls">
+                <button type="button" class="sort-btn" onclick="toggleDirectorySort()">
+                    <span id="dirSortLabel">Sort: A–Z</span>
+                </button>
+                <div class="count-badge" id="actressCountBadge">5 Actresses (27 Videos)</div>
+            </div>
         </div>
 
         <div class="alpha-bar" aria-label="Filter by initial letter">
             <button type="button" class="alpha-pill active" onclick="filterByLetter('ALL', this)">All</button>
             <button type="button" class="alpha-pill" onclick="filterByLetter('A', this)">A</button>
+            <button type="button" class="alpha-pill" onclick="filterByLetter('K', this)">K</button>
             <button type="button" class="alpha-pill" onclick="filterByLetter('M', this)">M</button>
             <button type="button" class="alpha-pill" onclick="filterByLetter('T', this)">T</button>
         </div>
 
         <div class="actress-grid" id="actressGrid">
-            <a href="aoi-ibuki/" class="actress-card" data-name="Aoi Ibuki" data-letter="A">
+            <a href="aoi-ibuki/" class="actress-card" data-name="Aoi Ibuki" data-letter="A" data-videos="5">
                 <div class="actress-avatar">AI</div>
                 <div class="actress-details">
                     <h2 class="actress-name">Aoi Ibuki</h2>
@@ -619,7 +650,25 @@
                 <span class="actress-count">5 Videos</span>
             </a>
 
-            <a href="minamisawa-umika/" class="actress-card" data-name="Minamisawa Umika" data-letter="M">
+            <a href="kamiki-rei/" class="actress-card" data-name="Kamiki Rei" data-letter="K" data-videos="18">
+                <div class="actress-avatar">KR</div>
+                <div class="actress-details">
+                    <h2 class="actress-name">Kamiki Rei</h2>
+                    <span class="actress-codes">START-542, START-398, STARS-881...</span>
+                </div>
+                <span class="actress-count">18 Videos</span>
+            </a>
+
+            <a href="koibuchi-momona/" class="actress-card" data-name="Koibuchi Momona" data-letter="K" data-videos="1">
+                <div class="actress-avatar">KM</div>
+                <div class="actress-details">
+                    <h2 class="actress-name">Koibuchi Momona</h2>
+                    <span class="actress-codes">STARS-881</span>
+                </div>
+                <span class="actress-count">1 Video</span>
+            </a>
+
+            <a href="minamisawa-umika/" class="actress-card" data-name="Minamisawa Umika" data-letter="M" data-videos="3">
                 <div class="actress-avatar">MU</div>
                 <div class="actress-details">
                     <h2 class="actress-name">Minamisawa Umika</h2>
@@ -628,7 +677,7 @@
                 <span class="actress-count">3 Videos</span>
             </a>
 
-            <a href="takara/" class="actress-card" data-name="Takara" data-letter="T">
+            <a href="takara/" class="actress-card" data-name="Takara" data-letter="T" data-videos="1">
                 <div class="actress-avatar">TK</div>
                 <div class="actress-details">
                     <h2 class="actress-name">Takara</h2>
@@ -657,6 +706,7 @@
 
     <script>
         let selectedLetter = 'ALL';
+        let sortByVideos = false;
 
         function toggleMenu() {
             const menu = document.getElementById('dropdownMenu');
@@ -675,6 +725,22 @@
                 }
             }
         });
+
+        function toggleDirectorySort() {
+            sortByVideos = !sortByVideos;
+            document.getElementById('dirSortLabel').innerText = sortByVideos ? 'Sort: Most Videos' : 'Sort: A–Z';
+            const grid = document.getElementById('actressGrid');
+            const cards = Array.from(grid.querySelectorAll('.actress-card'));
+
+            cards.sort((a, b) => {
+                if (sortByVideos) {
+                    return parseInt(b.getAttribute('data-videos'), 10) - parseInt(a.getAttribute('data-videos'), 10);
+                }
+                return a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
+            });
+
+            cards.forEach(card => grid.appendChild(card));
+        }
 
         function filterByLetter(letter, pillBtn) {
             selectedLetter = letter;
@@ -709,7 +775,11 @@
             });
 
             document.getElementById('emptyState').style.display = visibleCount === 0 ? 'block' : 'none';
-            document.getElementById('actressCountBadge').innerText = `${visibleCount} Actress${visibleCount !== 1 ? 'es' : ''}`;
+            if (selectedLetter === 'ALL' && !query) {
+                document.getElementById('actressCountBadge').innerText = '5 Actresses (27 Videos)';
+            } else {
+                document.getElementById('actressCountBadge').innerText = `${visibleCount} Actress${visibleCount !== 1 ? 'es' : ''}`;
+            }
         }
 
         function clearSearch() {
