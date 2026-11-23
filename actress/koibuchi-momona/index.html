@@ -95,6 +95,11 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        *:focus-visible {
+            outline: 2px solid rgba(214, 69, 78, 0.75);
+            outline-offset: 2px;
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -228,10 +233,16 @@
             background: transparent;
             border: none;
             color: var(--text-main);
-            font-size: 13px;
+            font-size: 16px;
             outline: none;
             width: 100%;
             min-width: 0;
+        }
+
+        @media (min-width: 768px) {
+            .search-input {
+                font-size: 13.5px;
+            }
         }
 
         .search-input::placeholder {
@@ -503,6 +514,8 @@
         }
 
         .filter-pill {
+            min-height: 30px;
+            touch-action: manipulation;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
@@ -596,14 +609,17 @@
         .mini-action-btn {
             display: inline-flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.03);
+            justify-content: center;
+            min-height: 26px;
+            background: rgba(255, 255, 255, 0.035);
             border: 1px solid var(--border-color);
             color: var(--text-muted);
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 4px;
+            padding: 4px 8px;
+            border-radius: 5px;
             cursor: pointer;
+            touch-action: manipulation;
             transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
         }
 
@@ -788,6 +804,7 @@
         }
 
         .page-btn {
+            touch-action: manipulation;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
@@ -1153,7 +1170,7 @@
                             <h2 class="video-title">STARS-881</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('STARS-881', this)">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="STARS-881" onclick="toggleSave('STARS-881', this)">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="STARS-881" onclick="toggleWatched(\'STARS-881\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="STARS-881" onclick="toggleWatched('STARS-881', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <span class="video-actress"><a href="../kamiki-rei/">Kamiki Rei</a>, Koibuchi Momona</span>
                     </div>
@@ -1216,9 +1233,33 @@
         const originalCards = Array.from(gridEl.querySelectorAll('.video-card'));
         let filteredCards = [...originalCards];
 
+        const memoryFallbackStorage = {};
+
+        function safeGetItem(key) {
+            try {
+                return localStorage.getItem(key);
+            } catch (e) {
+                return Object.prototype.hasOwnProperty.call(memoryFallbackStorage, key) ? memoryFallbackStorage[key] : null;
+            }
+        }
+
+        function safeSetItem(key, val) {
+            memoryFallbackStorage[key] = val;
+            try {
+                localStorage.setItem(key, val);
+            } catch (e) {}
+        }
+
+        function safeRemoveItem(key) {
+            delete memoryFallbackStorage[key];
+            try {
+                localStorage.removeItem(key);
+            } catch (e) {}
+        }
+
         function getStoredSet(key) {
             try {
-                const raw = localStorage.getItem(key);
+                const raw = safeGetItem(key);
                 return new Set(raw ? JSON.parse(raw) : []);
             } catch (e) {
                 return new Set();
@@ -1227,7 +1268,7 @@
 
         function saveStoredSet(key, setObj) {
             try {
-                localStorage.setItem(key, JSON.stringify([...setObj]));
+                safeSetItem(key, JSON.stringify([...setObj]));
             } catch (e) {}
         }
 
@@ -1254,6 +1295,7 @@
                 const isSaved = savedSet.has(code);
                 btn.innerText = isSaved ? 'Saved' : 'Save';
                 btn.classList.toggle('saved', isSaved);
+                btn.setAttribute('aria-pressed', isSaved ? 'true' : 'false');
             });
 
             document.querySelectorAll('.watched-btn').forEach(btn => {
@@ -1261,8 +1303,11 @@
                 const isWatched = watchedSet.has(code);
                 btn.innerText = isWatched ? 'Watched' : 'Watch';
                 btn.classList.toggle('watched', isWatched);
+                btn.setAttribute('aria-pressed', isWatched ? 'true' : 'false');
             });
         }
+
+        let lastManualWatchAction = 0;
 
         function toggleSave(code, btn) {
             const savedSet = getStoredSet('javstream_saved_codes');
@@ -1274,6 +1319,7 @@
         }
 
         function toggleWatched(code, btn) {
+            lastManualWatchAction = Date.now();
             const watchedSet = getStoredSet('javstream_watched_codes');
             if (watchedSet.has(code)) watchedSet.delete(code);
             else watchedSet.add(code);
@@ -1283,6 +1329,7 @@
         }
 
         function markWatched(code) {
+            if (Date.now() - lastManualWatchAction < 400) return;
             const watchedSet = getStoredSet('javstream_watched_codes');
             if (!watchedSet.has(code)) {
                 watchedSet.add(code);
@@ -1309,7 +1356,7 @@
             clearTimeout(clearWatchedTimer);
             btn.classList.remove('confirming');
             btn.innerText = 'Clear Watched';
-            try { localStorage.removeItem('javstream_watched_codes'); } catch (e) {}
+            safeRemoveItem('javstream_watched_codes');
             syncUserStates();
             if (selectedPrefix === 'WATCHED' || selectedPrefix === 'UNWATCHED') {
                 selectedPrefix = 'ALL';
@@ -1318,8 +1365,9 @@
             }
         }
 
-        window.addEventListener('blur', function() {
+        function detectActiveIframeWatch() {
             setTimeout(function() {
+                if (Date.now() - lastManualWatchAction < 400) return;
                 const active = document.activeElement;
                 if (active && active.tagName === 'IFRAME') {
                     const card = active.closest('.video-card');
@@ -1328,7 +1376,12 @@
                         if (code) markWatched(code);
                     }
                 }
-            }, 50);
+            }, 60);
+        }
+
+        window.addEventListener('blur', detectActiveIframeWatch);
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') detectActiveIframeWatch();
         });
 
         window.addEventListener('storage', function(e) {
@@ -1340,29 +1393,44 @@
             }
         });
 
+        function applySavedTheaterMode() {
+            if (safeGetItem('javstream_theater_mode') === '1') {
+                document.body.classList.add('theater-mode');
+                const btn = document.getElementById('theaterToggleBtn');
+                if (btn) {
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-pressed', 'true');
+                }
+            }
+        }
+        applySavedTheaterMode();
+
         function toggleTheaterMode() {
             const active = document.body.classList.toggle('theater-mode');
             const btn = document.getElementById('theaterToggleBtn');
-            if (btn) btn.classList.toggle('active', active);
+            if (btn) {
+                btn.classList.toggle('active', active);
+                btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+            }
+            if (active) safeSetItem('javstream_theater_mode', '1');
+            else safeRemoveItem('javstream_theater_mode');
         }
 
-        try {
-            if (localStorage.getItem('javstream_notice_dismissed') === '1') {
-                const notice = document.getElementById('cinemaNotice');
-                if (notice) notice.classList.add('hidden');
-            }
-        } catch (e) {}
+        if (safeGetItem('javstream_notice_dismissed') === '1') {
+            const notice = document.getElementById('cinemaNotice');
+            if (notice) notice.classList.add('hidden');
+        }
 
         function dismissNotice() {
             const notice = document.getElementById('cinemaNotice');
             if (notice) notice.classList.add('hidden');
-            try { localStorage.setItem('javstream_notice_dismissed', '1'); } catch (e) {}
+            safeSetItem('javstream_notice_dismissed', '1');
         }
 
         function restoreNotice() {
             const notice = document.getElementById('cinemaNotice');
             if (notice) notice.classList.remove('hidden');
-            try { localStorage.removeItem('javstream_notice_dismissed'); } catch (e) {}
+            safeRemoveItem('javstream_notice_dismissed');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1540,11 +1608,18 @@
             const endIdx = startIdx + ITEMS_PER_PAGE;
             const visibleSet = new Set(filteredCards.slice(startIdx, endIdx));
 
-            // Reorder DOM according to current sort and show only active page cards
+            // Reorder DOM according to current sort, hydrate iframe src on demand, and show only active page cards
             const orderedSet = new Set(filteredCards);
             filteredCards.forEach(card => {
                 gridEl.appendChild(card);
-                card.style.display = visibleSet.has(card) ? 'block' : 'none';
+                const isVisible = visibleSet.has(card);
+                card.style.display = isVisible ? 'block' : 'none';
+                if (isVisible) {
+                    const iframe = card.querySelector('iframe[data-src]');
+                    if (iframe && !iframe.getAttribute('src')) {
+                        iframe.setAttribute('src', iframe.getAttribute('data-src'));
+                    }
+                }
             });
             originalCards.forEach(card => {
                 if (!orderedSet.has(card)) card.style.display = 'none';
@@ -1588,6 +1663,15 @@
         });
 
         document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const menu = document.getElementById('dropdownMenu');
+                const btn = document.getElementById('menuBtn');
+                if (menu && menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                }
+                return;
+            }
             const activeElement = document.activeElement;
             if (activeElement && activeElement.tagName === 'INPUT') return;
 
@@ -1605,6 +1689,7 @@
 
         syncUserStates();
         renderActressPage();
+        if (urlParams.has('page')) updateUrlPage();
     </script>
 </body>
 </html>
