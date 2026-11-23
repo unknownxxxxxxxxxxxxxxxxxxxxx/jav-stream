@@ -29,6 +29,30 @@
     <meta name="twitter:description" content="Legal disclaimer and DMCA copyright information for JavStream HD.">
     <meta name="twitter:image" content="https://javstreamhd.com/favicon.jpg">
 
+    <!-- Structured Data (Schema.org: WebPage + BreadcrumbList) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://javstreamhd.com/disclaimer.html#webpage",
+          "url": "https://javstreamhd.com/disclaimer.html",
+          "name": "Disclaimer & DMCA - JavStream HD",
+          "description": "Legal disclaimer and DMCA copyright information for JavStream HD.",
+          "isPartOf": { "@id": "https://javstreamhd.com/#website" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://javstreamhd.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Disclaimer & DMCA", "item": "https://javstreamhd.com/disclaimer.html" }
+          ]
+        }
+      ]
+    }
+    </script>
+
     <style>
         :root {
             --bg-color: #0f1115;
@@ -444,6 +468,16 @@
                 if (menu && menu.classList.contains('show')) {
                     menu.classList.remove('show');
                     btn.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const menu = document.getElementById('dropdownMenu');
+                const btn = document.getElementById('menuBtn');
+                if (menu && menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
                 }
             }
         });
