@@ -965,19 +965,41 @@
             background: rgba(245, 158, 11, 0.12);
         }
 
-        .watched-pill {
-            display: none;
-            font-size: 9.5px;
-            font-weight: 600;
+        .mini-action-btn.watched {
             color: #93c5fd;
-            background: rgba(59, 130, 246, 0.12);
-            border: 1px solid rgba(147, 197, 253, 0.3);
-            padding: 1px 5px;
-            border-radius: 4px;
+            border-color: rgba(147, 197, 253, 0.35);
+            background: rgba(59, 130, 246, 0.14);
         }
 
-        .watched-pill.visible {
-            display: inline-block;
+        .clear-watched-btn {
+            display: none;
+            align-items: center;
+            background-color: rgba(200, 50, 59, 0.1);
+            border: 1px solid rgba(200, 50, 59, 0.3);
+            color: #e26d74;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        }
+
+        .clear-watched-btn.visible {
+            display: inline-flex;
+        }
+
+        .clear-watched-btn:hover {
+            background-color: rgba(200, 50, 59, 0.2);
+            border-color: rgba(200, 50, 59, 0.5);
+            color: #ffffff;
+        }
+
+        .clear-watched-btn.confirming {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #ffffff;
         }
 
         .video-actress-list {
@@ -1320,19 +1342,22 @@
             </div>
         </div>
 
-        <div class="filter-bar" aria-label="Filter by release code prefix or saved list">
+        <div class="filter-bar" aria-label="Filter by release code prefix, watchlist, or watch status">
             <button type="button" class="filter-pill active" onclick="filterByPrefix('ALL', this)">All (27)</button>
             <button type="button" class="filter-pill" id="savedFilterPill" onclick="filterByPrefix('SAVED', this)">Saved (0)</button>
-            <button type="button" class="filter-pill" onclick="filterByPrefix('START', this)">START</button>
-            <button type="button" class="filter-pill" onclick="filterByPrefix('STARS', this)">STARS</button>
-            <button type="button" class="filter-pill" onclick="filterByPrefix('MIDV', this)">MIDV</button>
-            <button type="button" class="filter-pill" onclick="filterByPrefix('JUR', this)">JUR</button>
-            <button type="button" class="filter-pill" onclick="filterByPrefix('SDDE', this)">SDDE</button>
+            <button type="button" class="filter-pill" id="unwatchedFilterPill" onclick="filterByPrefix('UNWATCHED', this)">Unwatched (27)</button>
+            <button type="button" class="filter-pill" id="watchedFilterPill" onclick="filterByPrefix('WATCHED', this)">Watched (0)</button>
+            <button type="button" class="clear-watched-btn" id="clearWatchedBtn" onclick="clearWatchedHistory()" title="Clear all watched history">Clear Watched</button>
+            <button type="button" class="filter-pill" onclick="filterByPrefix('START', this)">START (10)</button>
+            <button type="button" class="filter-pill" onclick="filterByPrefix('STARS', this)">STARS (8)</button>
+            <button type="button" class="filter-pill" onclick="filterByPrefix('MIDV', this)">MIDV (5)</button>
+            <button type="button" class="filter-pill" onclick="filterByPrefix('JUR', this)">JUR (3)</button>
+            <button type="button" class="filter-pill" onclick="filterByPrefix('SDDE', this)">SDDE (1)</button>
         </div>
         
         <div class="video-grid" id="mainVideoGrid">
             <div class="video-card" data-code="START-542">
-                <div class="video-container" onmouseenter="markWatched('START-542')" ontouchstart="markWatched('START-542')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/7qlaepgswo9u" title="START-542 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1341,7 +1366,7 @@
                             <h2 class="video-title">START-542</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-542', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-542" onclick="toggleSave('START-542', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="START-542">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-542" onclick="toggleWatched(\'START-542\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1353,7 +1378,7 @@
             </div>
 
             <div class="video-card" data-code="START-398">
-                <div class="video-container" onmouseenter="markWatched('START-398')" ontouchstart="markWatched('START-398')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/6ujgqn859dkt" title="START-398 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1362,7 +1387,7 @@
                             <h2 class="video-title">START-398</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-398', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-398" onclick="toggleSave('START-398', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="START-398">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-398" onclick="toggleWatched(\'START-398\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1374,7 +1399,7 @@
             </div>
 
             <div class="video-card" data-code="START-326">
-                <div class="video-container" onmouseenter="markWatched('START-326')" ontouchstart="markWatched('START-326')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/4twmdiehe20y" title="START-326 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1383,7 +1408,7 @@
                             <h2 class="video-title">START-326</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-326', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-326" onclick="toggleSave('START-326', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="START-326">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-326" onclick="toggleWatched(\'START-326\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1395,7 +1420,7 @@
             </div>
 
             <div class="video-card" data-code="START-285">
-                <div class="video-container" onmouseenter="markWatched('START-285')" ontouchstart="markWatched('START-285')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/mr6nqd9wmzgn" title="START-285 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1404,7 +1429,7 @@
                             <h2 class="video-title">START-285</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-285', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-285" onclick="toggleSave('START-285', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="START-285">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-285" onclick="toggleWatched(\'START-285\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1416,7 +1441,7 @@
             </div>
 
             <div class="video-card" data-code="START-272">
-                <div class="video-container" onmouseenter="markWatched('START-272')" ontouchstart="markWatched('START-272')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/pvsct9lbpz1l" title="START-272 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1425,7 +1450,7 @@
                             <h2 class="video-title">START-272</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-272', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-272" onclick="toggleSave('START-272', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="START-272">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-272" onclick="toggleWatched(\'START-272\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1437,7 +1462,7 @@
             </div>
 
             <div class="video-card" data-code="START-255">
-                <div class="video-container" onmouseenter="markWatched('START-255')" ontouchstart="markWatched('START-255')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/2m4h1o4d9yok" title="START-255 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1446,7 +1471,7 @@
                             <h2 class="video-title">START-255</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-255', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-255" onclick="toggleSave('START-255', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="START-255">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-255" onclick="toggleWatched(\'START-255\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1458,7 +1483,7 @@
             </div>
 
             <div class="video-card" data-code="START-232">
-                <div class="video-container" onmouseenter="markWatched('START-232')" ontouchstart="markWatched('START-232')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/l9mwk1rpyvsc" title="START-232 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1467,7 +1492,7 @@
                             <h2 class="video-title">START-232</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-232', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-232" onclick="toggleSave('START-232', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="START-232">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-232" onclick="toggleWatched(\'START-232\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1479,7 +1504,7 @@
             </div>
 
             <div class="video-card" data-code="START-111">
-                <div class="video-container" onmouseenter="markWatched('START-111')" ontouchstart="markWatched('START-111')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/bogqg9d31mb7" title="START-111 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1488,7 +1513,7 @@
                             <h2 class="video-title">START-111</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-111', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-111" onclick="toggleSave('START-111', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="START-111">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-111" onclick="toggleWatched(\'START-111\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1500,7 +1525,7 @@
             </div>
 
             <div class="video-card" data-code="START-023">
-                <div class="video-container" onmouseenter="markWatched('START-023')" ontouchstart="markWatched('START-023')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/fvgw8tnk2ram" title="START-023 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1509,7 +1534,7 @@
                             <h2 class="video-title">START-023</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-023', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-023" onclick="toggleSave('START-023', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="START-023">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-023" onclick="toggleWatched(\'START-023\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1521,7 +1546,7 @@
             </div>
 
             <div class="video-card" data-code="START-006">
-                <div class="video-container" onmouseenter="markWatched('START-006')" ontouchstart="markWatched('START-006')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/th0h2e1sx5xz" title="START-006 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1530,7 +1555,7 @@
                             <h2 class="video-title">START-006</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-006', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-006" onclick="toggleSave('START-006', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="START-006">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-006" onclick="toggleWatched(\'START-006\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1542,7 +1567,7 @@
             </div>
 
             <div class="video-card" data-code="STARS-964">
-                <div class="video-container" onmouseenter="markWatched('STARS-964')" ontouchstart="markWatched('STARS-964')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/par5715egbb5" title="STARS-964 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1551,7 +1576,7 @@
                             <h2 class="video-title">STARS-964</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('STARS-964', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="STARS-964" onclick="toggleSave('STARS-964', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="STARS-964">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="STARS-964" onclick="toggleWatched(\'STARS-964\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1563,7 +1588,7 @@
             </div>
 
             <div class="video-card" data-code="STARS-947">
-                <div class="video-container" onmouseenter="markWatched('STARS-947')" ontouchstart="markWatched('STARS-947')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/fcojh6lvc8mw" title="STARS-947 - Kamiki Rei" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1572,7 +1597,7 @@
                             <h2 class="video-title">STARS-947</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('STARS-947', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="STARS-947" onclick="toggleSave('STARS-947', this)" title="Save to Watchlist">Save</button>
-                            <span class="watched-pill" data-watched-code="STARS-947">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="STARS-947" onclick="toggleWatched(\'STARS-947\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1675,9 +1700,20 @@
         function syncUserStates() {
             const savedSet = getStoredSet('javstream_saved_codes');
             const watchedSet = getStoredSet('javstream_watched_codes');
+            const watchedInDb = database.filter(item => watchedSet.has(item.code)).length;
+            const unwatchedInDb = Math.max(0, database.length - watchedInDb);
 
             const savedPill = document.getElementById('savedFilterPill');
             if (savedPill) savedPill.innerText = `Saved (${savedSet.size})`;
+
+            const unwatchedPill = document.getElementById('unwatchedFilterPill');
+            if (unwatchedPill) unwatchedPill.innerText = `Unwatched (${unwatchedInDb})`;
+
+            const watchedPill = document.getElementById('watchedFilterPill');
+            if (watchedPill) watchedPill.innerText = `Watched (${watchedInDb})`;
+
+            const clearWatchedBtn = document.getElementById('clearWatchedBtn');
+            if (clearWatchedBtn) clearWatchedBtn.classList.toggle('visible', watchedSet.size > 0);
 
             document.querySelectorAll('.save-btn').forEach(btn => {
                 const code = btn.getAttribute('data-save-code');
@@ -1686,9 +1722,11 @@
                 btn.classList.toggle('saved', isSaved);
             });
 
-            document.querySelectorAll('.watched-pill').forEach(pill => {
-                const code = pill.getAttribute('data-watched-code');
-                pill.classList.toggle('visible', watchedSet.has(code));
+            document.querySelectorAll('.watched-btn').forEach(btn => {
+                const code = btn.getAttribute('data-watched-code');
+                const isWatched = watchedSet.has(code);
+                btn.innerText = isWatched ? 'Watched' : 'Watch';
+                btn.classList.toggle('watched', isWatched);
             });
         }
 
@@ -1706,14 +1744,79 @@
             }
         }
 
+        function toggleWatched(code, btn) {
+            const watchedSet = getStoredSet('javstream_watched_codes');
+            if (watchedSet.has(code)) {
+                watchedSet.delete(code);
+            } else {
+                watchedSet.add(code);
+            }
+            saveStoredSet('javstream_watched_codes', watchedSet);
+            syncUserStates();
+            if (selectedPrefix === 'WATCHED' || selectedPrefix === 'UNWATCHED') {
+                applyFilters(true);
+            }
+        }
+
         function markWatched(code) {
             const watchedSet = getStoredSet('javstream_watched_codes');
             if (!watchedSet.has(code)) {
                 watchedSet.add(code);
                 saveStoredSet('javstream_watched_codes', watchedSet);
                 syncUserStates();
+                if (selectedPrefix === 'UNWATCHED') {
+                    applyFilters(true);
+                }
             }
         }
+
+        let clearWatchedTimer = null;
+        function clearWatchedHistory() {
+            const btn = document.getElementById('clearWatchedBtn');
+            if (!btn) return;
+            if (!btn.classList.contains('confirming')) {
+                btn.classList.add('confirming');
+                btn.innerText = 'Confirm Clear?';
+                clearTimeout(clearWatchedTimer);
+                clearWatchedTimer = setTimeout(() => {
+                    btn.classList.remove('confirming');
+                    btn.innerText = 'Clear Watched';
+                }, 3000);
+                return;
+            }
+            clearTimeout(clearWatchedTimer);
+            btn.classList.remove('confirming');
+            btn.innerText = 'Clear Watched';
+            try { localStorage.removeItem('javstream_watched_codes'); } catch (e) {}
+            syncUserStates();
+            if (selectedPrefix === 'WATCHED' || selectedPrefix === 'UNWATCHED') {
+                selectedPrefix = 'ALL';
+                document.querySelectorAll('.filter-pill').forEach((p, idx) => p.classList.toggle('active', idx === 0));
+                applyFilters(false);
+            }
+        }
+
+        window.addEventListener('blur', function() {
+            setTimeout(function() {
+                const active = document.activeElement;
+                if (active && active.tagName === 'IFRAME') {
+                    const card = active.closest('.video-card');
+                    if (card) {
+                        const code = card.getAttribute('data-code');
+                        if (code) markWatched(code);
+                    }
+                }
+            }, 50);
+        });
+
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'javstream_saved_codes' || e.key === 'javstream_watched_codes') {
+                syncUserStates();
+                if (selectedPrefix === 'SAVED' || selectedPrefix === 'WATCHED' || selectedPrefix === 'UNWATCHED') {
+                    applyFilters(true);
+                }
+            }
+        });
 
         function toggleTheaterMode() {
             const active = document.body.classList.toggle('theater-mode');
@@ -1813,12 +1916,15 @@
             if (clearBtn) clearBtn.classList.toggle('visible', query.length > 0);
 
             const savedSet = getStoredSet('javstream_saved_codes');
+            const watchedSet = getStoredSet('javstream_watched_codes');
 
             let list = database.filter(item => {
                 const matchesPrefix =
                     selectedPrefix === 'ALL' ||
                     (selectedPrefix === 'SAVED' && savedSet.has(item.code)) ||
-                    (selectedPrefix !== 'SAVED' && item.code.toUpperCase().startsWith(selectedPrefix + '-'));
+                    (selectedPrefix === 'WATCHED' && watchedSet.has(item.code)) ||
+                    (selectedPrefix === 'UNWATCHED' && !watchedSet.has(item.code)) ||
+                    (!['SAVED', 'WATCHED', 'UNWATCHED'].includes(selectedPrefix) && item.code.toUpperCase().startsWith(selectedPrefix + '-'));
                 const matchesQuery = !query ||
                     item.code.toLowerCase().includes(query) ||
                     item.actresses.some(a => a.name.toLowerCase().includes(query));
@@ -1908,11 +2014,22 @@
             const grid = document.getElementById('mainVideoGrid');
 
             if (currentFilteredDatabase.length === 0) {
-                const isSavedTab = selectedPrefix === 'SAVED';
+                let emptyTitle = 'No matching releases found';
+                let emptyDesc = 'Try searching with another release code, actress name, or reset filters.';
+                if (selectedPrefix === 'SAVED') {
+                    emptyTitle = 'Your Watchlist is empty';
+                    emptyDesc = 'Tap "Save" on any video card to bookmark it here for quick access.';
+                } else if (selectedPrefix === 'WATCHED') {
+                    emptyTitle = 'No watched videos yet';
+                    emptyDesc = 'Play any video or tap "Watch" on a video card to track what you have seen.';
+                } else if (selectedPrefix === 'UNWATCHED') {
+                    emptyTitle = 'No unwatched releases remaining';
+                    emptyDesc = 'You have marked all matching releases as watched.';
+                }
                 grid.innerHTML = `
                     <div class="empty-state">
-                        <h3>${isSavedTab ? 'Your Watchlist is empty' : 'No matching releases found'}</h3>
-                        <p>${isSavedTab ? 'Tap "Save" on any video card to bookmark it here for quick access.' : 'Try searching with another release code, actress name, or reset filters.'}</p>
+                        <h3>${emptyTitle}</h3>
+                        <p>${emptyDesc}</p>
                         <button type="button" class="reset-btn" onclick="resetAllFilters()">Show All Releases</button>
                     </div>
                 `;
@@ -1935,7 +2052,7 @@
 
                 html += `
                     <div class="video-card" data-code="${video.code}">
-                        <div class="video-container" onmouseenter="markWatched('${video.code}')" ontouchstart="markWatched('${video.code}')">
+                        <div class="video-container">
                             <iframe src="${video.embedUrl}" title="${video.code} - ${actressNames}" allowfullscreen loading="lazy"></iframe>
                         </div>
                         <div class="video-info">
@@ -1944,7 +2061,7 @@
                                     <h2 class="video-title">${video.code}</h2>
                                     <button type="button" class="mini-action-btn" onclick="copyCode('${video.code}', this)" title="Copy release code">Copy</button>
                                     <button type="button" class="mini-action-btn save-btn" data-save-code="${video.code}" onclick="toggleSave('${video.code}', this)" title="Save to Watchlist">Save</button>
-                                    <span class="watched-pill" data-watched-code="${video.code}">Watched</span>
+                                    <button type="button" class="mini-action-btn watched-btn" data-watched-code="${video.code}" onclick="toggleWatched(\'${video.code}\', this)" title="Toggle watched status">Watch</button>
                                 </div>
                                 <div class="video-actress-list">${actressLinks}</div>
                             </div>
