@@ -113,6 +113,11 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        *:focus-visible {
+            outline: 2px solid rgba(214, 69, 78, 0.75);
+            outline-offset: 2px;
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -246,10 +251,16 @@
             background: transparent;
             border: none;
             color: var(--text-main);
-            font-size: 13px;
+            font-size: 16px;
             outline: none;
             width: 100%;
             min-width: 0;
+        }
+
+        @media (min-width: 768px) {
+            .search-input {
+                font-size: 13.5px;
+            }
         }
 
         .search-input::placeholder {
@@ -521,6 +532,8 @@
         }
 
         .filter-pill {
+            min-height: 30px;
+            touch-action: manipulation;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
@@ -614,14 +627,17 @@
         .mini-action-btn {
             display: inline-flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.03);
+            justify-content: center;
+            min-height: 26px;
+            background: rgba(255, 255, 255, 0.035);
             border: 1px solid var(--border-color);
             color: var(--text-muted);
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 4px;
+            padding: 4px 8px;
+            border-radius: 5px;
             cursor: pointer;
+            touch-action: manipulation;
             transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
         }
 
@@ -784,6 +800,7 @@
         }
 
         .page-btn {
+            touch-action: manipulation;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
@@ -1239,6 +1256,17 @@
             input.focus();
             filterActresses();
         }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const menu = document.getElementById('dropdownMenu');
+                const btn = document.getElementById('menuBtn');
+                if (menu && menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
 
         function resetFilters() {
             selectedLetter = 'ALL';
