@@ -625,19 +625,41 @@
             background: rgba(245, 158, 11, 0.12);
         }
 
-        .watched-pill {
-            display: none;
-            font-size: 9.5px;
-            font-weight: 600;
+        .mini-action-btn.watched {
             color: #93c5fd;
-            background: rgba(59, 130, 246, 0.12);
-            border: 1px solid rgba(147, 197, 253, 0.3);
-            padding: 1px 5px;
-            border-radius: 4px;
+            border-color: rgba(147, 197, 253, 0.35);
+            background: rgba(59, 130, 246, 0.14);
         }
 
-        .watched-pill.visible {
-            display: inline-block;
+        .clear-watched-btn {
+            display: none;
+            align-items: center;
+            background-color: rgba(200, 50, 59, 0.1);
+            border: 1px solid rgba(200, 50, 59, 0.3);
+            color: #e26d74;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        }
+
+        .clear-watched-btn.visible {
+            display: inline-flex;
+        }
+
+        .clear-watched-btn:hover {
+            background-color: rgba(200, 50, 59, 0.2);
+            border-color: rgba(200, 50, 59, 0.5);
+            color: #ffffff;
+        }
+
+        .clear-watched-btn.confirming {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #ffffff;
         }
 
         .video-actress-list {
@@ -1113,7 +1135,7 @@
 
         <div class="filter-toolbar">
             <div class="filter-bar" aria-label="Filter by series code or saved list">
-                <button type="button" class="filter-pill active" onclick="filterByPrefix('ALL', this)">All (1)</button><button type="button" class="filter-pill" id="savedFilterPill" onclick="filterByPrefix('SAVED', this)">Saved (0)</button>
+                <button type="button" class="filter-pill active" onclick="filterByPrefix('ALL', this)">All (1)</button><button type="button" class="filter-pill" id="savedFilterPill" onclick="filterByPrefix('SAVED', this)">Saved (0)</button><button type="button" class="filter-pill" id="unwatchedFilterPill" onclick="filterByPrefix('UNWATCHED', this)">Unwatched (1)</button><button type="button" class="filter-pill" id="watchedFilterPill" onclick="filterByPrefix('WATCHED', this)">Watched (0)</button><button type="button" class="clear-watched-btn" id="clearWatchedBtn" onclick="clearWatchedHistory()" title="Clear all watched history">Clear Watched</button>
             </div>
             <button type="button" class="control-btn" onclick="toggleVideoSort()">
                 <span id="sortLabel">Newest First</span>
@@ -1122,7 +1144,7 @@
 
         <div class="video-grid" id="actressVideoGrid">
             <div class="video-card" data-code="STARS-769">
-                <div class="video-container" onmouseenter="markWatched('STARS-769')" ontouchstart="markWatched('STARS-769')">
+                <div class="video-container">
                     <iframe src="https://lplaygo.com/e/h1hysvsqumvx" title="STARS-769 - Takara" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="video-info">
@@ -1131,7 +1153,7 @@
                             <h2 class="video-title">STARS-769</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('STARS-769', this)">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="STARS-769" onclick="toggleSave('STARS-769', this)">Save</button>
-                            <span class="watched-pill" data-watched-code="STARS-769">Watched</span>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="STARS-769" onclick="toggleWatched(\'STARS-769\', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <span class="video-actress">Takara</span>
                     </div>
@@ -1212,9 +1234,20 @@
         function syncUserStates() {
             const savedSet = getStoredSet('javstream_saved_codes');
             const watchedSet = getStoredSet('javstream_watched_codes');
+            const watchedInCollection = originalCards.filter(c => watchedSet.has(c.getAttribute('data-code'))).length;
+            const unwatchedInCollection = Math.max(0, originalCards.length - watchedInCollection);
 
             const savedPill = document.getElementById('savedFilterPill');
             if (savedPill) savedPill.innerText = `Saved (${savedSet.size})`;
+
+            const unwatchedPill = document.getElementById('unwatchedFilterPill');
+            if (unwatchedPill) unwatchedPill.innerText = `Unwatched (${unwatchedInCollection})`;
+
+            const watchedPill = document.getElementById('watchedFilterPill');
+            if (watchedPill) watchedPill.innerText = `Watched (${watchedInCollection})`;
+
+            const clearWatchedBtn = document.getElementById('clearWatchedBtn');
+            if (clearWatchedBtn) clearWatchedBtn.classList.toggle('visible', watchedSet.size > 0);
 
             document.querySelectorAll('.save-btn').forEach(btn => {
                 const code = btn.getAttribute('data-save-code');
@@ -1223,9 +1256,11 @@
                 btn.classList.toggle('saved', isSaved);
             });
 
-            document.querySelectorAll('.watched-pill').forEach(pill => {
-                const code = pill.getAttribute('data-watched-code');
-                pill.classList.toggle('visible', watchedSet.has(code));
+            document.querySelectorAll('.watched-btn').forEach(btn => {
+                const code = btn.getAttribute('data-watched-code');
+                const isWatched = watchedSet.has(code);
+                btn.innerText = isWatched ? 'Watched' : 'Watch';
+                btn.classList.toggle('watched', isWatched);
             });
         }
 
@@ -1238,14 +1273,72 @@
             if (selectedPrefix === 'SAVED') applyActressFilters(true);
         }
 
+        function toggleWatched(code, btn) {
+            const watchedSet = getStoredSet('javstream_watched_codes');
+            if (watchedSet.has(code)) watchedSet.delete(code);
+            else watchedSet.add(code);
+            saveStoredSet('javstream_watched_codes', watchedSet);
+            syncUserStates();
+            if (selectedPrefix === 'WATCHED' || selectedPrefix === 'UNWATCHED') applyActressFilters(true);
+        }
+
         function markWatched(code) {
             const watchedSet = getStoredSet('javstream_watched_codes');
             if (!watchedSet.has(code)) {
                 watchedSet.add(code);
                 saveStoredSet('javstream_watched_codes', watchedSet);
                 syncUserStates();
+                if (selectedPrefix === 'UNWATCHED') applyActressFilters(true);
             }
         }
+
+        let clearWatchedTimer = null;
+        function clearWatchedHistory() {
+            const btn = document.getElementById('clearWatchedBtn');
+            if (!btn) return;
+            if (!btn.classList.contains('confirming')) {
+                btn.classList.add('confirming');
+                btn.innerText = 'Confirm Clear?';
+                clearTimeout(clearWatchedTimer);
+                clearWatchedTimer = setTimeout(() => {
+                    btn.classList.remove('confirming');
+                    btn.innerText = 'Clear Watched';
+                }, 3000);
+                return;
+            }
+            clearTimeout(clearWatchedTimer);
+            btn.classList.remove('confirming');
+            btn.innerText = 'Clear Watched';
+            try { localStorage.removeItem('javstream_watched_codes'); } catch (e) {}
+            syncUserStates();
+            if (selectedPrefix === 'WATCHED' || selectedPrefix === 'UNWATCHED') {
+                selectedPrefix = 'ALL';
+                document.querySelectorAll('.filter-pill').forEach((p, idx) => p.classList.toggle('active', idx === 0));
+                applyActressFilters(false);
+            }
+        }
+
+        window.addEventListener('blur', function() {
+            setTimeout(function() {
+                const active = document.activeElement;
+                if (active && active.tagName === 'IFRAME') {
+                    const card = active.closest('.video-card');
+                    if (card) {
+                        const code = card.getAttribute('data-code');
+                        if (code) markWatched(code);
+                    }
+                }
+            }, 50);
+        });
+
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'javstream_saved_codes' || e.key === 'javstream_watched_codes') {
+                syncUserStates();
+                if (selectedPrefix === 'SAVED' || selectedPrefix === 'WATCHED' || selectedPrefix === 'UNWATCHED') {
+                    applyActressFilters(true);
+                }
+            }
+        });
 
         function toggleTheaterMode() {
             const active = document.body.classList.toggle('theater-mode');
@@ -1340,13 +1433,16 @@
             if (clearBtn) clearBtn.classList.toggle('visible', query.length > 0);
 
             const savedSet = getStoredSet('javstream_saved_codes');
+            const watchedSet = getStoredSet('javstream_watched_codes');
 
             let list = originalCards.filter(card => {
                 const code = card.getAttribute('data-code').toUpperCase();
                 const matchesPrefix =
                     selectedPrefix === 'ALL' ||
                     (selectedPrefix === 'SAVED' && savedSet.has(code)) ||
-                    (selectedPrefix !== 'SAVED' && code.startsWith(selectedPrefix + '-'));
+                    (selectedPrefix === 'WATCHED' && watchedSet.has(code)) ||
+                    (selectedPrefix === 'UNWATCHED' && !watchedSet.has(code)) ||
+                    (!['SAVED', 'WATCHED', 'UNWATCHED'].includes(selectedPrefix) && code.startsWith(selectedPrefix + '-'));
                 const matchesQuery = !query || code.toLowerCase().includes(query);
                 return matchesPrefix && matchesQuery;
             });
@@ -1417,9 +1513,20 @@
 
             if (filteredCards.length === 0) {
                 originalCards.forEach(c => c.style.display = 'none');
-                const isSavedTab = selectedPrefix === 'SAVED';
-                document.getElementById('emptyTitle').innerText = isSavedTab ? 'No saved videos in this collection' : 'No matching release code found';
-                document.getElementById('emptyDesc').innerText = isSavedTab ? 'Tap "Save" on any video card to bookmark it to your watchlist.' : 'Try searching with another code or reset the filter.';
+                let emptyTitle = 'No matching release code found';
+                let emptyDesc = 'Try searching with another code or reset the filter.';
+                if (selectedPrefix === 'SAVED') {
+                    emptyTitle = 'No saved videos in this collection';
+                    emptyDesc = 'Tap "Save" on any video card to bookmark it to your watchlist.';
+                } else if (selectedPrefix === 'WATCHED') {
+                    emptyTitle = 'No watched videos in this collection';
+                    emptyDesc = 'Play any video or tap "Watch" on a video card to track what you have seen.';
+                } else if (selectedPrefix === 'UNWATCHED') {
+                    emptyTitle = 'No unwatched videos remaining';
+                    emptyDesc = 'You have marked all matching videos in this collection as watched.';
+                }
+                document.getElementById('emptyTitle').innerText = emptyTitle;
+                document.getElementById('emptyDesc').innerText = emptyDesc;
                 emptyState.style.display = 'block';
                 renderActressPagination();
                 return;
@@ -1458,6 +1565,7 @@
         function clearSearch() {
             const input = document.getElementById('codeSearchInput');
             input.value = '';
+            input.focus();
             applyActressFilters(false);
         }
 
