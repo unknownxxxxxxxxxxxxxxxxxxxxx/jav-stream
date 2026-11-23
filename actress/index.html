@@ -1242,6 +1242,14 @@
 
         function resetFilters() {
             selectedLetter = 'ALL';
+            if (sortByVideos) {
+                sortByVideos = false;
+                document.getElementById('dirSortLabel').innerText = 'Sort: A–Z';
+                const grid = document.getElementById('actressGrid');
+                const cards = Array.from(grid.querySelectorAll('.actress-card'));
+                cards.sort((a, b) => a.getAttribute('data-name').localeCompare(b.getAttribute('data-name')));
+                cards.forEach(card => grid.appendChild(card));
+            }
             document.getElementById('actressSearchInput').value = '';
             document.querySelectorAll('.alpha-pill').forEach((pill, idx) => pill.classList.toggle('active', idx === 0));
             filterActresses();
