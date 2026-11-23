@@ -15,6 +15,10 @@
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="WKsgCWA9Sjz-bw_bkkrmzkVkt-CaIXmNXbR2FbcE-3M" />
 
+    <!-- Performance Hints for Global Streaming Player -->
+    <link rel="preconnect" href="https://lplaygo.com" crossorigin>
+    <link rel="dns-prefetch" href="https://lplaygo.com">
+
     <!-- Favicon & App Icon -->
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
     <link rel="apple-touch-icon" href="/favicon.jpg">
@@ -435,6 +439,11 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        *:focus-visible {
+            outline: 2px solid rgba(214, 69, 78, 0.75);
+            outline-offset: 2px;
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -568,10 +577,16 @@
             background: transparent;
             border: none;
             color: var(--text-main);
-            font-size: 13px;
+            font-size: 16px;
             outline: none;
             width: 100%;
             min-width: 0;
+        }
+
+        @media (min-width: 768px) {
+            .search-input {
+                font-size: 13.5px;
+            }
         }
 
         .search-input::placeholder {
@@ -843,6 +858,8 @@
         }
 
         .filter-pill {
+            min-height: 30px;
+            touch-action: manipulation;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
@@ -936,14 +953,17 @@
         .mini-action-btn {
             display: inline-flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.03);
+            justify-content: center;
+            min-height: 26px;
+            background: rgba(255, 255, 255, 0.035);
             border: 1px solid var(--border-color);
             color: var(--text-muted);
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 4px;
+            padding: 4px 8px;
+            border-radius: 5px;
             cursor: pointer;
+            touch-action: manipulation;
             transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
         }
 
@@ -1128,6 +1148,7 @@
         }
 
         .page-btn {
+            touch-action: manipulation;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
@@ -1366,7 +1387,7 @@
                             <h2 class="video-title">START-542</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-542', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-542" onclick="toggleSave('START-542', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-542" onclick="toggleWatched(\'START-542\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-542" onclick="toggleWatched('START-542', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1387,7 +1408,7 @@
                             <h2 class="video-title">START-398</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-398', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-398" onclick="toggleSave('START-398', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-398" onclick="toggleWatched(\'START-398\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-398" onclick="toggleWatched('START-398', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1408,7 +1429,7 @@
                             <h2 class="video-title">START-326</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-326', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-326" onclick="toggleSave('START-326', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-326" onclick="toggleWatched(\'START-326\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-326" onclick="toggleWatched('START-326', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1429,7 +1450,7 @@
                             <h2 class="video-title">START-285</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-285', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-285" onclick="toggleSave('START-285', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-285" onclick="toggleWatched(\'START-285\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-285" onclick="toggleWatched('START-285', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1450,7 +1471,7 @@
                             <h2 class="video-title">START-272</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-272', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-272" onclick="toggleSave('START-272', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-272" onclick="toggleWatched(\'START-272\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-272" onclick="toggleWatched('START-272', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1471,7 +1492,7 @@
                             <h2 class="video-title">START-255</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-255', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-255" onclick="toggleSave('START-255', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-255" onclick="toggleWatched(\'START-255\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-255" onclick="toggleWatched('START-255', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1492,7 +1513,7 @@
                             <h2 class="video-title">START-232</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-232', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-232" onclick="toggleSave('START-232', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-232" onclick="toggleWatched(\'START-232\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-232" onclick="toggleWatched('START-232', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1513,7 +1534,7 @@
                             <h2 class="video-title">START-111</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-111', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-111" onclick="toggleSave('START-111', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-111" onclick="toggleWatched(\'START-111\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-111" onclick="toggleWatched('START-111', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1534,7 +1555,7 @@
                             <h2 class="video-title">START-023</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-023', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-023" onclick="toggleSave('START-023', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-023" onclick="toggleWatched(\'START-023\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-023" onclick="toggleWatched('START-023', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1555,7 +1576,7 @@
                             <h2 class="video-title">START-006</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('START-006', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="START-006" onclick="toggleSave('START-006', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-006" onclick="toggleWatched(\'START-006\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="START-006" onclick="toggleWatched('START-006', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1576,7 +1597,7 @@
                             <h2 class="video-title">STARS-964</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('STARS-964', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="STARS-964" onclick="toggleSave('STARS-964', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="STARS-964" onclick="toggleWatched(\'STARS-964\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="STARS-964" onclick="toggleWatched('STARS-964', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1597,7 +1618,7 @@
                             <h2 class="video-title">STARS-947</h2>
                             <button type="button" class="mini-action-btn" onclick="copyCode('STARS-947', this)" title="Copy release code">Copy</button>
                             <button type="button" class="mini-action-btn save-btn" data-save-code="STARS-947" onclick="toggleSave('STARS-947', this)" title="Save to Watchlist">Save</button>
-                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="STARS-947" onclick="toggleWatched(\'STARS-947\', this)" title="Toggle watched status">Watch</button>
+                            <button type="button" class="mini-action-btn watched-btn" data-watched-code="STARS-947" onclick="toggleWatched('STARS-947', this)" title="Toggle watched status">Watch</button>
                         </div>
                         <div class="video-actress-list"><a href="actress/kamiki-rei/" class="video-actress">Kamiki Rei</a></div>
                     </div>
@@ -1682,9 +1703,33 @@
         let sortOldestFirst = false;
         let currentFilteredDatabase = [...database];
 
+        const memoryFallbackStorage = {};
+
+        function safeGetItem(key) {
+            try {
+                return localStorage.getItem(key);
+            } catch (e) {
+                return Object.prototype.hasOwnProperty.call(memoryFallbackStorage, key) ? memoryFallbackStorage[key] : null;
+            }
+        }
+
+        function safeSetItem(key, val) {
+            memoryFallbackStorage[key] = val;
+            try {
+                localStorage.setItem(key, val);
+            } catch (e) {}
+        }
+
+        function safeRemoveItem(key) {
+            delete memoryFallbackStorage[key];
+            try {
+                localStorage.removeItem(key);
+            } catch (e) {}
+        }
+
         function getStoredSet(key) {
             try {
-                const raw = localStorage.getItem(key);
+                const raw = safeGetItem(key);
                 return new Set(raw ? JSON.parse(raw) : []);
             } catch (e) {
                 return new Set();
@@ -1693,7 +1738,7 @@
 
         function saveStoredSet(key, setObj) {
             try {
-                localStorage.setItem(key, JSON.stringify([...setObj]));
+                safeSetItem(key, JSON.stringify([...setObj]));
             } catch (e) {}
         }
 
@@ -1720,6 +1765,7 @@
                 const isSaved = savedSet.has(code);
                 btn.innerText = isSaved ? 'Saved' : 'Save';
                 btn.classList.toggle('saved', isSaved);
+                btn.setAttribute('aria-pressed', isSaved ? 'true' : 'false');
             });
 
             document.querySelectorAll('.watched-btn').forEach(btn => {
@@ -1727,8 +1773,11 @@
                 const isWatched = watchedSet.has(code);
                 btn.innerText = isWatched ? 'Watched' : 'Watch';
                 btn.classList.toggle('watched', isWatched);
+                btn.setAttribute('aria-pressed', isWatched ? 'true' : 'false');
             });
         }
+
+        let lastManualWatchAction = 0;
 
         function toggleSave(code, btn) {
             const savedSet = getStoredSet('javstream_saved_codes');
@@ -1745,6 +1794,7 @@
         }
 
         function toggleWatched(code, btn) {
+            lastManualWatchAction = Date.now();
             const watchedSet = getStoredSet('javstream_watched_codes');
             if (watchedSet.has(code)) {
                 watchedSet.delete(code);
@@ -1759,6 +1809,7 @@
         }
 
         function markWatched(code) {
+            if (Date.now() - lastManualWatchAction < 400) return;
             const watchedSet = getStoredSet('javstream_watched_codes');
             if (!watchedSet.has(code)) {
                 watchedSet.add(code);
@@ -1787,7 +1838,7 @@
             clearTimeout(clearWatchedTimer);
             btn.classList.remove('confirming');
             btn.innerText = 'Clear Watched';
-            try { localStorage.removeItem('javstream_watched_codes'); } catch (e) {}
+            safeRemoveItem('javstream_watched_codes');
             syncUserStates();
             if (selectedPrefix === 'WATCHED' || selectedPrefix === 'UNWATCHED') {
                 selectedPrefix = 'ALL';
@@ -1796,8 +1847,9 @@
             }
         }
 
-        window.addEventListener('blur', function() {
+        function detectActiveIframeWatch() {
             setTimeout(function() {
+                if (Date.now() - lastManualWatchAction < 400) return;
                 const active = document.activeElement;
                 if (active && active.tagName === 'IFRAME') {
                     const card = active.closest('.video-card');
@@ -1806,7 +1858,12 @@
                         if (code) markWatched(code);
                     }
                 }
-            }, 50);
+            }, 60);
+        }
+
+        window.addEventListener('blur', detectActiveIframeWatch);
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') detectActiveIframeWatch();
         });
 
         window.addEventListener('storage', function(e) {
@@ -1818,29 +1875,44 @@
             }
         });
 
+        function applySavedTheaterMode() {
+            if (safeGetItem('javstream_theater_mode') === '1') {
+                document.body.classList.add('theater-mode');
+                const btn = document.getElementById('theaterToggleBtn');
+                if (btn) {
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-pressed', 'true');
+                }
+            }
+        }
+        applySavedTheaterMode();
+
         function toggleTheaterMode() {
             const active = document.body.classList.toggle('theater-mode');
             const btn = document.getElementById('theaterToggleBtn');
-            if (btn) btn.classList.toggle('active', active);
+            if (btn) {
+                btn.classList.toggle('active', active);
+                btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+            }
+            if (active) safeSetItem('javstream_theater_mode', '1');
+            else safeRemoveItem('javstream_theater_mode');
         }
 
-        try {
-            if (localStorage.getItem('javstream_notice_dismissed') === '1') {
-                const notice = document.getElementById('cinemaNotice');
-                if (notice) notice.classList.add('hidden');
-            }
-        } catch (e) {}
+        if (safeGetItem('javstream_notice_dismissed') === '1') {
+            const notice = document.getElementById('cinemaNotice');
+            if (notice) notice.classList.add('hidden');
+        }
 
         function dismissNotice() {
             const notice = document.getElementById('cinemaNotice');
             if (notice) notice.classList.add('hidden');
-            try { localStorage.setItem('javstream_notice_dismissed', '1'); } catch (e) {}
+            safeSetItem('javstream_notice_dismissed', '1');
         }
 
         function restoreNotice() {
             const notice = document.getElementById('cinemaNotice');
             if (notice) notice.classList.remove('hidden');
-            try { localStorage.removeItem('javstream_notice_dismissed'); } catch (e) {}
+            safeRemoveItem('javstream_notice_dismissed');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -2061,7 +2133,7 @@
                                     <h2 class="video-title">${video.code}</h2>
                                     <button type="button" class="mini-action-btn" onclick="copyCode('${video.code}', this)" title="Copy release code">Copy</button>
                                     <button type="button" class="mini-action-btn save-btn" data-save-code="${video.code}" onclick="toggleSave('${video.code}', this)" title="Save to Watchlist">Save</button>
-                                    <button type="button" class="mini-action-btn watched-btn" data-watched-code="${video.code}" onclick="toggleWatched(\'${video.code}\', this)" title="Toggle watched status">Watch</button>
+                                    <button type="button" class="mini-action-btn watched-btn" data-watched-code="${video.code}" onclick="toggleWatched('${video.code}', this)" title="Toggle watched status">Watch</button>
                                 </div>
                                 <div class="video-actress-list">${actressLinks}</div>
                             </div>
@@ -2098,6 +2170,15 @@
         });
 
         document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const menu = document.getElementById('dropdownMenu');
+                const btn = document.getElementById('menuBtn');
+                if (menu && menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                }
+                return;
+            }
             const activeElement = document.activeElement;
             if (activeElement && activeElement.tagName === 'INPUT') return;
 
@@ -2121,8 +2202,10 @@
         } else if (!isNaN(initialPage) && initialPage > 1) {
             currentPage = initialPage;
             renderVideos();
+            updateUrlState();
         } else {
             renderPagination();
+            if (urlParams.has('page')) updateUrlState();
         }
     </script>
 </body>
