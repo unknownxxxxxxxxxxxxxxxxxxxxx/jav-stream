@@ -367,10 +367,6 @@
       transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
     .video-card {
-      content-visibility: auto;
-      contain-intrinsic-size: 0 310px;
-    }
-    .video-card.is-theater-active {
       content-visibility: visible;
     }
     .lite-player {
@@ -1831,7 +1827,6 @@
 
         let currentMaxPages = Number(cfg.totalPages) || 1;
         let surpriseHighlightTimer = null;
-        let surpriseJumpTimer = null;
         let surpriseFocusTimer = null;
 
         function clearSurpriseEffects() {
@@ -1839,9 +1834,19 @@
         }
         videoGrid.addEventListener("pointerdown", clearSurpriseEffects, { passive: true });
 
+        function singleDeterministicScroll(cardEl) {
+          const headerEl = document.querySelector(".site-header");
+          const headerH = headerEl ? Math.ceil(headerEl.getBoundingClientRect().height) : 0;
+          const viewH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+          const rect = cardEl.getBoundingClientRect();
+          const usableH = Math.max(220, viewH - headerH);
+          const centerOffset = Math.max(14, (usableH - rect.height) / 2);
+          const targetY = Math.max(0, Math.round(window.scrollY + rect.top - headerH - centerOffset));
+          window.scrollTo({ top: targetY, behavior: "smooth" });
+        }
+
         function focusSurpriseCard(cardEl) {
           if (!cardEl) return;
-          if (surpriseJumpTimer) clearTimeout(surpriseJumpTimer);
           if (surpriseFocusTimer) clearTimeout(surpriseFocusTimer);
           if (surpriseHighlightTimer) clearTimeout(surpriseHighlightTimer);
 
@@ -1850,23 +1855,14 @@
           cardEl.classList.add("surprise-highlight");
           videoGrid.classList.add("has-surprise-focus");
 
+          // Kunci min-height sementara saat DOM diperbarui agar scrollY tidak tertarik ke atas
+          const prevMinH = videoGrid.style.minHeight;
+          videoGrid.style.minHeight = `${videoGrid.offsetHeight}px`;
+          void videoGrid.offsetHeight;
+          singleDeterministicScroll(cardEl);
           requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              cardEl.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-            });
+            videoGrid.style.minHeight = prevMinH;
           });
-
-          // Koreksi halus hanya jika kartu masih tertutup header atas setelah gulir selesai
-          surpriseJumpTimer = setTimeout(() => {
-            const headerEl = document.querySelector(".site-header");
-            const headerH = headerEl ? headerEl.getBoundingClientRect().height : 96;
-            const rect = cardEl.getBoundingClientRect();
-            if (rect.top < headerH + 8) {
-              window.scrollBy({ top: rect.top - headerH - 14, behavior: "smooth" });
-            } else if (rect.bottom > window.innerHeight - 8) {
-              window.scrollBy({ top: rect.bottom - window.innerHeight + 16, behavior: "smooth" });
-            }
-          }, 950);
 
           surpriseFocusTimer = setTimeout(() => {
             videoGrid.classList.remove("has-surprise-focus");
