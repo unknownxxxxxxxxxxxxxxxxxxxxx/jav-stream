@@ -334,6 +334,7 @@
       grid-template-columns: repeat(1, minmax(0, 1fr));
       gap: 16px;
       margin: 16px 0;
+      overflow-anchor: none;
     }
 
     @media (min-width: 600px) {
@@ -599,9 +600,19 @@
       }
     }
 
+    .video-card {
+      scroll-margin-top: 112px;
+      scroll-margin-bottom: 28px;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, opacity 0.25s ease;
+    }
+
     .video-grid.is-jumping .video-card,
     .video-card.surprise-highlight {
-      content-visibility: visible;
+      content-visibility: visible !important;
+    }
+
+    .video-grid.has-surprise-focus .video-card:not(.surprise-highlight) {
+      opacity: 0.42;
     }
 
     .video-card.surprise-highlight {
@@ -1589,15 +1600,51 @@
 
         let currentMaxPages = Number(cfg.totalPages) || 1;
         let surpriseHighlightTimer = null;
+        let surpriseJumpTimer = null;
+        let surpriseFocusTimer = null;
 
-        function scrollCardIntoCenter(cardEl) {
+        function clearSurpriseEffects() {
+          videoGrid.classList.remove("has-surprise-focus");
+        }
+        videoGrid.addEventListener("pointerdown", clearSurpriseEffects, { passive: true });
+
+        function focusSurpriseCard(cardEl) {
           if (!cardEl) return;
-          const headerEl = document.querySelector(".site-header");
-          const headerH = headerEl ? headerEl.getBoundingClientRect().height : 0;
-          const rect = cardEl.getBoundingClientRect();
-          const availableH = Math.max(240, window.innerHeight - headerH);
-          const targetTop = window.scrollY + rect.top - headerH - Math.max(12, (availableH - rect.height) / 2);
-          window.scrollTo({ top: Math.max(0, Math.round(targetTop)), behavior: "smooth" });
+          if (surpriseJumpTimer) clearTimeout(surpriseJumpTimer);
+          if (surpriseFocusTimer) clearTimeout(surpriseFocusTimer);
+          if (surpriseHighlightTimer) clearTimeout(surpriseHighlightTimer);
+
+          document.querySelectorAll(".video-card.surprise-highlight").forEach((c) => c.classList.remove("surprise-highlight"));
+          void cardEl.offsetWidth;
+          cardEl.classList.add("surprise-highlight");
+          videoGrid.classList.add("has-surprise-focus");
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              cardEl.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+            });
+          });
+
+          // Koreksi halus hanya jika kartu masih tertutup header atas setelah gulir selesai
+          surpriseJumpTimer = setTimeout(() => {
+            const headerEl = document.querySelector(".site-header");
+            const headerH = headerEl ? headerEl.getBoundingClientRect().height : 96;
+            const rect = cardEl.getBoundingClientRect();
+            if (rect.top < headerH + 8) {
+              window.scrollBy({ top: rect.top - headerH - 14, behavior: "smooth" });
+            } else if (rect.bottom > window.innerHeight - 8) {
+              window.scrollBy({ top: rect.bottom - window.innerHeight + 16, behavior: "smooth" });
+            }
+          }, 950);
+
+          surpriseFocusTimer = setTimeout(() => {
+            videoGrid.classList.remove("has-surprise-focus");
+          }, 3200);
+
+          surpriseHighlightTimer = setTimeout(() => {
+            cardEl.classList.remove("surprise-highlight");
+            videoGrid.classList.remove("is-jumping");
+          }, 4200);
         }
 
         async function applyDynamicFilterAndRender(highlightCode = "") {
@@ -1674,22 +1721,9 @@
             const safeSelector = `.video-card[data-code="${highlightCode.replace(/"/g, '\\"')}"]`;
             const targetCard = videoGrid.querySelector(safeSelector);
             if (targetCard) {
-              document.querySelectorAll(".video-card.surprise-highlight").forEach((c) => c.classList.remove("surprise-highlight"));
-              void targetCard.offsetWidth;
-              targetCard.classList.add("surprise-highlight");
-              requestAnimationFrame(() => {
-                scrollCardIntoCenter(targetCard);
-                setTimeout(() => {
-                  scrollCardIntoCenter(targetCard);
-                  videoGrid.classList.remove("is-jumping");
-                }, 420);
-              });
-              if (surpriseHighlightTimer) clearTimeout(surpriseHighlightTimer);
-              surpriseHighlightTimer = setTimeout(() => {
-                targetCard.classList.remove("surprise-highlight");
-              }, 4200);
+              focusSurpriseCard(targetCard);
             } else {
-              videoGrid.classList.remove("is-jumping");
+              videoGrid.classList.remove("is-jumping", "has-surprise-focus");
             }
           }
         }
