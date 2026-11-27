@@ -599,9 +599,33 @@
       }
     }
 
+    .video-grid.is-jumping .video-card,
     .video-card.surprise-highlight {
+      content-visibility: visible;
+    }
+
+    .video-card.surprise-highlight {
+      position: relative;
       border-color: var(--crimson-bright) !important;
+      box-shadow: 0 0 0 2px var(--crimson-bright), 0 12px 32px rgba(225, 29, 72, 0.45);
       animation: crimsonPulse 1.15s ease-in-out 3;
+    }
+
+    .video-card.surprise-highlight::before {
+      content: "🎲 SURPRISE PICK";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 6;
+      background: linear-gradient(135deg, var(--crimson-bright), var(--crimson-dark));
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
+      pointer-events: none;
     }
 
     /* ================= SPOTLIGHT GRID PROFIL UNGGULAN ================= */
@@ -1564,10 +1588,21 @@
         }
 
         let currentMaxPages = Number(cfg.totalPages) || 1;
+        let surpriseHighlightTimer = null;
+
+        function scrollCardIntoCenter(cardEl) {
+          if (!cardEl) return;
+          const headerEl = document.querySelector(".site-header");
+          const headerH = headerEl ? headerEl.getBoundingClientRect().height : 0;
+          const rect = cardEl.getBoundingClientRect();
+          const availableH = Math.max(240, window.innerHeight - headerH);
+          const targetTop = window.scrollY + rect.top - headerH - Math.max(12, (availableH - rect.height) / 2);
+          window.scrollTo({ top: Math.max(0, Math.round(targetTop)), behavior: "smooth" });
+        }
 
         async function applyDynamicFilterAndRender(highlightCode = "") {
-          syncUrlHistory();
           if (isStaticBrowseMode() && !highlightCode) {
+            syncUrlHistory();
             currentMaxPages = Number(cfg.totalPages) || 1;
             videoGrid.innerHTML = staticGridSnapshot;
             paginationBar.innerHTML = staticPaginationSnapshot;
@@ -1579,9 +1614,13 @@
           try {
             idxData = await window.loadSearchIndexOnDemand();
           } catch (_) {
+            syncUrlHistory();
             return;
           }
-          if (!idxData) return;
+          if (!idxData) {
+            syncUrlHistory();
+            return;
+          }
 
           const qLower = state.query.toLowerCase();
           let list = idxData.videos.filter((v) => {
@@ -1613,6 +1652,8 @@
           const totalPages = Math.max(1, Math.ceil(list.length / perPage));
           currentMaxPages = totalPages;
           if (state.page > totalPages) state.page = totalPages;
+          syncUrlHistory();
+
           const start = (state.page - 1) * perPage;
           const slice = list.slice(start, start + perPage);
 
@@ -1622,15 +1663,33 @@
             return;
           }
 
+          if (highlightCode) {
+            videoGrid.classList.add("is-jumping");
+          }
+
           videoGrid.innerHTML = slice.map(buildCardMarkup).join("\n");
           paginationBar.innerHTML = buildEllipsisPagination(state.page, totalPages);
 
           if (highlightCode) {
-            const targetCard = videoGrid.querySelector(`.video-card[data-code="${CSS.escape(highlightCode)}"]`);
+            const safeSelector = `.video-card[data-code="${highlightCode.replace(/"/g, '\\"')}"]`;
+            const targetCard = videoGrid.querySelector(safeSelector);
             if (targetCard) {
-              targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+              document.querySelectorAll(".video-card.surprise-highlight").forEach((c) => c.classList.remove("surprise-highlight"));
+              void targetCard.offsetWidth;
               targetCard.classList.add("surprise-highlight");
-              setTimeout(() => targetCard.classList.remove("surprise-highlight"), 3600);
+              requestAnimationFrame(() => {
+                scrollCardIntoCenter(targetCard);
+                setTimeout(() => {
+                  scrollCardIntoCenter(targetCard);
+                  videoGrid.classList.remove("is-jumping");
+                }, 420);
+              });
+              if (surpriseHighlightTimer) clearTimeout(surpriseHighlightTimer);
+              surpriseHighlightTimer = setTimeout(() => {
+                targetCard.classList.remove("surprise-highlight");
+              }, 4200);
+            } else {
+              videoGrid.classList.remove("is-jumping");
             }
           }
         }
@@ -1707,28 +1766,51 @@
 
         // Tombol 🎲 Surprise Me (prioritas Unwatched + sorotan kilau merah crimson)
         if (surpriseMeBtn) {
+          let lastSurpriseCode = "";
+          let surpriseBtnLabelTimer = null;
           surpriseMeBtn.addEventListener("click", async () => {
-            const idxData = await window.loadSearchIndexOnDemand().catch(() => null);
-            if (!idxData || !idxData.videos.length) return;
-            const unwatchedPool = idxData.videos.filter((v) => !watchedSet.has(v.code));
-            const pool = unwatchedPool.length ? unwatchedPool : idxData.videos;
-            const chosen = pool[Math.floor(Math.random() * pool.length)];
-            if (!chosen) return;
+            if (surpriseMeBtn.disabled) return;
+            surpriseMeBtn.disabled = true;
+            try {
+              if (seriesPopover) seriesPopover.hidden = true;
+              if (dropdownMenu) dropdownMenu.hidden = true;
 
-            // Reset filter agar kartu pasti terlihat & sorot dengan animasi crimson
-            state.query = "";
-            state.status = "ALL";
-            state.series = "ALL";
-            homeSearchInput.value = "";
-            if (searchClearBtn) searchClearBtn.hidden = true;
-            document.querySelectorAll("#statusFilterBar .status-btn").forEach((b) => {
-              b.classList.toggle("active", b.getAttribute("data-status") === "ALL");
-            });
-            document.querySelectorAll("#seriesFilterRow .series-pill").forEach((b) => {
-              b.classList.toggle("active", b.getAttribute("data-series") === "ALL");
-            });
+              const idxData = await window.loadSearchIndexOnDemand().catch(() => null);
+              if (!idxData || !idxData.videos.length) return;
+              const unwatchedPool = idxData.videos.filter((v) => !watchedSet.has(v.code));
+              const basePool = unwatchedPool.length ? unwatchedPool : idxData.videos;
+              const pool = basePool.length > 1
+                ? basePool.filter((v) => v.code !== lastSurpriseCode)
+                : basePool;
+              const chosen = pool[Math.floor(Math.random() * pool.length)];
+              if (!chosen) return;
+              lastSurpriseCode = chosen.code;
 
-            await applyDynamicFilterAndRender(chosen.code);
+              // Reset seluruh filter & urutan agar kartu pasti ditemukan pada halaman yang tepat
+              state.query = "";
+              state.status = "ALL";
+              state.series = "ALL";
+              state.sort = "newest";
+              homeSearchInput.value = "";
+              if (searchClearBtn) searchClearBtn.hidden = true;
+              if (sortSelect) sortSelect.value = "newest";
+              document.querySelectorAll("#statusFilterBar .status-btn").forEach((b) => {
+                b.classList.toggle("active", b.getAttribute("data-status") === "ALL");
+              });
+              document.querySelectorAll("#seriesFilterRow .series-pill").forEach((b) => {
+                b.classList.toggle("active", b.getAttribute("data-series") === "ALL");
+              });
+
+              await applyDynamicFilterAndRender(chosen.code);
+
+              surpriseMeBtn.textContent = `🎲 ${chosen.code}`;
+              if (surpriseBtnLabelTimer) clearTimeout(surpriseBtnLabelTimer);
+              surpriseBtnLabelTimer = setTimeout(() => {
+                surpriseMeBtn.textContent = "🎲 Surprise Me";
+              }, 2400);
+            } finally {
+              surpriseMeBtn.disabled = false;
+            }
           });
         }
 
