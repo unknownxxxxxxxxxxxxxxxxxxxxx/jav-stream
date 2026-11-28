@@ -829,10 +829,7 @@
       white-space: nowrap;
       flex-shrink: 0;
     }
-    
-    /* Fix Firefox (Gecko) flash teks alt putih saat foto avatar/cover dimuat */
-    img { color: transparent; }
-</style>
+    </style>
 </head>
 <body>
   
@@ -974,7 +971,7 @@
 <button id="backToTop" type="button" aria-label="Back to top" hidden
         style="position:fixed;right:16px;bottom:18px;z-index:45;background:var(--crimson);color:#fff;border:none;border-radius:999px;width:40px;height:40px;cursor:pointer;">↑</button>
 
-  <script>window.__PAGE_CONFIG__ = {"siteBase": "../../", "storagePrefix": "javstream", "categoryDir": "actress", "categoryJsonKey": "actresses", "categoryLabelSingular": "Actress", "categoryLabelPlural": "Actresses", "itemsPerPage": 12, "profileSlug": "sayama-yui", "reportUrl": "https://forms.gle/g8xnq1XmNwTG1xYR6", "searchIndexUrl": "../../search-index.json", "buildVer": "20261129004503"};</script>
+  <script>window.__PAGE_CONFIG__ = {"siteBase": "../../", "storagePrefix": "javstream", "categoryDir": "actress", "categoryJsonKey": "actresses", "categoryLabelSingular": "Actress", "categoryLabelPlural": "Actresses", "itemsPerPage": 12, "profileSlug": "sayama-yui", "reportUrl": "https://forms.gle/g8xnq1XmNwTG1xYR6", "searchIndexUrl": "../../search-index.json"};</script>
   <script>
     (function () {
       const cfg = window.__PAGE_CONFIG__ || {};
@@ -1362,7 +1359,7 @@
         });
       }
 
-      // ---------------- LOADER ON-DEMAND SEARCH-INDEX.JSON + SESSION CACHE ----------------
+      // ---------------- LOADER ON-DEMAND SEARCH-INDEX.JSON ----------------
       let cachedFullIndex = null;
       let indexFetchPromise = null;
 
@@ -1371,55 +1368,34 @@
         if (indexFetchPromise) return indexFetchPromise;
         if (!cfg.searchIndexUrl) return null;
 
-        const cacheKey = `${prefix}_sidx_${cfg.buildVer || "v1"}`;
-        const hydrateIndexData = (data) => {
-          const videos = (data.videos || []).map((v, idx) => {
-            const profs = Array.isArray(v.p)
-              ? v.p.map((pair) => ({ name: pair[0], slug: pair[1] }))
-              : (v[catKey] || []);
-            return {
-              _idx: idx,
-              code: v.c || v.code || "",
-              [catKey]: profs,
-              embedUrl: v.u || v.embedUrl || "",
-              badge: v.b || v.badge || "HD",
-              uploadDate: v.d || v.uploadDate || "",
-              cover: v.cv || v.cover || "",
-              series: getSeriesPrefix(v.c || v.code || ""),
-            };
-          });
-          cachedFullIndex = {
-            totalVideos: data.totalVideos || videos.length,
-            series: data.series || [],
-            profiles: data.profiles || [],
-            videos,
-          };
-          return cachedFullIndex;
-        };
-
-        try {
-          const cachedRaw = window.sessionStorage.getItem(cacheKey);
-          if (cachedRaw) {
-            return hydrateIndexData(JSON.parse(cachedRaw));
-          }
-        } catch (_) {}
-
         indexFetchPromise = fetch(cfg.searchIndexUrl)
           .then((res) => {
             if (!res.ok) throw new Error("Failed to fetch search index");
             return res.json();
           })
           .then((data) => {
-            try {
-              for (let i = window.sessionStorage.length - 1; i >= 0; i--) {
-                const k = window.sessionStorage.key(i);
-                if (k && k.startsWith(`${prefix}_sidx_`) && k !== cacheKey) {
-                  window.sessionStorage.removeItem(k);
-                }
-              }
-              window.sessionStorage.setItem(cacheKey, JSON.stringify(data));
-            } catch (_) {}
-            return hydrateIndexData(data);
+            const videos = (data.videos || []).map((v, idx) => {
+              const profs = Array.isArray(v.p)
+                ? v.p.map((pair) => ({ name: pair[0], slug: pair[1] }))
+                : (v[catKey] || []);
+              return {
+                _idx: idx,
+                code: v.c || v.code || "",
+                [catKey]: profs,
+                embedUrl: v.u || v.embedUrl || "",
+                badge: v.b || v.badge || "HD",
+                uploadDate: v.d || v.uploadDate || "",
+                cover: v.cv || v.cover || "",
+                series: getSeriesPrefix(v.c || v.code || ""),
+              };
+            });
+            cachedFullIndex = {
+              totalVideos: data.totalVideos || videos.length,
+              series: data.series || [],
+              profiles: data.profiles || [],
+              videos,
+            };
+            return cachedFullIndex;
           })
           .catch((err) => {
             indexFetchPromise = null;
