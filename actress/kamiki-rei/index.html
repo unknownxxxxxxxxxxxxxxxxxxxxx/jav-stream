@@ -164,6 +164,8 @@
     }
 
     .search-wrap input {
+      -webkit-appearance: none;
+      appearance: none;
       transition: border-color 0.16s ease, box-shadow 0.16s ease;
     }
 
@@ -829,7 +831,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="brand-logo" href="../../" aria-label="JavStream HD"><span class="logo-mark">J</span><span>Jav<span class="accent">Stream</span></span><span class="logo-hd">HD</span></a>
-    <div class="search-wrap" style="flex:1;max-width:440px;position:relative;display:flex;align-items:center;"><input id="codeSearchInput" type="search" placeholder="Search Kamiki Rei&#x27;s codes..." autocomplete="off" style="width:100%;padding:8px 34px 8px 12px;border-radius:9px;border:1px solid var(--border-subtle);background:var(--bg-elevated);color:var(--text-primary);" /><button id="searchClear" type="button" aria-label="Clear search" hidden style="position:absolute;right:8px;background:none;border:none;color:var(--text-secondary);cursor:pointer;">✕</button></div>
+    <div class="search-wrap" style="flex:1;max-width:440px;position:relative;display:flex;align-items:center;"><input id="codeSearchInput" type="text" inputmode="search" enterkeyhint="search" placeholder="Search Kamiki Rei&#x27;s codes..." autocomplete="off" style="width:100%;padding:8px 34px 8px 12px;border-radius:9px;border:1px solid var(--border-subtle);background:var(--bg-elevated);color:var(--text-primary);" /><button id="searchClear" type="button" aria-label="Clear search" hidden style="position:absolute;right:8px;background:none;border:none;color:var(--text-secondary);cursor:pointer;">✕</button></div>
     <div class="nav-menu-wrap" style="position:relative;">
       <button id="menuBtn" type="button" class="btn-mini" aria-label="Navigation menu">☰ Menu</button>
       <nav id="dropdownMenu" hidden style="position:absolute;right:0;top:calc(100% + 6px);min-width:190px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:10px;padding:6px;display:flex;flex-direction:column;gap:4px;z-index:50;">
