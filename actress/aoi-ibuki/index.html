@@ -719,6 +719,8 @@
       color: var(--text-secondary);
       font-size: 0.85rem;
     }
+    .video-card[hidden],
+    .empty-state[hidden],
     .spotlight-card[hidden],
     .dir-profile-card[hidden] {
       display: none !important;
@@ -1957,10 +1959,21 @@
           if (elU) elU.textContent = String(Math.max(0, allProfileCards.length - w));
         }
 
+        let profileEmptyEl = document.getElementById("profileEmptyState");
+        if (!profileEmptyEl) {
+          profileEmptyEl = document.createElement("div");
+          profileEmptyEl.id = "profileEmptyState";
+          profileEmptyEl.className = "empty-state";
+          profileEmptyEl.hidden = true;
+          profileEmptyEl.textContent = "No videos matched your current filter or search query.";
+          videoGrid.appendChild(profileEmptyEl);
+        }
+
         function renderProfileCards() {
           syncAllVisibleCards();
           updateProfileCounters();
           const q = pState.query.toLowerCase();
+          const qCompact = q.replace(/[\s-]+/g, "");
 
           let ordered = pState.sort === "oldest" ? allProfileCards.slice().reverse() : allProfileCards.slice();
           const matched = ordered.filter((card) => {
@@ -1970,7 +1983,16 @@
             if (pState.status === "WATCHED" && !watchedSet.has(code)) return false;
             if (pState.status === "UNWATCHED" && watchedSet.has(code)) return false;
             if (pState.series !== "ALL" && ser !== pState.series) return false;
-            if (q && !code.toLowerCase().includes(q)) return false;
+            if (q) {
+              const codeLower = code.toLowerCase();
+              const codeCompact = codeLower.replace(/[\s-]+/g, "");
+              const profNames = Array.from(card.querySelectorAll(".video-profile"))
+                .map((el) => el.textContent.trim().toLowerCase())
+                .join(" ");
+              const matchCode = codeLower.includes(q) || (qCompact && codeCompact.includes(qCompact));
+              const matchProf = profNames.includes(q);
+              if (!matchCode && !matchProf) return false;
+            }
             return true;
           });
 
@@ -1994,6 +2016,9 @@
               }
             }
           });
+
+          profileEmptyEl.hidden = matched.length > 0;
+          videoGrid.appendChild(profileEmptyEl);
 
           if (totalPages <= 1) {
             profilePagination.innerHTML = "";
