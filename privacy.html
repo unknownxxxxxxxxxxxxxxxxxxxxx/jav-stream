@@ -15,6 +15,7 @@
   <meta charset="utf-8"/>
   <meta charset="utf-8"/>
   <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
   <meta content="Privacy Policy and Terms of Use for JavStream HD." name="description"/>
   <meta content="index, follow" name="robots"/>
   <meta content="#0f1115" name="theme-color"/>
@@ -179,6 +180,18 @@
 
     .search-wrap input {
       transition: border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .search-wrap input::-webkit-search-cancel-button,
+    .search-wrap input::-webkit-search-decoration,
+    .search-wrap input::-ms-clear {
+      -webkit-appearance: none;
+      appearance: none;
+      display: none;
+    }
+
+    #searchClear[hidden] {
+      display: none !important;
     }
 
     .search-wrap input:focus {
@@ -1746,6 +1759,7 @@
           });
         }
 
+        if (dirClearBtn) dirClearBtn.hidden = !profileSearchInput.value.trim();
         profileSearchInput.addEventListener("input", () => {
           if (dirClearBtn) dirClearBtn.hidden = !profileSearchInput.value.trim();
           filterAndSortDirectory();
@@ -1888,6 +1902,7 @@
           videoGrid.scrollIntoView({ behavior: "smooth", block: "start" });
         });
 
+        if (profClearBtn) profClearBtn.hidden = !codeSearchInput.value.trim();
         codeSearchInput.addEventListener("input", () => {
           pState.query = codeSearchInput.value.trim();
           pState.page = 1;

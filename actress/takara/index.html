@@ -167,6 +167,18 @@
       transition: border-color 0.16s ease, box-shadow 0.16s ease;
     }
 
+    .search-wrap input::-webkit-search-cancel-button,
+    .search-wrap input::-webkit-search-decoration,
+    .search-wrap input::-ms-clear {
+      -webkit-appearance: none;
+      appearance: none;
+      display: none;
+    }
+
+    #searchClear[hidden] {
+      display: none !important;
+    }
+
     .search-wrap input:focus {
       border-color: var(--crimson) !important;
       box-shadow: 0 0 0 3px var(--crimson-glow);
@@ -1791,6 +1803,7 @@
           });
         }
 
+        if (dirClearBtn) dirClearBtn.hidden = !profileSearchInput.value.trim();
         profileSearchInput.addEventListener("input", () => {
           if (dirClearBtn) dirClearBtn.hidden = !profileSearchInput.value.trim();
           filterAndSortDirectory();
@@ -1933,6 +1946,7 @@
           videoGrid.scrollIntoView({ behavior: "smooth", block: "start" });
         });
 
+        if (profClearBtn) profClearBtn.hidden = !codeSearchInput.value.trim();
         codeSearchInput.addEventListener("input", () => {
           pState.query = codeSearchInput.value.trim();
           pState.page = 1;
