@@ -18,6 +18,17 @@
   <meta charset="utf-8"/>
   <meta charset="utf-8"/>
   <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
   <meta content="Legal disclaimer and DMCA copyright information for JavStream HD." name="description"/>
   <meta content="index, follow" name="robots"/>
   <meta content="#0f1115" name="theme-color"/>
@@ -796,6 +807,49 @@
     .legal-clean-box h2 { font-size: 1.12rem; line-height: 1.35; margin: 24px 0 10px; color: var(--text-primary); }
     .legal-clean-box p, .legal-clean-box li { font-size: 0.94rem; line-height: 1.7; color: var(--text-secondary); margin: 0 0 12px; }
     @media (min-width: 640px) { .legal-clean-box { padding: 32px 36px; } }
+
+    .avatar-thumb {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      object-fit: cover;
+      object-position: center top;
+      border: 1.5px solid rgba(225, 29, 72, 0.48);
+      flex-shrink: 0;
+      background: var(--bg-elevated);
+    }
+    .avatar-dir {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      object-fit: cover;
+      object-position: center top;
+      border: 1.5px solid rgba(225, 29, 72, 0.48);
+      flex-shrink: 0;
+      background: var(--bg-elevated);
+    }
+    .avatar-hero {
+      width: 68px;
+      height: 68px;
+      border-radius: 999px;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid var(--crimson);
+      box-shadow: 0 4px 16px var(--crimson-glow);
+      flex-shrink: 0;
+      background: var(--bg-elevated);
+    }
+    .age-pill {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
     </style>
 </head>
 <body>
@@ -938,6 +992,42 @@
         }
       };
       applyNoticeState();
+
+      // ---------------- KALKULATOR UMUR REAL-TIME (AUTO-UPDATE ULANG TAHUN) ----------------
+      function calcAgeFromDob(dobStr, prec) {
+        if (!dobStr) return null;
+        const now = new Date();
+        const cy = now.getFullYear();
+        const cm = now.getMonth() + 1;
+        const cd = now.getDate();
+        if (prec === "year" || /^\d{4}$/.test(dobStr)) {
+          const by = parseInt(dobStr, 10);
+          return isNaN(by) ? null : Math.max(0, cy - by);
+        }
+        const m = String(dobStr).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        if (!m) return null;
+        const by = parseInt(m[1], 10);
+        const bm = parseInt(m[2], 10);
+        const bd = parseInt(m[3], 10);
+        let age = cy - by;
+        if (cm < bm || (cm === bm && cd < bd)) age -= 1;
+        return Math.max(0, age);
+      }
+
+      function refreshDynamicAges() {
+        document.querySelectorAll("[data-dob]").forEach((el) => {
+          const dob = el.getAttribute("data-dob") || "";
+          const prec = el.getAttribute("data-dob-prec") || "";
+          const age = calcAgeFromDob(dob, prec);
+          if (age === null) return;
+          const prefix = (prec === "year" || /^\d{4}$/.test(dob)) ? "~" : "";
+          const fmt = el.getAttribute("data-age-fmt") || "pill";
+          el.textContent = fmt === "num" ? `${prefix}${age}` : `${prefix}${age} y.o.`;
+          const dirCard = el.closest(".dir-profile-card");
+          if (dirCard) dirCard.setAttribute("data-age", String(age));
+        });
+      }
+      refreshDynamicAges();
 
       // ---------------- DROPDOWN MENU & BACK TO TOP ----------------
       const menuBtn = document.getElementById("menuBtn");
@@ -1430,13 +1520,13 @@
           window.history.replaceState(null, "", url.pathname + (url.search ? url.search : ""));
         }
 
-        function buildEllipsisPagination(current, total) {
+        function buildEllipsisPagination(current, total, btnClass = "dyn-page-btn") {
           if (total <= 1) return "";
           const pages = new Set([1, total, current, current - 1, current + 1]);
           const sorted = Array.from(pages).filter((p) => p >= 1 && p <= total).sort((a, b) => a - b);
           const out = [];
           if (current > 1) {
-            out.push(`<button type="button" class="btn-mini dyn-page-btn" data-page="${current - 1}">&larr; Prev</button>`);
+            out.push(`<button type="button" class="btn-mini ${btnClass}" data-page="${current - 1}">&larr; Prev</button>`);
           }
           let prev = 0;
           for (const p of sorted) {
@@ -1444,11 +1534,11 @@
               out.push(`<span style="color:var(--text-muted);padding:0 4px;">&hellip;</span>`);
             }
             const activeStyle = p === current ? 'style="background:var(--crimson);color:#fff;border-color:var(--crimson);"' : "";
-            out.push(`<button type="button" class="btn-mini dyn-page-btn" data-page="${p}" ${activeStyle}>${p}</button>`);
+            out.push(`<button type="button" class="btn-mini ${btnClass}" data-page="${p}" ${activeStyle}>${p}</button>`);
             prev = p;
           }
           if (current < total) {
-            out.push(`<button type="button" class="btn-mini dyn-page-btn" data-page="${current + 1}">Next &rarr;</button>`);
+            out.push(`<button type="button" class="btn-mini ${btnClass}" data-page="${current + 1}">Next &rarr;</button>`);
           }
           return out.join("\n");
         }
@@ -1746,6 +1836,18 @@
             if (sortMode === "most") {
               const diff = (Number(b.getAttribute("data-count")) || 0) - (Number(a.getAttribute("data-count")) || 0);
               if (diff !== 0) return diff;
+            } else if (sortMode === "youngest" || sortMode === "oldest") {
+              const rawA = a.getAttribute("data-age");
+              const rawB = b.getAttribute("data-age");
+              const hasA = rawA !== null && rawA !== "";
+              const hasB = rawB !== null && rawB !== "";
+              if (hasA && !hasB) return -1;
+              if (!hasA && hasB) return 1;
+              if (hasA && hasB) {
+                const ageA = Number(rawA);
+                const ageB = Number(rawB);
+                if (ageA !== ageB) return sortMode === "youngest" ? (ageA - ageB) : (ageB - ageA);
+              }
             }
             return (a.getAttribute("data-name") || "").localeCompare(b.getAttribute("data-name") || "");
           });
@@ -1878,16 +1980,7 @@
           profileEmptyEl.hidden = matched.length > 0;
           videoGrid.appendChild(profileEmptyEl);
 
-          if (totalPages <= 1) {
-            profilePagination.innerHTML = "";
-          } else {
-            const btns = [];
-            for (let p = 1; p <= totalPages; p += 1) {
-              const st = p === pState.page ? 'style="background:var(--crimson);color:#fff;border-color:var(--crimson);"' : "";
-              btns.push(`<button type="button" class="btn-mini prof-page-btn" data-page="${p}" ${st}>${p}</button>`);
-            }
-            profilePagination.innerHTML = btns.join("\n");
-          }
+          profilePagination.innerHTML = buildEllipsisPagination(pState.page, totalPages, "prof-page-btn");
         }
 
         window.__refreshCatalogCounters = function () {
